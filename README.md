@@ -156,11 +156,6 @@ lasagne 0.2.dev1
 caffe 1.0.0
 ```
 
-```$ caffe --version```
-```
-caffe version 1.0.0
-```
-
 #### torch
 ```$ th```
 ```
