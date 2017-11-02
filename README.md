@@ -3,6 +3,7 @@
 [![CircleCI](https://img.shields.io/circleci/project/github/ufoym/deepo.svg)](https://circleci.com/gh/ufoym/deepo)
 ![license](https://img.shields.io/github/license/ufoym/deepo.svg)
 
+*Available in: [English](README.md), [简体中文](README_zh-CN.md)*
 
 ***Deepo*** is a [*Docker*](http://www.docker.com/) image with a full reproducible deep learning research environment. It contains most popular deep learning frameworks:
 [theano](http://deeplearning.net/software/theano),
@@ -154,11 +155,6 @@ lasagne 0.2.dev1
 >>> import caffe
 >>> print(caffe.__name__, caffe.__version__)
 caffe 1.0.0
-```
-
-```$ caffe --version```
-```
-caffe version 1.0.0
 ```
 
 #### torch
