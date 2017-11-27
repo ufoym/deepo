@@ -1,0 +1,81 @@
+# ==================================================================
+# module list
+# ------------------------------------------------------------------
+# python        2.7    (apt)
+# theano        latest (git)
+# ==================================================================
+
+FROM nvidia/cuda:8.0-cudnn6-devel
+RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
+    PIP_INSTALL="pip --no-cache-dir install --upgrade" && \
+    GIT_CLONE="git clone --depth 10" && \
+
+    rm -rf /var/lib/apt/lists/* \
+           /etc/apt/sources.list.d/cuda.list \
+           /etc/apt/sources.list.d/nvidia-ml.list && \
+
+    apt-get update && \
+
+# ==================================================================
+# tools
+# ------------------------------------------------------------------
+
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        build-essential \
+        ca-certificates \
+        cmake \
+        wget \
+        git \
+        vim \
+        && \
+
+# ==================================================================
+# python
+# ------------------------------------------------------------------
+
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        python-pip \
+        python-dev \
+        && \
+    $PIP_INSTALL \
+        setuptools \
+        pip \
+        && \
+    $PIP_INSTALL \
+        numpy \
+        scipy \
+        pandas \
+        scikit-learn \
+        matplotlib \
+        Cython \
+        && \
+
+# ==================================================================
+# theano
+# ------------------------------------------------------------------
+
+    $GIT_CLONE https://github.com/Theano/Theano ~/theano && \
+    cd ~/theano && \
+    $PIP_INSTALL \
+        . && \
+
+    $GIT_CLONE https://github.com/Theano/libgpuarray ~/gpuarray && \
+    mkdir -p ~/gpuarray/build && cd ~/gpuarray/build && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+          -D CMAKE_INSTALL_PREFIX=/usr/local \
+          .. && \
+    make -j"$(nproc)" install && \
+    cd ~/gpuarray && \
+    python setup.py build && \
+    python setup.py install && \
+
+    printf '[global]\nfloatX = float32\ndevice = cuda0\n\n[dnn]\ninclude_path = /usr/local/cuda/targets/x86_64-linux/include\n' > ~/.theanorc && \
+
+# ==================================================================
+# config & cleanup
+# ------------------------------------------------------------------
+
+    ldconfig && \
+    apt-get clean && \
+    apt-get autoremove && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/*

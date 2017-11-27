@@ -1,13 +1,228 @@
-version: 2
+version: 2.0
 jobs:
- build:
-   machine: true
-   steps:
-     - checkout
-     - run: docker build -t $DOCKER_REPO .
-     - run: |
-         docker login -u $DOCKER_USER -p $DOCKER_PASS
-         docker push $DOCKER_REPO
+    
+    "all-py27_py27":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:all-py27 -t $DOCKER_REPO:py27 -f docker/Dockerfile.all-py27 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:all-py27            
+            - run: docker push $DOCKER_REPO:py27
+    
+    "all-py36_all_py36_latest":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:all-py36 -t $DOCKER_REPO:all -t $DOCKER_REPO:py36 -t $DOCKER_REPO:latest -f docker/Dockerfile.all-py36 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:all-py36            
+            - run: docker push $DOCKER_REPO:all            
+            - run: docker push $DOCKER_REPO:py36            
+            - run: docker push $DOCKER_REPO:latest
+    
+    "caffe-py27":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:caffe-py27 -f docker/Dockerfile.caffe-py27 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:caffe-py27
+    
+    "caffe-py36_caffe":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:caffe-py36 -t $DOCKER_REPO:caffe -f docker/Dockerfile.caffe-py36 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:caffe-py36            
+            - run: docker push $DOCKER_REPO:caffe
+    
+    "chainer-py27":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:chainer-py27 -f docker/Dockerfile.chainer-py27 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:chainer-py27
+    
+    "chainer-py36_chainer":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:chainer-py36 -t $DOCKER_REPO:chainer -f docker/Dockerfile.chainer-py36 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:chainer-py36            
+            - run: docker push $DOCKER_REPO:chainer
+    
+    "cntk-py27":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:cntk-py27 -f docker/Dockerfile.cntk-py27 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:cntk-py27
+    
+    "cntk-py36_cntk":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:cntk-py36 -t $DOCKER_REPO:cntk -f docker/Dockerfile.cntk-py36 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:cntk-py36            
+            - run: docker push $DOCKER_REPO:cntk
+    
+    "keras-py27":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:keras-py27 -f docker/Dockerfile.keras-py27 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:keras-py27
+    
+    "keras-py36_keras":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:keras-py36 -t $DOCKER_REPO:keras -f docker/Dockerfile.keras-py36 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:keras-py36            
+            - run: docker push $DOCKER_REPO:keras
+    
+    "lasagne-py27":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:lasagne-py27 -f docker/Dockerfile.lasagne-py27 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:lasagne-py27
+    
+    "lasagne-py36_lasagne":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:lasagne-py36 -t $DOCKER_REPO:lasagne -f docker/Dockerfile.lasagne-py36 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:lasagne-py36            
+            - run: docker push $DOCKER_REPO:lasagne
+    
+    "mxnet-py27":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:mxnet-py27 -f docker/Dockerfile.mxnet-py27 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:mxnet-py27
+    
+    "mxnet-py36_mxnet":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:mxnet-py36 -t $DOCKER_REPO:mxnet -f docker/Dockerfile.mxnet-py36 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:mxnet-py36            
+            - run: docker push $DOCKER_REPO:mxnet
+    
+    "pytorch-py27":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:pytorch-py27 -f docker/Dockerfile.pytorch-py27 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:pytorch-py27
+    
+    "pytorch-py36_pytorch":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:pytorch-py36 -t $DOCKER_REPO:pytorch -f docker/Dockerfile.pytorch-py36 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:pytorch-py36            
+            - run: docker push $DOCKER_REPO:pytorch
+    
+    "sonnet-py27":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:sonnet-py27 -f docker/Dockerfile.sonnet-py27 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:sonnet-py27
+    
+    "sonnet-py36_sonnet":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:sonnet-py36 -t $DOCKER_REPO:sonnet -f docker/Dockerfile.sonnet-py36 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:sonnet-py36            
+            - run: docker push $DOCKER_REPO:sonnet
+    
+    "tensorflow-py27":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:tensorflow-py27 -f docker/Dockerfile.tensorflow-py27 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:tensorflow-py27
+    
+    "tensorflow-py36_tensorflow":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:tensorflow-py36 -t $DOCKER_REPO:tensorflow -f docker/Dockerfile.tensorflow-py36 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:tensorflow-py36            
+            - run: docker push $DOCKER_REPO:tensorflow
+    
+    "theano-py27":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:theano-py27 -f docker/Dockerfile.theano-py27 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:theano-py27
+    
+    "theano-py36_theano":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:theano-py36 -t $DOCKER_REPO:theano -f docker/Dockerfile.theano-py36 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:theano-py36            
+            - run: docker push $DOCKER_REPO:theano
+    
+    "torch":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:torch -f docker/Dockerfile.torch .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:torch
 
-
-
+workflows:
+    version: 2
+    build:
+        jobs:
+            - "all-py27_py27"
+            - "all-py36_all_py36_latest"
+            - "caffe-py27"
+            - "caffe-py36_caffe"
+            - "chainer-py27"
+            - "chainer-py36_chainer"
+            - "cntk-py27"
+            - "cntk-py36_cntk"
+            - "keras-py27"
+            - "keras-py36_keras"
+            - "lasagne-py27"
+            - "lasagne-py36_lasagne"
+            - "mxnet-py27"
+            - "mxnet-py36_mxnet"
+            - "pytorch-py27"
+            - "pytorch-py36_pytorch"
+            - "sonnet-py27"
+            - "sonnet-py36_sonnet"
+            - "tensorflow-py27"
+            - "tensorflow-py36_tensorflow"
+            - "theano-py27"
+            - "theano-py36_theano"
+            - "torch"
