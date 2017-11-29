@@ -5,16 +5,16 @@ from .python import Python
 
 @dependency(Python)
 @source('pip')
-class Tensorflow(Module):
+class Jupyter(Module):
 
     def build(self):
         return r'''
             $PIP_INSTALL \
-                tensorflow_gpu \
+                jupyter \
                 && \
         '''
 
     def expose(self):
         return [
-            6006,  # expose port for TensorBoard
+            8888,  # expose port for jupyter
         ]

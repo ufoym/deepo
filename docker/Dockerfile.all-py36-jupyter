@@ -1,10 +1,11 @@
 # ==================================================================
 # module list
 # ------------------------------------------------------------------
-# python        2.7    (apt)
+# python        3.6    (apt)
 # torch         latest (git)
 # chainer       latest (pip)
 # cntk          2.3    (pip)
+# jupyter       latest (pip)
 # mxnet         latest (pip)
 # pytorch       0.2.0  (pip)
 # tensorflow    latest (pip)
@@ -45,12 +46,21 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        python-pip \
-        python-dev \
+        software-properties-common \
         && \
+    add-apt-repository ppa:jonathonf/python-3.6 && \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        python3.6 \
+        python3.6-dev \
+        && \
+    wget -O ~/get-pip.py \
+        https://bootstrap.pypa.io/get-pip.py && \
+    python3.6 ~/get-pip.py && \
+    ln -s /usr/bin/python3.6 /usr/local/bin/python3 && \
+    ln -s /usr/bin/python3.6 /usr/local/bin/python && \
     $PIP_INSTALL \
         setuptools \
-        pip \
         && \
     $PIP_INSTALL \
         numpy \
@@ -97,9 +107,11 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # boost
 # ------------------------------------------------------------------
 
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        libboost-all-dev \
-        && \
+    wget -O ~/boost.tar.gz https://dl.bintray.com/boostorg/release/1.65.1/source/boost_1_65_1.tar.gz && \
+    tar -zxf ~/boost.tar.gz -C ~ && \
+    cd ~/boost_* && \
+    ./bootstrap.sh --with-python=python3.6 && \
+    ./b2 install --prefix=/usr/local && \
 
 # ==================================================================
 # chainer
@@ -122,7 +134,15 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     $PIP_INSTALL \
-        https://cntk.ai/PythonWheel/GPU/cntk-2.3-cp27-cp27mu-linux_x86_64.whl \
+        https://cntk.ai/PythonWheel/GPU/cntk-2.3-cp36-cp36m-linux_x86_64.whl \
+        && \
+
+# ==================================================================
+# jupyter
+# ------------------------------------------------------------------
+
+    $PIP_INSTALL \
+        jupyter \
         && \
 
 # ==================================================================
@@ -144,7 +164,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        http://download.pytorch.org/whl/cu80/torch-0.2.0.post3-cp27-cp27mu-manylinux1_x86_64.whl \
+        http://download.pytorch.org/whl/cu80/torch-0.2.0.post3-cp36-cp36m-manylinux1_x86_64.whl \
         torchvision \
         && \
 
@@ -242,9 +262,12 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     $GIT_CLONE https://github.com/BVLC/caffe ~/caffe && \
     cp ~/caffe/Makefile.config.example ~/caffe/Makefile.config && \
     sed -i 's/# USE_CUDNN/USE_CUDNN/g' ~/caffe/Makefile.config && \
+    sed -i 's/# PYTHON_LIBRARIES/PYTHON_LIBRARIES/g' ~/caffe/Makefile.config && \
     sed -i 's/# WITH_PYTHON_LAYER/WITH_PYTHON_LAYER/g' ~/caffe/Makefile.config && \
     sed -i 's/# OPENCV_VERSION/OPENCV_VERSION/g' ~/caffe/Makefile.config && \
     sed -i 's/# USE_NCCL/USE_NCCL/g' ~/caffe/Makefile.config && \
+    sed -i 's/2\.7/3\.6/g' ~/caffe/Makefile.config && \
+    sed -i 's/3\.5/3\.6/g' ~/caffe/Makefile.config && \
     sed -i 's/\/usr\/lib\/python/\/usr\/local\/lib\/python/g' ~/caffe/Makefile.config && \
     sed -i 's/\/usr\/local\/include/\/usr\/local\/include \/usr\/include\/hdf5\/serial/g' ~/caffe/Makefile.config && \
     sed -i 's/hdf5/hdf5_serial/g' ~/caffe/Makefile && \
@@ -261,7 +284,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     for file in *.bin; do mv "$file" "${file%%.bin}"; done && \
     cd ~/caffe/distribute && \
     cp -r bin include lib proto /usr/local/ && \
-    cp -r python/caffe /usr/local/lib/python2.7/dist-packages/ && \
+    cp -r python/caffe /usr/local/lib/python3.6/dist-packages/ && \
 
 # ==================================================================
 # config & cleanup
@@ -272,4 +295,4 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/* /tmp/* ~/*
 
-EXPOSE 6006
+EXPOSE 8888 6006

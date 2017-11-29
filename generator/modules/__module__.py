@@ -44,5 +44,8 @@ class Module(object):
     def build(self):
         pass
 
+    def expose(self):
+        return []
+
     def name(self):
         return self.__class__.__name__.lower()

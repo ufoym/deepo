@@ -1,29 +1,16 @@
 # -*- coding: utf-8 -*-
 
 """Console script for generator."""
-
-import os
-import sys
 import click
-
 from core.composer import Composer
 
-from modules.tools import Tools
-from modules.python import Python
-from modules.boost import Boost
-from modules.opencv import Opencv
 
-from modules.tensorflow import Tensorflow
-from modules.sonnet import Sonnet
-from modules.mxnet import Mxnet
-from modules.cntk import Cntk
-from modules.keras import Keras
-from modules.pytorch import Pytorch
-from modules.chainer import Chainer
-from modules.theano import Theano
-from modules.lasagne import Lasagne
-from modules.caffe import Caffe
-from modules.torch import Torch
+def _import(name):
+    mname = name.lower()
+    cname = name.title()
+    mod = __import__('modules.%s' % mname, fromlist=[cname])
+    mod = getattr(mod, cname)
+    return mod
 
 
 @click.command()
@@ -37,7 +24,7 @@ def main(path, modules):
     versions = {}
     for module in modules:
         terms = module.split('==')
-        m = getattr(sys.modules[__name__], terms[0].title())
+        m = _import(terms[0])
         in_modules.append(m)
         if len(terms) > 1:
             versions[m] = terms[1]

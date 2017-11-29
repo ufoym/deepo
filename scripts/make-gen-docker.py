@@ -54,6 +54,12 @@ def generate(script_path):
             postfix = 'all-py%s' % pyver.replace('.', '')
             f.write(get_command(modules, postfix))
 
+        # all modules with jupyter
+        for pyver in pyvers:
+            modules = candidate_modules + ['python==%s' % pyver, 'jupyter']
+            postfix = 'all-py%s-jupyter' % pyver.replace('.', '')
+            f.write(get_command(modules, postfix))
+
 
 if __name__ == '__main__':
     generate('gen-docker.sh')

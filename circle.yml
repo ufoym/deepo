@@ -10,6 +10,15 @@ jobs:
             - run: docker push $DOCKER_REPO:all-py27            
             - run: docker push $DOCKER_REPO:py27
     
+    "all-py27-jupyter_py27-jupyter":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:all-py27-jupyter -t $DOCKER_REPO:py27-jupyter -f docker/Dockerfile.all-py27-jupyter .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:all-py27-jupyter            
+            - run: docker push $DOCKER_REPO:py27-jupyter
+    
     "all-py36_all_py36_latest":
         machine: true
         steps:
@@ -20,6 +29,15 @@ jobs:
             - run: docker push $DOCKER_REPO:all            
             - run: docker push $DOCKER_REPO:py36            
             - run: docker push $DOCKER_REPO:latest
+    
+    "all-py36-jupyter_py36-jupyter":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:all-py36-jupyter -t $DOCKER_REPO:py36-jupyter -f docker/Dockerfile.all-py36-jupyter .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:all-py36-jupyter            
+            - run: docker push $DOCKER_REPO:py36-jupyter
     
     "caffe-py27":
         machine: true
@@ -204,7 +222,9 @@ workflows:
     build:
         jobs:
             - "all-py27_py27"
+            - "all-py27-jupyter_py27-jupyter"
             - "all-py36_all_py36_latest"
+            - "all-py36-jupyter_py36-jupyter"
             - "caffe-py27"
             - "caffe-py36_caffe"
             - "chainer-py27"

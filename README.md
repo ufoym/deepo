@@ -21,6 +21,7 @@ and their Dockerfile generator that
 - [Customization](#Customization)
   - [I hate all-in-one solution](#One)
   - [Other python versions](#Python)
+  - [Jupyter support](#Jupyter)
   - [Build your own customized image](#Build)
 - [Comparison to Alternatives](#Comparison)
 - [Contributing](#Contributing)
@@ -138,6 +139,24 @@ docker pull ufoym/deepo:tensorflow-py27
 Currently, we support `Python 2.7` and `Python 3.6`.
 
 See [https://hub.docker.com/r/ufoym/deepo/tags/](https://hub.docker.com/r/ufoym/deepo/tags/) for a complete list of all available tags. These pre-built images are all built from `docker/Dockerfile.*` and `circle.yml`. See [How to generate `docker/Dockerfile.*` and `circle.yml`](https://github.com/ufoym/deepo/tree/master/scripts) if you are interested in how these files are generated.
+
+<a name="Jupyter"/>
+
+## Jupyter support
+
+#### Step 1. pull the image with jupyter support
+
+```bash
+docker pull ufoym/deepo:all-py36-jupyter
+```
+
+Note that the tag could be either of `all-py36-jupyter`, `py36-jupyter`, `all-py27-jupyter`, or `py27-jupyter`.
+
+#### Step 2. run the image
+```bash
+nvidia-docker run -it -p 8888:8888 ufoym/deepo:all-py36-jupyter jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token= --notebook-dir='/root'
+```
+
 
 <a name="Build"/>
 

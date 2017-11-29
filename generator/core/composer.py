@@ -27,6 +27,7 @@ class Composer(object):
             prefix = ' ' * 4 * n
             return ''.join(prefix + l for l in s.splitlines(True))
 
+        ports = ' '.join([str(p) for m in self.instances for p in m.expose()])
         return textwrap.dedent(''.join([
             _indent(3, ''.join([
                 self._split('module list'),
@@ -60,7 +61,10 @@ class Composer(object):
                 apt-get clean && \
                 apt-get autoremove && \
                 rm -rf /var/lib/apt/lists/* /tmp/* ~/*
-            '''
+            ''',
+            r'''
+            EXPOSE %s
+            ''' % ports if ports else '',
             ]))
 
     def _traverse(self, modules):

@@ -21,3 +21,5 @@ python ../generator/generate.py ../docker/Dockerfile.caffe-py36 caffe python==3.
 python ../generator/generate.py ../docker/Dockerfile.torch torch
 python ../generator/generate.py ../docker/Dockerfile.all-py27 tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe torch python==2.7
 python ../generator/generate.py ../docker/Dockerfile.all-py36 tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe torch python==3.6
+python ../generator/generate.py ../docker/Dockerfile.all-py27-jupyter tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe torch python==2.7 jupyter
+python ../generator/generate.py ../docker/Dockerfile.all-py36-jupyter tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe torch python==3.6 jupyter

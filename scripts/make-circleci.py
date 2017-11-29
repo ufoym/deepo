@@ -21,7 +21,6 @@ def get_tags(postfix, py_split='-py'):
             tags.append('py%s' % pyver)
             if pyver == '36':
                 tags.append('latest')
-    print(tags)
     return tags
 
 
@@ -60,7 +59,6 @@ def generate(ci_fname):
 
         with open(ci_fname, 'a') as f:
             f.write(build_scripts)
-
 
     workflow_scripts = textwrap.dedent('''
 
