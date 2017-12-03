@@ -9,7 +9,7 @@ from .python import Python
 class Cntk(Module):
 
     def build(self):
-        pyver = self.manager.ver(Python)
+        pyver = self.composer.ver(Python)
         platform = 'cp35-cp35m' if pyver == '3.5' else (
             'cp36-cp36m' if pyver == '3.6' else 'cp27-cp27mu')
         return r'''
@@ -21,6 +21,9 @@ class Cntk(Module):
                 && \
 
             $PIP_INSTALL \
-                https://cntk.ai/PythonWheel/GPU/cntk-%s-%s-linux_x86_64.whl \
+                https://cntk.ai/PythonWheel/%s/cntk-%s-%s-linux_x86_64.whl \
                 && \
-        ''' % (self.version, platform)
+        ''' % (
+            'CPU-Only' if self.composer.cpu_only else 'GPU',
+            self.version,
+            platform)

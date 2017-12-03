@@ -1,0 +1,124 @@
+# ==================================================================
+# module list
+# ------------------------------------------------------------------
+# python        2.7    (apt)
+# opencv        latest (git)
+# caffe         latest (git)
+# ==================================================================
+
+FROM nvidia/cuda:8.0-cudnn6-devel
+RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
+    PIP_INSTALL="pip --no-cache-dir install --upgrade" && \
+    GIT_CLONE="git clone --depth 10" && \
+
+    rm -rf /var/lib/apt/lists/* \
+           /etc/apt/sources.list.d/cuda.list \
+           /etc/apt/sources.list.d/nvidia-ml.list && \
+
+    apt-get update && \
+
+# ==================================================================
+# tools
+# ------------------------------------------------------------------
+
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        build-essential \
+        ca-certificates \
+        cmake \
+        wget \
+        git \
+        vim \
+        && \
+
+# ==================================================================
+# python
+# ------------------------------------------------------------------
+
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        python-pip \
+        python-dev \
+        && \
+    $PIP_INSTALL \
+        setuptools \
+        pip \
+        && \
+    $PIP_INSTALL \
+        numpy \
+        scipy \
+        pandas \
+        scikit-learn \
+        matplotlib \
+        Cython \
+        && \
+
+# ==================================================================
+# boost
+# ------------------------------------------------------------------
+
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        libboost-all-dev \
+        && \
+
+# ==================================================================
+# opencv
+# ------------------------------------------------------------------
+
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        libatlas-base-dev \
+        libgflags-dev \
+        libgoogle-glog-dev \
+        libhdf5-serial-dev \
+        libleveldb-dev \
+        liblmdb-dev \
+        libprotobuf-dev \
+        libsnappy-dev \
+        protobuf-compiler \
+        && \
+
+    $GIT_CLONE https://github.com/opencv/opencv ~/opencv && \
+    mkdir -p ~/opencv/build && cd ~/opencv/build && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+          -D CMAKE_INSTALL_PREFIX=/usr/local \
+          -D WITH_IPP=OFF \
+          -D WITH_CUDA=OFF \
+          -D WITH_OPENCL=OFF \
+          -D BUILD_TESTS=OFF \
+          -D BUILD_PERF_TESTS=OFF \
+          .. && \
+    make -j"$(nproc)" install && \
+
+# ==================================================================
+# caffe
+# ------------------------------------------------------------------
+
+    $GIT_CLONE https://github.com/BVLC/caffe ~/caffe && \
+    cp ~/caffe/Makefile.config.example ~/caffe/Makefile.config && \
+    sed -i 's/# CPU_ONLY/CPU_ONLY/g' ~/caffe/Makefile.config && \
+    sed -i 's/# WITH_PYTHON_LAYER/WITH_PYTHON_LAYER/g' ~/caffe/Makefile.config && \
+    sed -i 's/# OPENCV_VERSION/OPENCV_VERSION/g' ~/caffe/Makefile.config && \
+    sed -i 's/\/usr\/lib\/python/\/usr\/local\/lib\/python/g' ~/caffe/Makefile.config && \
+    sed -i 's/\/usr\/local\/include/\/usr\/local\/include \/usr\/include\/hdf5\/serial/g' ~/caffe/Makefile.config && \
+    sed -i 's/hdf5/hdf5_serial/g' ~/caffe/Makefile && \
+    cd ~/caffe && \
+    make -j"$(nproc)" -Wno-deprecated-gpu-targets distribute && \
+
+    # fix ValueError caused by python-dateutil 1.x
+    sed -i 's/,<2//g' ~/caffe/python/requirements.txt && \
+
+    $PIP_INSTALL \
+        -r ~/caffe/python/requirements.txt && \
+
+    cd ~/caffe/distribute/bin && \
+    for file in *.bin; do mv "$file" "${file%%.bin}"; done && \
+    cd ~/caffe/distribute && \
+    cp -r bin include lib proto /usr/local/ && \
+    cp -r python/caffe /usr/local/lib/python2.7/dist-packages/ && \
+
+# ==================================================================
+# config & cleanup
+# ------------------------------------------------------------------
+
+    ldconfig && \
+    apt-get clean && \
+    apt-get autoremove && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/*

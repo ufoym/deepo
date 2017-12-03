@@ -5,12 +5,13 @@ import functools
 
 class Composer(object):
 
-    def __init__(self, modules, versions={}):
+    def __init__(self, modules, versions={}, cpu_only=False):
         if len(modules) == 0:
             raise ValueError('Modules should contain at least one module')
         pending = self._traverse(modules)
         self.modules = [m for m in self._toposort(pending)]
         self.instances = self._get_instances(versions)
+        self.cpu_only = cpu_only
 
     def get(self):
         return self.modules

@@ -10,9 +10,9 @@ class Tensorflow(Module):
     def build(self):
         return r'''
             $PIP_INSTALL \
-                tensorflow_gpu \
+                tensorflow%s \
                 && \
-        '''
+        ''' % ('' if self.composer.cpu_only else '_gpu')
 
     def expose(self):
         return [

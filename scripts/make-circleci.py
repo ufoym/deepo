@@ -14,13 +14,17 @@ def indent(n, s):
 def get_tags(postfix, py_split='-py'):
     tags = [postfix]
     if py_split in postfix:
-        name, pyver = postfix.split(py_split)
-        if pyver == '36':
+        name, platform = postfix.split(py_split)
+        if platform == '36':
             tags.append(name)
+        elif platform == '36-cpu':
+            tags.append(name + '-cpu')
         if name == 'all':
-            tags.append('py%s' % pyver)
-            if pyver == '36':
+            tags.append('py%s' % platform)
+            if platform == '36':
                 tags.append('latest')
+            elif platform == '36-cpu':
+                tags.append('cpu')
     return tags
 
 

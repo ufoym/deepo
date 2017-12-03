@@ -12,7 +12,7 @@ class Boost(Module):
         return ''
 
     def build(self):
-        pyver = self.manager.ver(Python)
+        pyver = self.composer.ver(Python)
         return r'''
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 libboost-all-dev \

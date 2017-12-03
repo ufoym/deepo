@@ -14,7 +14,8 @@ class Theano(Module):
             cd ~/theano && \
             $PIP_INSTALL \
                 . && \
-
+        ''' + (
+            '' if self.composer.cpu_only else r'''
             $GIT_CLONE https://github.com/Theano/libgpuarray ~/gpuarray && \
             mkdir -p ~/gpuarray/build && cd ~/gpuarray/build && \
             cmake -D CMAKE_BUILD_TYPE=RELEASE \
@@ -28,4 +29,4 @@ class Theano(Module):
             printf '[global]\nfloatX = float32\ndevice = cuda0\n\n[dnn]\n''' \
             + r'''include_path = /usr/local/cuda/targets''' \
             + r'''/x86_64-linux/include\n' > ~/.theanorc && \
-        '''
+        ''')

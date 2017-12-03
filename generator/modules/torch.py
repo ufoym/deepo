@@ -37,5 +37,9 @@ class Torch(Module):
             sed -i '/path_to_nvidiasmi/,/^fi$/d' install.sh && \
             sed -i '/Restore anaconda/,/^Not updating$/d' install.sh && \
             sed -i '/You might want to/,/^fi$/d' install.sh && \
+            '''.rstrip() + (r'''
+            sed -i 's/-x "$path_to_nvcc"/false/' install.sh && \
+            '''.rstrip() if self.composer.cpu_only else ''
+        ) + r'''
             yes no | ./install.sh && \
         '''

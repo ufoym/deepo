@@ -10,6 +10,15 @@ jobs:
             - run: docker push $DOCKER_REPO:all-py27            
             - run: docker push $DOCKER_REPO:py27
     
+    "all-py27-cpu_py27-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:all-py27-cpu -t $DOCKER_REPO:py27-cpu -f docker/Dockerfile.all-py27-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:all-py27-cpu            
+            - run: docker push $DOCKER_REPO:py27-cpu
+    
     "all-py27-jupyter_py27-jupyter":
         machine: true
         steps:
@@ -18,6 +27,15 @@ jobs:
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:all-py27-jupyter            
             - run: docker push $DOCKER_REPO:py27-jupyter
+    
+    "all-py27-jupyter-cpu_py27-jupyter-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:all-py27-jupyter-cpu -t $DOCKER_REPO:py27-jupyter-cpu -f docker/Dockerfile.all-py27-jupyter-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:all-py27-jupyter-cpu            
+            - run: docker push $DOCKER_REPO:py27-jupyter-cpu
     
     "all-py36_all_py36_latest":
         machine: true
@@ -30,6 +48,17 @@ jobs:
             - run: docker push $DOCKER_REPO:py36            
             - run: docker push $DOCKER_REPO:latest
     
+    "all-py36-cpu_all-cpu_py36-cpu_cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:all-py36-cpu -t $DOCKER_REPO:all-cpu -t $DOCKER_REPO:py36-cpu -t $DOCKER_REPO:cpu -f docker/Dockerfile.all-py36-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:all-py36-cpu            
+            - run: docker push $DOCKER_REPO:all-cpu            
+            - run: docker push $DOCKER_REPO:py36-cpu            
+            - run: docker push $DOCKER_REPO:cpu
+    
     "all-py36-jupyter_py36-jupyter":
         machine: true
         steps:
@@ -39,6 +68,15 @@ jobs:
             - run: docker push $DOCKER_REPO:all-py36-jupyter            
             - run: docker push $DOCKER_REPO:py36-jupyter
     
+    "all-py36-jupyter-cpu_py36-jupyter-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:all-py36-jupyter-cpu -t $DOCKER_REPO:py36-jupyter-cpu -f docker/Dockerfile.all-py36-jupyter-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:all-py36-jupyter-cpu            
+            - run: docker push $DOCKER_REPO:py36-jupyter-cpu
+    
     "caffe-py27":
         machine: true
         steps:
@@ -46,6 +84,14 @@ jobs:
             - run: docker build -t $DOCKER_REPO:caffe-py27 -f docker/Dockerfile.caffe-py27 .
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:caffe-py27
+    
+    "caffe-py27-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:caffe-py27-cpu -f docker/Dockerfile.caffe-py27-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:caffe-py27-cpu
     
     "caffe-py36_caffe":
         machine: true
@@ -56,6 +102,15 @@ jobs:
             - run: docker push $DOCKER_REPO:caffe-py36            
             - run: docker push $DOCKER_REPO:caffe
     
+    "caffe-py36-cpu_caffe-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:caffe-py36-cpu -t $DOCKER_REPO:caffe-cpu -f docker/Dockerfile.caffe-py36-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:caffe-py36-cpu            
+            - run: docker push $DOCKER_REPO:caffe-cpu
+    
     "chainer-py27":
         machine: true
         steps:
@@ -63,6 +118,14 @@ jobs:
             - run: docker build -t $DOCKER_REPO:chainer-py27 -f docker/Dockerfile.chainer-py27 .
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:chainer-py27
+    
+    "chainer-py27-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:chainer-py27-cpu -f docker/Dockerfile.chainer-py27-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:chainer-py27-cpu
     
     "chainer-py36_chainer":
         machine: true
@@ -73,6 +136,15 @@ jobs:
             - run: docker push $DOCKER_REPO:chainer-py36            
             - run: docker push $DOCKER_REPO:chainer
     
+    "chainer-py36-cpu_chainer-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:chainer-py36-cpu -t $DOCKER_REPO:chainer-cpu -f docker/Dockerfile.chainer-py36-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:chainer-py36-cpu            
+            - run: docker push $DOCKER_REPO:chainer-cpu
+    
     "cntk-py27":
         machine: true
         steps:
@@ -80,6 +152,14 @@ jobs:
             - run: docker build -t $DOCKER_REPO:cntk-py27 -f docker/Dockerfile.cntk-py27 .
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:cntk-py27
+    
+    "cntk-py27-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:cntk-py27-cpu -f docker/Dockerfile.cntk-py27-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:cntk-py27-cpu
     
     "cntk-py36_cntk":
         machine: true
@@ -90,6 +170,15 @@ jobs:
             - run: docker push $DOCKER_REPO:cntk-py36            
             - run: docker push $DOCKER_REPO:cntk
     
+    "cntk-py36-cpu_cntk-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:cntk-py36-cpu -t $DOCKER_REPO:cntk-cpu -f docker/Dockerfile.cntk-py36-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:cntk-py36-cpu            
+            - run: docker push $DOCKER_REPO:cntk-cpu
+    
     "keras-py27":
         machine: true
         steps:
@@ -97,6 +186,14 @@ jobs:
             - run: docker build -t $DOCKER_REPO:keras-py27 -f docker/Dockerfile.keras-py27 .
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:keras-py27
+    
+    "keras-py27-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:keras-py27-cpu -f docker/Dockerfile.keras-py27-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:keras-py27-cpu
     
     "keras-py36_keras":
         machine: true
@@ -107,6 +204,15 @@ jobs:
             - run: docker push $DOCKER_REPO:keras-py36            
             - run: docker push $DOCKER_REPO:keras
     
+    "keras-py36-cpu_keras-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:keras-py36-cpu -t $DOCKER_REPO:keras-cpu -f docker/Dockerfile.keras-py36-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:keras-py36-cpu            
+            - run: docker push $DOCKER_REPO:keras-cpu
+    
     "lasagne-py27":
         machine: true
         steps:
@@ -114,6 +220,14 @@ jobs:
             - run: docker build -t $DOCKER_REPO:lasagne-py27 -f docker/Dockerfile.lasagne-py27 .
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:lasagne-py27
+    
+    "lasagne-py27-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:lasagne-py27-cpu -f docker/Dockerfile.lasagne-py27-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:lasagne-py27-cpu
     
     "lasagne-py36_lasagne":
         machine: true
@@ -124,6 +238,15 @@ jobs:
             - run: docker push $DOCKER_REPO:lasagne-py36            
             - run: docker push $DOCKER_REPO:lasagne
     
+    "lasagne-py36-cpu_lasagne-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:lasagne-py36-cpu -t $DOCKER_REPO:lasagne-cpu -f docker/Dockerfile.lasagne-py36-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:lasagne-py36-cpu            
+            - run: docker push $DOCKER_REPO:lasagne-cpu
+    
     "mxnet-py27":
         machine: true
         steps:
@@ -131,6 +254,14 @@ jobs:
             - run: docker build -t $DOCKER_REPO:mxnet-py27 -f docker/Dockerfile.mxnet-py27 .
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:mxnet-py27
+    
+    "mxnet-py27-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:mxnet-py27-cpu -f docker/Dockerfile.mxnet-py27-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:mxnet-py27-cpu
     
     "mxnet-py36_mxnet":
         machine: true
@@ -140,6 +271,15 @@ jobs:
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:mxnet-py36            
             - run: docker push $DOCKER_REPO:mxnet
+    
+    "mxnet-py36-cpu_mxnet-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:mxnet-py36-cpu -t $DOCKER_REPO:mxnet-cpu -f docker/Dockerfile.mxnet-py36-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:mxnet-py36-cpu            
+            - run: docker push $DOCKER_REPO:mxnet-cpu
     
     "pytorch-py27":
         machine: true
@@ -166,6 +306,14 @@ jobs:
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:sonnet-py27
     
+    "sonnet-py27-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:sonnet-py27-cpu -f docker/Dockerfile.sonnet-py27-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:sonnet-py27-cpu
+    
     "sonnet-py36_sonnet":
         machine: true
         steps:
@@ -175,6 +323,15 @@ jobs:
             - run: docker push $DOCKER_REPO:sonnet-py36            
             - run: docker push $DOCKER_REPO:sonnet
     
+    "sonnet-py36-cpu_sonnet-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:sonnet-py36-cpu -t $DOCKER_REPO:sonnet-cpu -f docker/Dockerfile.sonnet-py36-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:sonnet-py36-cpu            
+            - run: docker push $DOCKER_REPO:sonnet-cpu
+    
     "tensorflow-py27":
         machine: true
         steps:
@@ -182,6 +339,14 @@ jobs:
             - run: docker build -t $DOCKER_REPO:tensorflow-py27 -f docker/Dockerfile.tensorflow-py27 .
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:tensorflow-py27
+    
+    "tensorflow-py27-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:tensorflow-py27-cpu -f docker/Dockerfile.tensorflow-py27-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:tensorflow-py27-cpu
     
     "tensorflow-py36_tensorflow":
         machine: true
@@ -192,6 +357,15 @@ jobs:
             - run: docker push $DOCKER_REPO:tensorflow-py36            
             - run: docker push $DOCKER_REPO:tensorflow
     
+    "tensorflow-py36-cpu_tensorflow-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:tensorflow-py36-cpu -t $DOCKER_REPO:tensorflow-cpu -f docker/Dockerfile.tensorflow-py36-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:tensorflow-py36-cpu            
+            - run: docker push $DOCKER_REPO:tensorflow-cpu
+    
     "theano-py27":
         machine: true
         steps:
@@ -199,6 +373,14 @@ jobs:
             - run: docker build -t $DOCKER_REPO:theano-py27 -f docker/Dockerfile.theano-py27 .
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:theano-py27
+    
+    "theano-py27-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:theano-py27-cpu -f docker/Dockerfile.theano-py27-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:theano-py27-cpu
     
     "theano-py36_theano":
         machine: true
@@ -209,6 +391,15 @@ jobs:
             - run: docker push $DOCKER_REPO:theano-py36            
             - run: docker push $DOCKER_REPO:theano
     
+    "theano-py36-cpu_theano-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:theano-py36-cpu -t $DOCKER_REPO:theano-cpu -f docker/Dockerfile.theano-py36-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:theano-py36-cpu            
+            - run: docker push $DOCKER_REPO:theano-cpu
+    
     "torch":
         machine: true
         steps:
@@ -216,33 +407,64 @@ jobs:
             - run: docker build -t $DOCKER_REPO:torch -f docker/Dockerfile.torch .
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:torch
+    
+    "torch-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:torch-cpu -f docker/Dockerfile.torch-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:torch-cpu
 
 workflows:
     version: 2
     build:
         jobs:
             - "all-py27_py27"
+            - "all-py27-cpu_py27-cpu"
             - "all-py27-jupyter_py27-jupyter"
+            - "all-py27-jupyter-cpu_py27-jupyter-cpu"
             - "all-py36_all_py36_latest"
+            - "all-py36-cpu_all-cpu_py36-cpu_cpu"
             - "all-py36-jupyter_py36-jupyter"
+            - "all-py36-jupyter-cpu_py36-jupyter-cpu"
             - "caffe-py27"
+            - "caffe-py27-cpu"
             - "caffe-py36_caffe"
+            - "caffe-py36-cpu_caffe-cpu"
             - "chainer-py27"
+            - "chainer-py27-cpu"
             - "chainer-py36_chainer"
+            - "chainer-py36-cpu_chainer-cpu"
             - "cntk-py27"
+            - "cntk-py27-cpu"
             - "cntk-py36_cntk"
+            - "cntk-py36-cpu_cntk-cpu"
             - "keras-py27"
+            - "keras-py27-cpu"
             - "keras-py36_keras"
+            - "keras-py36-cpu_keras-cpu"
             - "lasagne-py27"
+            - "lasagne-py27-cpu"
             - "lasagne-py36_lasagne"
+            - "lasagne-py36-cpu_lasagne-cpu"
             - "mxnet-py27"
+            - "mxnet-py27-cpu"
             - "mxnet-py36_mxnet"
+            - "mxnet-py36-cpu_mxnet-cpu"
             - "pytorch-py27"
             - "pytorch-py36_pytorch"
             - "sonnet-py27"
+            - "sonnet-py27-cpu"
             - "sonnet-py36_sonnet"
+            - "sonnet-py36-cpu_sonnet-cpu"
             - "tensorflow-py27"
+            - "tensorflow-py27-cpu"
             - "tensorflow-py36_tensorflow"
+            - "tensorflow-py36-cpu_tensorflow-cpu"
             - "theano-py27"
+            - "theano-py27-cpu"
             - "theano-py36_theano"
+            - "theano-py36-cpu_theano-cpu"
             - "torch"
+            - "torch-cpu"

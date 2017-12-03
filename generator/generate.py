@@ -16,7 +16,8 @@ def _import(name):
 @click.command()
 @click.argument('path', nargs=1)
 @click.argument('modules', nargs=-1)
-def main(path, modules):
+@click.option('--cpu-only', is_flag=True)
+def main(path, modules, cpu_only):
     """
     Generate a dockerfile according to the given modules to be installed.
     """
@@ -28,7 +29,7 @@ def main(path, modules):
         in_modules.append(m)
         if len(terms) > 1:
             versions[m] = terms[1]
-    composer = Composer(in_modules, versions)
+    composer = Composer(in_modules, versions, cpu_only=cpu_only)
     with open(path, 'w') as f:
         f.write(composer.to_dockerfile())
 

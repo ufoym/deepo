@@ -11,16 +11,20 @@ from .opencv import Opencv
 class Caffe(Module):
 
     def build(self):
-        pyver = self.manager.ver(Python)
-        return r'''
+        pyver = self.composer.ver(Python)
+        return (
+            r'' if self.composer.cpu_only else r'''
             $GIT_CLONE https://github.com/NVIDIA/nccl ~/nccl && \
             cd ~/nccl && \
             make -j"$(nproc)" install && \
-
+        ''') + (r'''
             $GIT_CLONE https://github.com/BVLC/caffe ~/caffe && \
             cp ~/caffe/Makefile.config.example ~/caffe/Makefile.config && \
-            sed -i 's/# USE_CUDNN/USE_CUDNN/g' ~/caffe/Makefile.config && \
-        '''.rstrip() + (
+            sed -i 's/# %s/%s/g' ~/caffe/Makefile.config && \
+        ''' % (
+            ('CPU_ONLY', 'CPU_ONLY') if self.composer.cpu_only else \
+            ('USE_CUDNN', 'USE_CUDNN') \
+        )).rstrip() + (
             '' if pyver == '2.7' else r'''
             sed -i 's/# PYTHON_LIBRARIES/PYTHON_LIBRARIES/g' '''
             + r'''~/caffe/Makefile.config && \
@@ -30,8 +34,11 @@ class Caffe(Module):
           + r'''~/caffe/Makefile.config && \
             sed -i 's/# OPENCV_VERSION/OPENCV_VERSION/g' ''' \
           + r'''~/caffe/Makefile.config && \
+          '''.rstrip() + (
+            r'' if self.composer.cpu_only else r'''
             sed -i 's/# USE_NCCL/USE_NCCL/g' ~/caffe/Makefile.config && \
-        '''.rstrip() + (r'''
+            '''.rstrip()
+        ) + (r'''
             sed -i 's/2\.7/3\.5/g' ~/caffe/Makefile.config && \
             ''' if pyver == '3.5' else (
             r'''

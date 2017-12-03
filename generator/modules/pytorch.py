@@ -9,7 +9,7 @@ from .python import Python
 class Pytorch(Module):
 
     def build(self):
-        pyver = self.manager.ver(Python)
+        pyver = self.composer.ver(Python)
         platform = 'cp35-cp35m' if pyver == '3.5' else (
             'cp36-cp36m' if pyver == '3.6' else 'cp27-cp27mu')
         return r'''

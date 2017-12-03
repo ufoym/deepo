@@ -15,7 +15,7 @@ class Mxnet(Module):
                 && \
 
             $PIP_INSTALL \
-                mxnet-cu80 \
+                mxnet%s \
                 graphviz \
                 && \
-        '''
+        ''' % ('' if self.composer.cpu_only else '-cu80')

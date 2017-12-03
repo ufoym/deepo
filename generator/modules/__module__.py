@@ -32,8 +32,8 @@ def version(module, _ver):
 @version('latest')
 class Module(object):
 
-    def __init__(self, manager):
-        self.manager = manager
+    def __init__(self, composer):
+        self.composer = composer
 
     def __repr__(self):
         return '%-13s %-6s (%s)' % (
