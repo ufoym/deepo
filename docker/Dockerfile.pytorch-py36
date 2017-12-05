@@ -2,7 +2,7 @@
 # module list
 # ------------------------------------------------------------------
 # python        3.6    (apt)
-# pytorch       0.2.0  (pip)
+# pytorch       0.3.0  (pip)
 # ==================================================================
 
 FROM nvidia/cuda:8.0-cudnn6-devel
@@ -64,7 +64,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        http://download.pytorch.org/whl/cu80/torch-0.2.0.post3-cp36-cp36m-manylinux1_x86_64.whl \
+        http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp36-cp36m-linux_x86_64.whl \
         torchvision \
         && \
 

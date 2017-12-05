@@ -7,7 +7,7 @@
 # cntk          2.3    (pip)
 # jupyter       latest (pip)
 # mxnet         latest (pip)
-# pytorch       0.2.0  (pip)
+# pytorch       0.3.0  (pip)
 # tensorflow    latest (pip)
 # theano        latest (git)
 # keras         latest (pip)
@@ -153,7 +153,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        http://download.pytorch.org/whl/cu80/torch-0.2.0.post3-cp27-cp27mu-manylinux1_x86_64.whl \
+        http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp27-cp27mu-linux_x86_64.whl \
         torchvision \
         && \
 
