@@ -7,10 +7,12 @@
 
 ***Deepo*** is a series of [*Docker*](http://www.docker.com/) images that
 - allows you to quickly set up your deep learning research environment
-- supports almost all commonly used deep learning frameworks
+- supports almost all [commonly used deep learning frameworks](#tags)
+- supports [GPU acceleration](#GPU) (CUDA and cuDNN included), also works in [CPU-only mode](#CPU)
+- works on Linux ([CPU version](#CPU)/[GPU version](#GPU)), Windows ([CPU version](#CPU)) and OS X ([CPU version](#CPU))
 
 and their Dockerfile generator that
-- allows you to customize your own environment with Lego-like modules
+- allows you to [customize your own environment](#Build) with Lego-like modules
 - automatically resolves the dependencies for you
 
 ---
@@ -25,7 +27,7 @@ and their Dockerfile generator that
     - [Installation](#Installation-cpu)
     - [Usage](#Usage-cpu)
 - [Customization](#Customization)
-  - [I hate all-in-one solution](#One)
+  - [Unhappy with all-in-one solution?](#One)
   - [Other python versions](#Python)
   - [Jupyter support](#Jupyter)
   - [Build your own customized image](#Build)
