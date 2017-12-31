@@ -4,7 +4,7 @@
 # python        2.7    (apt)
 # torch         latest (git)
 # chainer       latest (pip)
-# cntk          2.3    (pip)
+# cntk          2.3.1  (pip)
 # mxnet         latest (pip)
 # pytorch       0.3.0  (pip)
 # tensorflow    latest (pip)
@@ -122,7 +122,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     $PIP_INSTALL \
-        https://cntk.ai/PythonWheel/GPU/cntk-2.3-cp27-cp27mu-linux_x86_64.whl \
+        https://cntk.ai/PythonWheel/GPU/cntk-2.3.1-cp27-cp27mu-linux_x86_64.whl \
         && \
 
 # ==================================================================
