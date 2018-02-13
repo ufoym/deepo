@@ -9,6 +9,7 @@ class Torch(Module):
 
     def build(self):
         return r'''
+            export TORCH_NVCC_FLAGS="-D__CUDA_NO_HALF_OPERATORS__"
             $GIT_CLONE https://github.com/torch/distro.git ~/torch''' \
         + r''' --recursive && \
 

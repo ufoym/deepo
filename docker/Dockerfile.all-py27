@@ -65,6 +65,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # torch
 # ------------------------------------------------------------------
 
+    export TORCH_NVCC_FLAGS="-D__CUDA_NO_HALF_OPERATORS__"
     $GIT_CLONE https://github.com/torch/distro.git ~/torch --recursive && \
 
     cd ~/torch/exe/luajit-rocks && \
