@@ -37,6 +37,8 @@ class Caffe(Module):
           '''.rstrip() + (
             r'' if self.composer.cpu_only else r'''
             sed -i 's/# USE_NCCL/USE_NCCL/g' ~/caffe/Makefile.config && \
+            sed -i 's/-gencode arch=compute_20,code=sm_20//g' ~/caffe/Makefile.config && \
+            sed -i 's/-gencode arch=compute_20,code=sm_21//g' ~/caffe/Makefile.config && \
             '''.rstrip()
         ) + (r'''
             sed -i 's/2\.7/3\.5/g' ~/caffe/Makefile.config && \
