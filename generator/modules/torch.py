@@ -30,7 +30,7 @@ class Torch(Module):
 
             cd ~/torch && \
             sed -i 's/extra\/cudnn/extra\/cudnn ''' \
-        + r'''\&\& git checkout R6/' install.sh && \
+        + r'''\&\& git checkout R7/' install.sh && \
             sed -i 's/$PREFIX\/bin\/luarocks/luarocks/' install.sh && \
             sed -i '/qt/d' install.sh && \
             sed -i '/Installing Lua/,/^cd \.\.$/d' install.sh && \

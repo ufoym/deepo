@@ -4,9 +4,9 @@
 # python        3.6    (apt)
 # torch         latest (git)
 # chainer       latest (pip)
-# cntk          2.3.1  (pip)
+# cntk          2.4    (pip)
 # mxnet         latest (pip)
-# pytorch       0.3.0  (pip)
+# pytorch       0.3.1  (pip)
 # tensorflow    latest (pip)
 # theano        latest (git)
 # keras         latest (pip)
@@ -16,7 +16,7 @@
 # caffe         latest (git)
 # ==================================================================
 
-FROM nvidia/cuda:8.0-cudnn6-devel
+FROM nvidia/cuda:9.0-cudnn7-devel
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -93,7 +93,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     luarocks install rockspec/moses-1.6.1-1.rockspec && \
 
     cd ~/torch && \
-    sed -i 's/extra\/cudnn/extra\/cudnn \&\& git checkout R6/' install.sh && \
+    sed -i 's/extra\/cudnn/extra\/cudnn \&\& git checkout R7/' install.sh && \
     sed -i 's/$PREFIX\/bin\/luarocks/luarocks/' install.sh && \
     sed -i '/qt/d' install.sh && \
     sed -i '/Installing Lua/,/^cd \.\.$/d' install.sh && \
@@ -133,7 +133,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     $PIP_INSTALL \
-        https://cntk.ai/PythonWheel/CPU-Only/cntk-2.3.1-cp36-cp36m-linux_x86_64.whl \
+        https://cntk.ai/PythonWheel/CPU-Only/cntk-2.4-cp36-cp36m-linux_x86_64.whl \
         && \
 
 # ==================================================================
@@ -155,7 +155,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp36-cp36m-linux_x86_64.whl \
+        http://download.pytorch.org/whl/cu90/torch-0.3.1-cp36-cp36m-linux_x86_64.whl \
         torchvision \
         && \
 

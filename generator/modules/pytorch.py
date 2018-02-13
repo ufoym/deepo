@@ -5,7 +5,7 @@ from .python import Python
 
 @dependency(Python)
 @source('pip')
-@version('0.3.0')
+@version('0.3.1')
 class Pytorch(Module):
 
     def build(self):
@@ -14,8 +14,8 @@ class Pytorch(Module):
             'cp36-cp36m' if pyver == '3.6' else 'cp27-cp27mu')
         return r'''
             $PIP_INSTALL \
-                http://download.pytorch.org/whl/cu80/''' \
-        + r'''torch-%s.post4-%s-linux_x86_64.whl \
+                http://download.pytorch.org/whl/cu90/''' \
+        + r'''torch-%s-%s-linux_x86_64.whl \
                 torchvision \
                 && \
         ''' % (self.version, platform)

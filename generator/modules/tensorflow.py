@@ -12,7 +12,7 @@ class Tensorflow(Module):
             $PIP_INSTALL \
                 tensorflow%s \
                 && \
-        ''' % ('' if self.composer.cpu_only else '_gpu')
+        ''' % ('' if self.composer.cpu_only else '-gpu')
 
     def expose(self):
         return [
