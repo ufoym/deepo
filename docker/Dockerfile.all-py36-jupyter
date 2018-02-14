@@ -4,12 +4,12 @@
 # python        3.6    (apt)
 # torch         latest (git)
 # chainer       latest (pip)
-# cntk          2.3.1  (pip)
+# cntk          2.4    (pip)
 # jupyter       latest (pip)
 # mxnet         latest (pip)
-# pytorch       0.3.0  (pip)
+# pytorch       0.3.1  (pip)
 # tensorflow    latest (pip)
-# theano        latest (git)
+# theano        1.0.1  (git)
 # keras         latest (pip)
 # lasagne       latest (git)
 # opencv        latest (git)
@@ -17,7 +17,7 @@
 # caffe         latest (git)
 # ==================================================================
 
-FROM nvidia/cuda:8.0-cudnn6-devel
+FROM nvidia/cuda:9.0-cudnn7-devel
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -75,6 +75,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # torch
 # ------------------------------------------------------------------
 
+    export TORCH_NVCC_FLAGS="-D__CUDA_NO_HALF_OPERATORS__" && \
     $GIT_CLONE https://github.com/torch/distro.git ~/torch --recursive && \
 
     cd ~/torch/exe/luajit-rocks && \
@@ -94,7 +95,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     luarocks install rockspec/moses-1.6.1-1.rockspec && \
 
     cd ~/torch && \
-    sed -i 's/extra\/cudnn/extra\/cudnn \&\& git checkout R6/' install.sh && \
+    sed -i 's/extra\/cudnn/extra\/cudnn \&\& git checkout R7/' install.sh && \
     sed -i 's/$PREFIX\/bin\/luarocks/luarocks/' install.sh && \
     sed -i '/qt/d' install.sh && \
     sed -i '/Installing Lua/,/^cd \.\.$/d' install.sh && \
@@ -134,7 +135,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     $PIP_INSTALL \
-        https://cntk.ai/PythonWheel/GPU/cntk-2.3.1-cp36-cp36m-linux_x86_64.whl \
+        https://cntk.ai/PythonWheel/GPU/cntk-2.4-cp36-cp36m-linux_x86_64.whl \
         && \
 
 # ==================================================================
@@ -155,7 +156,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     $PIP_INSTALL \
-        mxnet-cu80 \
+        mxnet-cu90 \
         graphviz \
         && \
 
@@ -164,7 +165,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp36-cp36m-linux_x86_64.whl \
+        http://download.pytorch.org/whl/cu90/torch-0.3.1-cp36-cp36m-linux_x86_64.whl \
         torchvision \
         && \
 
@@ -173,15 +174,19 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        tensorflow_gpu \
+        tensorflow-gpu \
         && \
 
 # ==================================================================
 # theano
 # ------------------------------------------------------------------
 
-    $GIT_CLONE https://github.com/Theano/Theano ~/theano && \
-    cd ~/theano && \
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        libblas-dev \
+        && \
+
+    wget -qO- https://github.com/Theano/Theano/archive/rel-1.0.1.tar.gz | tar xz -C ~ && \
+    cd ~/Theano* && \
     $PIP_INSTALL \
         . && \
 
@@ -266,6 +271,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     sed -i 's/# WITH_PYTHON_LAYER/WITH_PYTHON_LAYER/g' ~/caffe/Makefile.config && \
     sed -i 's/# OPENCV_VERSION/OPENCV_VERSION/g' ~/caffe/Makefile.config && \
     sed -i 's/# USE_NCCL/USE_NCCL/g' ~/caffe/Makefile.config && \
+    sed -i 's/-gencode arch=compute_20,code=sm_20//g' ~/caffe/Makefile.config && \
+    sed -i 's/-gencode arch=compute_20,code=sm_21//g' ~/caffe/Makefile.config && \
     sed -i 's/2\.7/3\.6/g' ~/caffe/Makefile.config && \
     sed -i 's/3\.5/3\.6/g' ~/caffe/Makefile.config && \
     sed -i 's/\/usr\/lib\/python/\/usr\/local\/lib\/python/g' ~/caffe/Makefile.config && \

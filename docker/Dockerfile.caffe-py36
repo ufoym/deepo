@@ -6,7 +6,7 @@
 # caffe         latest (git)
 # ==================================================================
 
-FROM nvidia/cuda:8.0-cudnn6-devel
+FROM nvidia/cuda:9.0-cudnn7-devel
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -113,6 +113,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     sed -i 's/# WITH_PYTHON_LAYER/WITH_PYTHON_LAYER/g' ~/caffe/Makefile.config && \
     sed -i 's/# OPENCV_VERSION/OPENCV_VERSION/g' ~/caffe/Makefile.config && \
     sed -i 's/# USE_NCCL/USE_NCCL/g' ~/caffe/Makefile.config && \
+    sed -i 's/-gencode arch=compute_20,code=sm_20//g' ~/caffe/Makefile.config && \
+    sed -i 's/-gencode arch=compute_20,code=sm_21//g' ~/caffe/Makefile.config && \
     sed -i 's/2\.7/3\.6/g' ~/caffe/Makefile.config && \
     sed -i 's/3\.5/3\.6/g' ~/caffe/Makefile.config && \
     sed -i 's/\/usr\/lib\/python/\/usr\/local\/lib\/python/g' ~/caffe/Makefile.config && \

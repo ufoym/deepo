@@ -2,10 +2,10 @@
 # module list
 # ------------------------------------------------------------------
 # python        2.7    (apt)
-# theano        latest (git)
+# theano        1.0.1  (git)
 # ==================================================================
 
-FROM nvidia/cuda:8.0-cudnn6-devel
+FROM nvidia/cuda:9.0-cudnn7-devel
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -54,8 +54,12 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # theano
 # ------------------------------------------------------------------
 
-    $GIT_CLONE https://github.com/Theano/Theano ~/theano && \
-    cd ~/theano && \
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        libblas-dev \
+        && \
+
+    wget -qO- https://github.com/Theano/Theano/archive/rel-1.0.1.tar.gz | tar xz -C ~ && \
+    cd ~/Theano* && \
     $PIP_INSTALL \
         . && \
 

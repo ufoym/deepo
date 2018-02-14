@@ -9,6 +9,7 @@ class Torch(Module):
 
     def build(self):
         return r'''
+            export TORCH_NVCC_FLAGS="-D__CUDA_NO_HALF_OPERATORS__" && \
             $GIT_CLONE https://github.com/torch/distro.git ~/torch''' \
         + r''' --recursive && \
 
@@ -30,7 +31,7 @@ class Torch(Module):
 
             cd ~/torch && \
             sed -i 's/extra\/cudnn/extra\/cudnn ''' \
-        + r'''\&\& git checkout R6/' install.sh && \
+        + r'''\&\& git checkout R7/' install.sh && \
             sed -i 's/$PREFIX\/bin\/luarocks/luarocks/' install.sh && \
             sed -i '/qt/d' install.sh && \
             sed -i '/Installing Lua/,/^cd \.\.$/d' install.sh && \

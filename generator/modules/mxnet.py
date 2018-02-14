@@ -18,4 +18,4 @@ class Mxnet(Module):
                 mxnet%s \
                 graphviz \
                 && \
-        ''' % ('' if self.composer.cpu_only else '-cu80')
+        ''' % ('' if self.composer.cpu_only else '-cu90')
