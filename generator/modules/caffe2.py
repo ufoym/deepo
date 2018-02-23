@@ -33,7 +33,7 @@ class Caffe2(Module):
             mkdir build && cd build && \
             cmake -D CMAKE_BUILD_TYPE=RELEASE \
                   -D CMAKE_INSTALL_PREFIX=/usr/local \
-                  -D USE_CUDA=%s
+                  -D USE_CUDA=%s \
                   .. && \
             make -j"$(nproc)" install
             %s
