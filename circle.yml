@@ -111,6 +111,40 @@ jobs:
             - run: docker push $DOCKER_REPO:caffe-py36-cpu            
             - run: docker push $DOCKER_REPO:caffe-cpu
     
+    "caffe2-py27":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:caffe2-py27 -f docker/Dockerfile.caffe2-py27 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:caffe2-py27
+    
+    "caffe2-py27-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:caffe2-py27-cpu -f docker/Dockerfile.caffe2-py27-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:caffe2-py27-cpu
+    
+    "caffe2-py36_caffe2":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:caffe2-py36 -t $DOCKER_REPO:caffe2 -f docker/Dockerfile.caffe2-py36 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:caffe2-py36            
+            - run: docker push $DOCKER_REPO:caffe2
+    
+    "caffe2-py36-cpu_caffe2-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:caffe2-py36-cpu -t $DOCKER_REPO:caffe2-cpu -f docker/Dockerfile.caffe2-py36-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:caffe2-py36-cpu            
+            - run: docker push $DOCKER_REPO:caffe2-cpu
+    
     "chainer-py27":
         machine: true
         steps:
@@ -432,6 +466,10 @@ workflows:
             - "caffe-py27-cpu"
             - "caffe-py36_caffe"
             - "caffe-py36-cpu_caffe-cpu"
+            - "caffe2-py27"
+            - "caffe2-py27-cpu"
+            - "caffe2-py36_caffe2"
+            - "caffe2-py36-cpu_caffe2-cpu"
             - "chainer-py27"
             - "chainer-py27-cpu"
             - "chainer-py36_chainer"

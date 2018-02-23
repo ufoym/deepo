@@ -37,7 +37,7 @@ class Composer(object):
                 self._split(),
             ])),
             r'''
-            FROM nvidia/cuda:9.0-cudnn7-devel
+            FROM %s
             RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
                 PIP_INSTALL="pip --no-cache-dir install --upgrade" && \
                 GIT_CLONE="git clone --depth 10" && \
@@ -47,7 +47,8 @@ class Composer(object):
                        /etc/apt/sources.list.d/nvidia-ml.list && \
 
                 apt-get update && \
-            ''',
+            ''' % ('ubuntu' if self.cpu_only
+                   else 'nvidia/cuda:9.0-cudnn7-devel'),
             '\n',
             '\n'.join([
                 ''.join([
