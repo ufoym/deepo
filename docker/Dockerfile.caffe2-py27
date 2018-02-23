@@ -114,7 +114,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
           -D CMAKE_INSTALL_PREFIX=/usr/local \
           -D USE_CUDA=ON \
           .. && \
-    make -j"$(nproc)" install
+    make -j"$(nproc)" install && \
 
     python -c 'from caffe2.python import core' && \
 

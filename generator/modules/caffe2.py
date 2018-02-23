@@ -35,7 +35,7 @@ class Caffe2(Module):
                   -D CMAKE_INSTALL_PREFIX=/usr/local \
                   -D USE_CUDA=%s \
                   .. && \
-            make -j"$(nproc)" install
+            make -j"$(nproc)" install && \
             %s
             python -c 'from caffe2.python import core' && \
         ''' % (
