@@ -281,7 +281,6 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
           .. && \
     make -j"$(nproc)" install && \
 
-    python -c 'from caffe2.python import core' && \
 
 # ==================================================================
 # config & cleanup

@@ -37,7 +37,6 @@ class Caffe2(Module):
                   .. && \
             make -j"$(nproc)" install && \
             %s
-            python -c 'from caffe2.python import core' && \
         ''' % (
             'OFF' if self.composer.cpu_only else 'ON',
 
