@@ -2,8 +2,8 @@
 # module list
 # ------------------------------------------------------------------
 # python        3.6    (apt)
-# theano        1.0.1  (git)
-# lasagne       latest (git)
+# opencv        latest (git)
+# caffe2        latest (git)
 # ==================================================================
 
 FROM ubuntu
@@ -61,26 +61,73 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
 # ==================================================================
-# theano
+# boost
+# ------------------------------------------------------------------
+
+    wget -O ~/boost.tar.gz https://dl.bintray.com/boostorg/release/1.65.1/source/boost_1_65_1.tar.gz && \
+    tar -zxf ~/boost.tar.gz -C ~ && \
+    cd ~/boost_* && \
+    ./bootstrap.sh --with-python=python3.6 && \
+    ./b2 install --prefix=/usr/local && \
+
+# ==================================================================
+# opencv
 # ------------------------------------------------------------------
 
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        libblas-dev \
+        libatlas-base-dev \
+        libgflags-dev \
+        libgoogle-glog-dev \
+        libhdf5-serial-dev \
+        libleveldb-dev \
+        liblmdb-dev \
+        libprotobuf-dev \
+        libsnappy-dev \
+        protobuf-compiler \
         && \
 
-    wget -qO- https://github.com/Theano/Theano/archive/rel-1.0.1.tar.gz | tar xz -C ~ && \
-    cd ~/Theano* && \
-    $PIP_INSTALL \
-        . && \
+    $GIT_CLONE https://github.com/opencv/opencv ~/opencv && \
+    mkdir -p ~/opencv/build && cd ~/opencv/build && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+          -D CMAKE_INSTALL_PREFIX=/usr/local \
+          -D WITH_IPP=OFF \
+          -D WITH_CUDA=OFF \
+          -D WITH_OPENCL=OFF \
+          -D BUILD_TESTS=OFF \
+          -D BUILD_PERF_TESTS=OFF \
+          .. && \
+    make -j"$(nproc)" install && \
 
 # ==================================================================
-# lasagne
+# caffe2
 # ------------------------------------------------------------------
 
-    $GIT_CLONE https://github.com/Lasagne/Lasagne ~/lasagne && \
-    cd ~/lasagne && \
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        libprotobuf-dev \
+        protobuf-compiler \
+        && \
+
     $PIP_INSTALL \
-        . && \
+        future \
+        numpy \
+        protobuf \
+        && \
+
+    $GIT_CLONE https://github.com/caffe2/caffe2.git \
+        ~/caffe2 --recursive && \
+
+    cd ~/caffe2 && \
+    sed -i "s/prefix=''/prefix='', standard_lib=True) \
+        + '\/dist-packages'/g" CMakeLists.txt && \
+
+    mkdir build && cd build && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+          -D CMAKE_INSTALL_PREFIX=/usr/local \
+          -D USE_CUDA=OFF \
+          .. && \
+    make -j"$(nproc)" install && \
+    mv /usr/local/lib/python3/dist-packages/caffe2 \
+        /usr/local/lib/python3.6/dist-packages && \
 
 # ==================================================================
 # config & cleanup

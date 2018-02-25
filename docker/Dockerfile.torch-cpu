@@ -4,7 +4,7 @@
 # torch         latest (git)
 # ==================================================================
 
-FROM nvidia/cuda:9.0-cudnn7-devel
+FROM ubuntu
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \

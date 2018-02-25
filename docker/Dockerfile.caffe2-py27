@@ -2,10 +2,11 @@
 # module list
 # ------------------------------------------------------------------
 # python        2.7    (apt)
-# tensorflow    latest (pip)
+# opencv        latest (git)
+# caffe2        latest (git)
 # ==================================================================
 
-FROM ubuntu
+FROM nvidia/cuda:9.0-cudnn7-devel
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -51,12 +52,70 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
 # ==================================================================
-# tensorflow
+# boost
 # ------------------------------------------------------------------
 
-    $PIP_INSTALL \
-        tensorflow \
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        libboost-all-dev \
         && \
+
+# ==================================================================
+# opencv
+# ------------------------------------------------------------------
+
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        libatlas-base-dev \
+        libgflags-dev \
+        libgoogle-glog-dev \
+        libhdf5-serial-dev \
+        libleveldb-dev \
+        liblmdb-dev \
+        libprotobuf-dev \
+        libsnappy-dev \
+        protobuf-compiler \
+        && \
+
+    $GIT_CLONE https://github.com/opencv/opencv ~/opencv && \
+    mkdir -p ~/opencv/build && cd ~/opencv/build && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+          -D CMAKE_INSTALL_PREFIX=/usr/local \
+          -D WITH_IPP=OFF \
+          -D WITH_CUDA=OFF \
+          -D WITH_OPENCL=OFF \
+          -D BUILD_TESTS=OFF \
+          -D BUILD_PERF_TESTS=OFF \
+          .. && \
+    make -j"$(nproc)" install && \
+
+# ==================================================================
+# caffe2
+# ------------------------------------------------------------------
+
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        libprotobuf-dev \
+        protobuf-compiler \
+        && \
+
+    $PIP_INSTALL \
+        future \
+        numpy \
+        protobuf \
+        && \
+
+    $GIT_CLONE https://github.com/caffe2/caffe2.git \
+        ~/caffe2 --recursive && \
+
+    cd ~/caffe2 && \
+    sed -i "s/prefix=''/prefix='', standard_lib=True) \
+        + '\/dist-packages'/g" CMakeLists.txt && \
+
+    mkdir build && cd build && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+          -D CMAKE_INSTALL_PREFIX=/usr/local \
+          -D USE_CUDA=ON \
+          .. && \
+    make -j"$(nproc)" install && \
+
 
 # ==================================================================
 # config & cleanup
@@ -66,5 +125,3 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     apt-get clean && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/* /tmp/* ~/*
-
-EXPOSE 6006
