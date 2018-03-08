@@ -79,6 +79,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     make -j"$(nproc)" install && \
 
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        libjpeg-dev \
+        libpng-dev \
         libreadline-dev \
         && \
 

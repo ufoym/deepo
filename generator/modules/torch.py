@@ -22,6 +22,8 @@ class Torch(Module):
             make -j"$(nproc)" install && \
 
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+                libjpeg-dev \
+                libpng-dev \
                 libreadline-dev \
                 && \
 
