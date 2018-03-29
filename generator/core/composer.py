@@ -48,7 +48,7 @@ class Composer(object):
 
                 apt-get update && \
             ''' % ('ubuntu' if self.cpu_only
-                   else 'nvidia/cuda:9.0-cudnn7-devel'),
+                   else 'nvidia/cuda:9.1-cudnn7-devel'),
             '\n',
             '\n'.join([
                 ''.join([
