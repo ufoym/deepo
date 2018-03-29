@@ -8,11 +8,14 @@ from .python import Python
 class Tensorflow(Module):
 
     def build(self):
+        tf_version = self.composer.ver(Tensorflow)
+        tf_version = '' if 'latest' == tf_version else '==' + tf_version
+        is_gpu = '' if self.composer.cpu_only else '-gpu'
         return r'''
             $PIP_INSTALL \
-                tensorflow%s \
+                tensorflow%s==%s \
                 && \
-        ''' % ('' if self.composer.cpu_only else '-gpu')
+        ''' % (is_gpu, tf_version)
 
     def expose(self):
         return [
