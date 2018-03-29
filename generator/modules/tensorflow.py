@@ -13,7 +13,7 @@ class Tensorflow(Module):
         is_gpu = '' if self.composer.cpu_only else '-gpu'
         return r'''
             $PIP_INSTALL \
-                tensorflow%s==%s \
+                tensorflow%s%s \
                 && \
         ''' % (is_gpu, tf_version)
 
