@@ -60,3 +60,4 @@ target/
 
 # pyenv python configuration file
 .python-version
+.DS_Store

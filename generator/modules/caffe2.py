@@ -34,10 +34,12 @@ class Caffe2(Module):
             cmake -D CMAKE_BUILD_TYPE=RELEASE \
                   -D CMAKE_INSTALL_PREFIX=/usr/local \
                   -D USE_CUDA=%s \
+                  -D USE_MPI=%s \
                   .. && \
             make -j"$(nproc)" install && \
             %s
         ''' % (
+            'OFF' if self.composer.cpu_only else 'ON',
             'OFF' if self.composer.cpu_only else 'ON',
 
             '' if pyver == '2.7' else (r'''
