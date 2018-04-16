@@ -38,9 +38,11 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         python-pip \
         python-dev \
         && \
+    python -m $PIP_INSTALL \
+        pip \
+        && \
     $PIP_INSTALL \
         setuptools \
-        pip \
         && \
     $PIP_INSTALL \
         numpy \
