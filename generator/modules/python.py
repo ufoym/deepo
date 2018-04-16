@@ -49,9 +49,11 @@ class Python(Module):
                 python-pip \
                 python-dev \
                 && \
+            python -m $PIP_INSTALL \
+                pip \
+                && \
             $PIP_INSTALL \
                 setuptools \
-                pip \
                 && \
             '''
         )).rstrip() + r'''
