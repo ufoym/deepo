@@ -5,7 +5,7 @@ from .python import Python
 
 @dependency(Python)
 @source('pip')
-@version('2.4')
+@version('2.5')
 class Cntk(Module):
 
     def build(self):
