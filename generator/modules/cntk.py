@@ -21,9 +21,10 @@ class Cntk(Module):
                 && \
 
             $PIP_INSTALL \
-                https://cntk.ai/PythonWheel/%s/cntk-%s-%s-linux_x86_64.whl \
+                https://cntk.ai/PythonWheel/%s/cntk%s-%s-%s-linux_x86_64.whl \
                 && \
         ''' % (
             'CPU-Only' if self.composer.cpu_only else 'GPU',
+            '' if self.composer.cpu_only else '_gpu',
             self.version,
             platform)

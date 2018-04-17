@@ -126,7 +126,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     $PIP_INSTALL \
-        https://cntk.ai/PythonWheel/GPU/cntk-2.5-cp27-cp27mu-linux_x86_64.whl \
+        https://cntk.ai/PythonWheel/GPU/cntk_gpu-2.5-cp27-cp27mu-linux_x86_64.whl \
         && \
 
 # ==================================================================
