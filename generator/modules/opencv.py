@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from .__module__ import Module, dependency, source
+from .__module__ import Module, dependency, source, version
 from .tools import Tools
 from .boost import Boost
 from .python import Python
@@ -7,6 +7,7 @@ from .python import Python
 
 @dependency(Tools, Python, Boost)
 @source('git')
+@version('3.4.1')
 class Opencv(Module):
 
     def build(self):
@@ -23,7 +24,7 @@ class Opencv(Module):
                 protobuf-compiler \
                 && \
 
-            $GIT_CLONE https://github.com/opencv/opencv ~/opencv && \
+            $GIT_CLONE --branch %s https://github.com/opencv/opencv ~/opencv && \
             mkdir -p ~/opencv/build && cd ~/opencv/build && \
             cmake -D CMAKE_BUILD_TYPE=RELEASE \
                   -D CMAKE_INSTALL_PREFIX=/usr/local \
@@ -34,4 +35,4 @@ class Opencv(Module):
                   -D BUILD_PERF_TESTS=OFF \
                   .. && \
             make -j"$(nproc)" install && \
-        '''
+        ''' % self.version
