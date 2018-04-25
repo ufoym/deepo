@@ -6,7 +6,7 @@
 # chainer       latest (pip)
 # cntk          2.5    (pip)
 # mxnet         latest (pip)
-# pytorch       0.3.1  (pip)
+# pytorch       0.4.0  (pip)
 # tensorflow    latest (pip)
 # theano        1.0.1  (git)
 # keras         latest (pip)
@@ -159,7 +159,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        http://download.pytorch.org/whl/cu90/torch-0.3.1-cp36-cp36m-linux_x86_64.whl \
+        http://download.pytorch.org/whl/cu90/torch-0.4.0-cp36-cp36m-linux_x86_64.whl \
         torchvision \
         && \
 
