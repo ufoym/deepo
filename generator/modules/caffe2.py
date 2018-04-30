@@ -23,8 +23,9 @@ class Caffe2(Module):
                 protobuf \
                 && \
 
-            $GIT_CLONE https://github.com/caffe2/caffe2.git \
+            $GIT_CLONE https://github.com/pytorch/pytorch.git \
                 ~/caffe2 --recursive && \
+            git submodule update --init && \
 
             cd ~/caffe2 && \
             sed -i "s/prefix=''/prefix='', standard_lib=True) \
