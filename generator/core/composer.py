@@ -22,7 +22,7 @@ class Composer(object):
                 return ins.version
         return None
 
-    def to_dockerfile(self):
+    def to_dockerfile(self, ubuntu_ver='16.04'):
 
         def _indent(n, s):
             prefix = ' ' * 4 * n
@@ -47,8 +47,8 @@ class Composer(object):
                        /etc/apt/sources.list.d/nvidia-ml.list && \
 
                 apt-get update && \
-            ''' % ('ubuntu' if self.cpu_only
-                   else 'nvidia/cuda:9.0-cudnn7-devel'),
+            ''' % ('ubuntu:%s' % ubuntu_ver if self.cpu_only
+                   else 'nvidia/cuda:9.0-cudnn7-devel-ubuntu%s' % ubuntu_ver),
             '\n',
             '\n'.join([
                 ''.join([
