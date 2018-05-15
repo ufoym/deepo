@@ -33,8 +33,8 @@ pyvers = [
 
 
 def get_command(modules, postfix, cuda_ver):
-    if cuda_ver is None:
-        postfix += '-cpu'
+    cuver = 'cpu' if cuda_ver is None else 'cu%d' % (float(cuda_ver) * 10)
+    postfix += '-%s' % cuver
     return 'python ../generator/generate.py ../docker/Dockerfile.%s %s%s\n' % (
         postfix,
         ' '.join(m for m in modules),
@@ -67,11 +67,12 @@ def generate(f, cuda_ver):
         # all modules with jupyter
         for pyver in pyvers:
             modules = candidate_modules + ['python==%s' % pyver, 'jupyter']
-            postfix = 'all-py%s-jupyter' % pyver.replace('.', '')
+            postfix = 'all-jupyter-py%s' % pyver.replace('.', '')
             f.write(get_command(modules, postfix, cuda_ver))
 
 
 if __name__ == '__main__':
     with open('gen-docker.sh', 'w') as f:
-        generate(f, '9.0')
         generate(f, None)
+        generate(f, '8.0')
+        generate(f, '9.0')
