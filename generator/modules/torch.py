@@ -42,7 +42,7 @@ class Torch(Module):
             sed -i '/You might want to/,/^fi$/d' install.sh && \
             '''.rstrip() + (r'''
             sed -i 's/\[ -x "$path_to_nvcc" \]/false/' install.sh && \
-            '''.rstrip() if self.composer.cpu_only else ''
+            '''.rstrip() if self.composer.cuda_ver is None else ''
         ) + r'''
             yes no | ./install.sh && \
         '''

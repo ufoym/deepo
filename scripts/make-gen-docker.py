@@ -32,46 +32,46 @@ pyvers = [
 ]
 
 
-def get_command(modules, postfix, cpu_only):
-    if cpu_only:
+def get_command(modules, postfix, cuda_ver):
+    if cuda_ver is None:
         postfix += '-cpu'
     return 'python ../generator/generate.py ../docker/Dockerfile.%s %s%s\n' % (
         postfix,
         ' '.join(m for m in modules),
-        ' --cpu-only' if cpu_only else ''
+        '' if cuda_ver is None else ' --cuda-ver %s' % cuda_ver
     )
 
 
-def generate(f, cpu_only):
+def generate(f, cuda_ver):
 
         # single module
         for module in candidate_modules:
-            if module in non_cpu_only_modules and cpu_only:
+            if module in non_cpu_only_modules and cuda_ver is None:
                 continue
             elif module in non_python_modules:
                 modules = [module]
-                f.write(get_command(modules, module, cpu_only))
+                f.write(get_command(modules, module, cuda_ver))
             else:
                 for pyver in pyvers:
                     modules = [module, 'python==%s' % pyver]
                     postfix = '%s-py%s' % (
                         module, pyver.replace('.', ''))
-                    f.write(get_command(modules, postfix, cpu_only))
+                    f.write(get_command(modules, postfix, cuda_ver))
 
         # all modules
         for pyver in pyvers:
             modules = candidate_modules + ['python==%s' % pyver]
             postfix = 'all-py%s' % pyver.replace('.', '')
-            f.write(get_command(modules, postfix, cpu_only))
+            f.write(get_command(modules, postfix, cuda_ver))
 
         # all modules with jupyter
         for pyver in pyvers:
             modules = candidate_modules + ['python==%s' % pyver, 'jupyter']
             postfix = 'all-py%s-jupyter' % pyver.replace('.', '')
-            f.write(get_command(modules, postfix, cpu_only))
+            f.write(get_command(modules, postfix, cuda_ver))
 
 
 if __name__ == '__main__':
     with open('gen-docker.sh', 'w') as f:
-        generate(f, cpu_only=False)
-        generate(f, cpu_only=True)
+        generate(f, '9.0')
+        generate(f, None)

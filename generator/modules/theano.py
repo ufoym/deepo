@@ -21,7 +21,7 @@ class Theano(Module):
             $PIP_INSTALL \
                 . && \
         ''' + (
-            '' if self.composer.cpu_only else r'''
+            '' if self.composer.cuda_ver is None else r'''
             $GIT_CLONE https://github.com/Theano/libgpuarray ~/gpuarray && \
             mkdir -p ~/gpuarray/build && cd ~/gpuarray/build && \
             cmake -D CMAKE_BUILD_TYPE=RELEASE \

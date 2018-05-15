@@ -11,6 +11,7 @@ class Caffe2(Module):
 
     def build(self):
         pyver = self.composer.ver(Python)
+        switcher = 'OFF' if self.composer.cuda_ver is None else 'ON'
         return r'''
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 libprotobuf-dev \
@@ -40,8 +41,8 @@ class Caffe2(Module):
             make -j"$(nproc)" install && \
             %s
         ''' % (
-            'OFF' if self.composer.cpu_only else 'ON',
-            'OFF' if self.composer.cpu_only else 'ON',
+            switcher,
+            switcher,
 
             '' if pyver == '2.7' else (r'''
             mv /usr/local/lib/python3/dist-packages/caffe2 \

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """Console script for generator."""
-import click
+import argparse
 from core.composer import Composer
 
 
@@ -13,24 +13,26 @@ def _import(name):
     return mod
 
 
-@click.command()
-@click.argument('path', nargs=1)
-@click.argument('modules', nargs=-1)
-@click.option('--cpu-only', is_flag=True)
-def main(path, modules, cpu_only):
+def main():
     """
     Generate a dockerfile according to the given modules to be installed.
     """
+    parser = argparse.ArgumentParser(description='Composer')
+    parser.add_argument('path')
+    parser.add_argument('modules', nargs='*')
+    parser.add_argument('--cuda-ver')
+    args = parser.parse_args()
+
     in_modules = []
     versions = {}
-    for module in modules:
+    for module in args.modules:
         terms = module.split('==')
         m = _import(terms[0])
         in_modules.append(m)
         if len(terms) > 1:
             versions[m] = terms[1]
-    composer = Composer(in_modules, versions, cpu_only=cpu_only)
-    with open(path, 'w') as f:
+    composer = Composer(in_modules, args.cuda_ver, versions)
+    with open(args.path, 'w') as f:
         f.write(composer.to_dockerfile())
 
 

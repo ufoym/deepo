@@ -24,7 +24,7 @@ class Cntk(Module):
                 https://cntk.ai/PythonWheel/%s/cntk%s-%s-%s-linux_x86_64.whl \
                 && \
         ''' % (
-            'CPU-Only' if self.composer.cpu_only else 'GPU',
-            '' if self.composer.cpu_only else '_gpu',
+            'CPU-Only' if self.composer.cuda_ver is None else 'GPU',
+            '' if self.composer.cuda_ver is None else '_gpu',
             self.version,
             platform)

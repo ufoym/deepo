@@ -5,13 +5,13 @@ import functools
 
 class Composer(object):
 
-    def __init__(self, modules, versions={}, cpu_only=False):
+    def __init__(self, modules, cuda_ver, versions={}):
         if len(modules) == 0:
             raise ValueError('Modules should contain at least one module')
         pending = self._traverse(modules)
         self.modules = [m for m in self._toposort(pending)]
         self.instances = self._get_instances(versions)
-        self.cpu_only = cpu_only
+        self.cuda_ver = cuda_ver
 
     def get(self):
         return self.modules
@@ -47,8 +47,9 @@ class Composer(object):
                        /etc/apt/sources.list.d/nvidia-ml.list && \
 
                 apt-get update && \
-            ''' % ('ubuntu:%s' % ubuntu_ver if self.cpu_only
-                   else 'nvidia/cuda:9.0-cudnn7-devel-ubuntu%s' % ubuntu_ver),
+            ''' % ('ubuntu:%s' % ubuntu_ver if self.cuda_ver is None
+                   else 'nvidia/cuda:%s-cudnn7-devel-ubuntu%s' % (
+                    self.cuda_ver, ubuntu_ver)),
             '\n',
             '\n'.join([
                 ''.join([

@@ -8,6 +8,8 @@ from .python import Python
 class Mxnet(Module):
 
     def build(self):
+        cuver = '' if self.composer.cuda_ver is None else '-cu%d' % (
+            float(self.composer.cuda_ver) * 10)
         return r'''
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 libatlas-base-dev \
@@ -18,4 +20,4 @@ class Mxnet(Module):
                 mxnet%s \
                 graphviz \
                 && \
-        ''' % ('' if self.composer.cpu_only else '-cu90')
+        ''' % cuver

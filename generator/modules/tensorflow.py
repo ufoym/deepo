@@ -10,7 +10,7 @@ class Tensorflow(Module):
     def build(self):
         tf_version = self.composer.ver(Tensorflow)
         tf_version = '' if 'latest' == tf_version else '==' + tf_version
-        is_gpu = '' if self.composer.cpu_only else '-gpu'
+        is_gpu = '' if self.composer.cuda_ver is None else '-gpu'
         return r'''
             $PIP_INSTALL \
                 tensorflow%s%s \

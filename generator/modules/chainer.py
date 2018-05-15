@@ -11,7 +11,7 @@ class Chainer(Module):
         return r'''
             $PIP_INSTALL \
             '''.rstrip() + (
-                '' if self.composer.cpu_only else \
+                '' if self.composer.cuda_ver is None else \
                 r'''
                 cupy \
                 '''.rstrip()

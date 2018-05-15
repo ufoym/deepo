@@ -12,8 +12,9 @@ class Caffe(Module):
 
     def build(self):
         pyver = self.composer.ver(Python)
+        cpu_only = self.composer.cuda_ver is None
         return (
-            r'' if self.composer.cpu_only else r'''
+            r'' if cpu_only else r'''
             $GIT_CLONE https://github.com/NVIDIA/nccl ~/nccl && \
             cd ~/nccl && \
             make -j"$(nproc)" install && \
@@ -22,7 +23,7 @@ class Caffe(Module):
             cp ~/caffe/Makefile.config.example ~/caffe/Makefile.config && \
             sed -i 's/# %s/%s/g' ~/caffe/Makefile.config && \
         ''' % (
-            ('CPU_ONLY', 'CPU_ONLY') if self.composer.cpu_only else \
+            ('CPU_ONLY', 'CPU_ONLY') if cpu_only else \
             ('USE_CUDNN', 'USE_CUDNN') \
         )).rstrip() + (
             '' if pyver == '2.7' else r'''
@@ -35,7 +36,7 @@ class Caffe(Module):
             sed -i 's/# OPENCV_VERSION/OPENCV_VERSION/g' ''' \
           + r'''~/caffe/Makefile.config && \
           '''.rstrip() + (
-            r'' if self.composer.cpu_only else r'''
+            r'' if cpu_only else r'''
             sed -i 's/# USE_NCCL/USE_NCCL/g' ~/caffe/Makefile.config && \
             sed -i 's/-gencode arch=compute_20,code=sm_20//g' ~/caffe/Makefile.config && \
             sed -i 's/-gencode arch=compute_20,code=sm_21//g' ~/caffe/Makefile.config && \
