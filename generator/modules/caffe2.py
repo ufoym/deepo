@@ -16,7 +16,6 @@ class Caffe2(Module):
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 libprotobuf-dev \
                 protobuf-compiler \
-                openmpi-bin \
                 && \
 
             $PIP_INSTALL \
@@ -37,14 +36,12 @@ class Caffe2(Module):
             cmake -D CMAKE_BUILD_TYPE=RELEASE \
                   -D CMAKE_INSTALL_PREFIX=/usr/local \
                   -D USE_CUDA=%s \
-                  -D USE_MPI=%s \
+                  -D USE_MPI=OFF \
                   .. && \
             make -j"$(nproc)" install && \
             %s
         ''' % (
             switcher,
-            switcher,
-
             '' if pyver == '2.7' else (r'''
             mv /usr/local/lib/python3/dist-packages/caffe2 \
                 /usr/local/lib/python%s/dist-packages && \
