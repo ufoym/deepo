@@ -29,7 +29,7 @@ class Python(Module):
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 software-properties-common \
                 && \
-            add-apt-repository ppa:jonathonf/python-3.6 && \
+            add-apt-repository ppa:deadsnakes/ppa && \
             apt-get update && \
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 python3.6 \
