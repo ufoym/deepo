@@ -2,7 +2,7 @@
 # module list
 # ------------------------------------------------------------------
 # python        3.6    (apt)
-# cntk          2.5.1  (pip)
+# cntk          latest (pip)
 # ==================================================================
 
 FROM ubuntu:16.04
@@ -71,7 +71,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     $PIP_INSTALL \
-        https://cntk.ai/PythonWheel/CPU-Only/cntk-2.5.1-cp36-cp36m-linux_x86_64.whl \
+        cntk \
         && \
 
 # ==================================================================

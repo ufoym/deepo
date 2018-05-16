@@ -4,7 +4,7 @@
 # python        2.7    (apt)
 # torch         latest (git)
 # chainer       latest (pip)
-# cntk          2.5.1  (pip)
+# cntk          latest (pip)
 # jupyter       latest (pip)
 # mxnet         latest (pip)
 # pytorch       0.4.0  (pip)
@@ -127,7 +127,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     $PIP_INSTALL \
-        https://cntk.ai/PythonWheel/CPU-Only/cntk-2.5.1-cp27-cp27mu-linux_x86_64.whl \
+        cntk \
         && \
 
 # ==================================================================
@@ -270,6 +270,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         libprotobuf-dev \
         protobuf-compiler \
+        openmpi-bin \
         && \
 
     $PIP_INSTALL \

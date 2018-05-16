@@ -16,6 +16,7 @@ class Caffe2(Module):
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 libprotobuf-dev \
                 protobuf-compiler \
+                openmpi-bin \
                 && \
 
             $PIP_INSTALL \

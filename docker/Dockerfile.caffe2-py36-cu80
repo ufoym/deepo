@@ -105,6 +105,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         libprotobuf-dev \
         protobuf-compiler \
+        openmpi-bin \
         && \
 
     $PIP_INSTALL \

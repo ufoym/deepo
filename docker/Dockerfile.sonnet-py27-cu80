@@ -56,7 +56,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        tensorflow-gpu \
+        tensorflow-gpu==1.4 \
         && \
 
 # ==================================================================

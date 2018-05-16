@@ -5,7 +5,6 @@ from .python import Python
 
 @dependency(Python)
 @source('pip')
-@version('2.5.1')
 class Cntk(Module):
 
     def build(self):
@@ -21,10 +20,6 @@ class Cntk(Module):
                 && \
 
             $PIP_INSTALL \
-                https://cntk.ai/PythonWheel/%s/cntk%s-%s-%s-linux_x86_64.whl \
+                cntk%s \
                 && \
-        ''' % (
-            'CPU-Only' if self.composer.cuda_ver is None else 'GPU',
-            '' if self.composer.cuda_ver is None else '_gpu',
-            self.version,
-            platform)
+        ''' % ('' if self.composer.cuda_ver is None else '-gpu')
