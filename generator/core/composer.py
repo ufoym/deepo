@@ -5,13 +5,14 @@ import functools
 
 class Composer(object):
 
-    def __init__(self, modules, cuda_ver, versions={}):
+    def __init__(self, modules, cuda_ver, cudnn_ver, versions={}):
         if len(modules) == 0:
             raise ValueError('Modules should contain at least one module')
         pending = self._traverse(modules)
         self.modules = [m for m in self._toposort(pending)]
         self.instances = self._get_instances(versions)
         self.cuda_ver = cuda_ver
+        self.cudnn_ver = cudnn_ver
 
     def get(self):
         return self.modules
@@ -48,8 +49,8 @@ class Composer(object):
 
                 apt-get update && \
             ''' % ('ubuntu:%s' % ubuntu_ver if self.cuda_ver is None
-                   else 'nvidia/cuda:%s-cudnn7-devel-ubuntu%s' % (
-                    self.cuda_ver, ubuntu_ver)),
+                   else 'nvidia/cuda:%s-cudnn%s-devel-ubuntu%s' % (
+                    self.cuda_ver, self.cudnn_ver, ubuntu_ver)),
             '\n',
             '\n'.join([
                 ''.join([
