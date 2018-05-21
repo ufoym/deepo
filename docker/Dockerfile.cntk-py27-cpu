@@ -2,7 +2,7 @@
 # module list
 # ------------------------------------------------------------------
 # python        2.7    (apt)
-# cntk          2.5.1  (pip)
+# cntk          latest (pip)
 # ==================================================================
 
 FROM ubuntu:16.04
@@ -62,7 +62,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     $PIP_INSTALL \
-        https://cntk.ai/PythonWheel/CPU-Only/cntk-2.5.1-cp27-cp27mu-linux_x86_64.whl \
+        cntk \
         && \
 
 # ==================================================================

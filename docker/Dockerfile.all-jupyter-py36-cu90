@@ -4,7 +4,7 @@
 # python        3.6    (apt)
 # torch         latest (git)
 # chainer       latest (pip)
-# cntk          2.5.1  (pip)
+# cntk          latest (pip)
 # jupyter       latest (pip)
 # mxnet         latest (pip)
 # pytorch       0.4.0  (pip)
@@ -138,7 +138,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     $PIP_INSTALL \
-        https://cntk.ai/PythonWheel/GPU/cntk_gpu-2.5.1-cp36-cp36m-linux_x86_64.whl \
+        cntk-gpu \
         && \
 
 # ==================================================================
@@ -323,7 +323,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     cmake -D CMAKE_BUILD_TYPE=RELEASE \
           -D CMAKE_INSTALL_PREFIX=/usr/local \
           -D USE_CUDA=ON \
-          -D USE_MPI=ON \
+          -D USE_MPI=OFF \
           .. && \
     make -j"$(nproc)" install && \
     mv /usr/local/lib/python3/dist-packages/caffe2 \
