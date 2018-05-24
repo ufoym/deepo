@@ -1,0 +1,141 @@
+# ==================================================================
+# module list
+# ------------------------------------------------------------------
+# python        3.6    (apt)
+# tensorflow    latest (source)
+# ==================================================================
+FROM nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
+
+LABEL maintainer="Achal Shah <achalshah20@gmail.com>"
+
+RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
+    PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
+    GIT_CLONE="git clone --depth 10" && \
+    rm -rf /var/lib/apt/lists/* \
+           /etc/apt/sources.list.d/cuda.list \
+           /etc/apt/sources.list.d/nvidia-ml.list && \
+
+    apt-get update && \
+
+# ==================================================================
+# tools
+# ------------------------------------------------------------------
+
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        build-essential \
+        ca-certificates \
+        cmake \
+        wget \
+        git \
+        vim \
+        && \
+
+# ==================================================================
+# python
+# ------------------------------------------------------------------
+
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        software-properties-common \
+        && \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        python3.6 \
+        python3.6-dev \
+        python3.6-distutils \
+        && \
+    wget -O ~/get-pip.py \
+        https://bootstrap.pypa.io/get-pip.py && \
+    python3.6 ~/get-pip.py && \
+    ln -s /usr/bin/python3.6 /usr/local/bin/python3 && \
+    ln -s /usr/bin/python3.6 /usr/local/bin/python && \
+    $PIP_INSTALL \
+        setuptools \
+        && \
+    $PIP_INSTALL \
+        numpy \
+        scipy \
+        pandas \
+        scikit-learn \
+        matplotlib \
+        Cython
+
+# ==================================================================
+# Bazel
+# ------------------------------------------------------------------
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+        pkg-config \
+        zip \
+        g++ \
+        zlib1g-dev \
+        unzip
+
+
+ENV BAZEL_VERSION 0.12.0
+WORKDIR /
+RUN mkdir /bazel && \
+    cd /bazel && \
+    wget https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
+    chmod +x bazel-*.sh && \
+    ./bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
+    cd / && \
+    rm -f /bazel/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh
+
+# ==================================================================
+# Tensorflow
+# ------------------------------------------------------------------
+
+WORKDIR /tensorflow
+RUN git clone https://github.com/tensorflow/tensorflow.git .
+
+# Environment vars taken from https://github.com/FloopCZ/tensorflow_cc/blob/master/tensorflow_cc/cmake/build_tensorflow.sh
+# Configure the build for our CUDA configuration.
+ENV TF_NEED_GCP 0
+ENV TF_NEED_HDFS 0
+ENV TF_NEED_OPENCL 0
+ENV TF_NEED_OPENCL_SYCL 0
+ENV TF_NEED_TENSORRT 0
+ENV TF_NEED_JEMALLOC 1
+ENV TF_NEED_VERBS 0
+ENV TF_NEED_MKL 1
+ENV TF_DOWNLOAD_MKL 1
+ENV TF_NEED_MPI 0
+ENV TF_ENABLE_XLA 1
+ENV TF_NEED_S3 0
+ENV TF_NEED_GDR 0
+ENV TF_CUDA_CLANG 0
+ENV TF_SET_ANDROID_WORKSPACE 0
+ENV TF_NEED_KAFKA 0
+ENV TF_DOWNLOAD_CLANG 0
+ENV TF_NCCL_VERSION 1.3
+ENV PYTHON_BIN_PATH /usr/bin/python3
+ENV PYTHON_LIB_PATH /usr/local/lib/python3.6/dist-packages
+ENV CUDA_TOOLKIT_PATH /usr/local/cuda
+ENV CUDNN_INSTALL_PATH /usr
+ENV TF_NEED_CUDA 1
+ENV TF_CUDA_COMPUTE_CAPABILITIES "3.5,5.2,6.1,6.2"
+ENV TF_CUDA_VERSION 9.2
+ENV TF_CUDNN_VERSION 7.1.4
+ENV GCC_HOST_COMPILER_PATH /usr/bin/gcc
+ENV TF_CUDA_CLANG 0
+
+RUN ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1 && \
+    LD_LIBRARY_PATH=/usr/local/cuda/lib64/stubs:${LD_LIBRARY_PATH} && \
+    bazel build -c opt --copt=-mavx --config=cuda \
+    --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" \
+        tensorflow/tools/pip_package:build_pip_package && \
+    rm /usr/local/cuda/lib64/stubs/libcuda.so.1 && \
+    bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/pip && \
+    pip --no-cache-dir install --upgrade /tmp/pip/tensorflow-*.whl
+
+# ==================================================================
+# config & cleanup
+# ------------------------------------------------------------------
+
+RUN rm -rf /tmp/pip && \
+    rm -rf /root/.cache \
+    apt-get clean && \
+    apt-get autoremove && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/*
+
+EXPOSE 6006
