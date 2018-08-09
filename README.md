@@ -275,7 +275,7 @@ This may take several minutes as it compiles a few libraries from scratch.
 
 .                                                  | CUDA 9.0 / Python 3.6                                    | CUDA 9.0 / Python 2.7                    | CPU-only / Python 3.6                       | CPU-only / Python 2.7
 :------------------------------------------------: | :------------------------------------------------------: | :--------------------------------:       | :-----------------------------------------: | :----------------------------------------:
- all-in-one                                        | `latest` `all` `all-py36` `py36-cu90` `all-py36-cu90`    | `all-py27-cu90` `all-py27` `py27`        | `all-py36-cpu` `all-cpu` `py36-cpu` `cpu`   | `all-py27-cpu` `py27-cpu`
+ all-in-one                                        | `latest` `all` `all-py36` `py36-cu90` `all-py36-cu90`    | `all-py27-cu90` `all-py27` `py27-cu90`        | `all-py36-cpu` `all-cpu` `py36-cpu` `cpu`   | `all-py27-cpu` `py27-cpu`
  all-in-one with jupyter                           | `all-jupyter-py36-cu90` `all-jupyter-py36` `all-jupyter` | `all-py27-jupyter` `py27-jupyter`        | `all-py36-jupyter-cpu` `py36-jupyter-cpu`   | `all-py27-jupyter-cpu` `py27-jupyter-cpu`
  [theano](http://deeplearning.net/software/theano) | `theano-py36-cu90` `theano-py36` `theano`                | `theano-py27-cu90` `theano-py27`         | `theano-py36-cpu` `theano-cpu`              | `theano-py27-cpu`
  [tensorflow](http://www.tensorflow.org)           | `tensorflow-py36-cu90` `tensorflow-py36` `tensorflow`    | `tensorflow-py27-cu90` `tensorflow-py27` | `tensorflow-py36-cpu` `tensorflow-cpu`      | `tensorflow-py27-cpu`
