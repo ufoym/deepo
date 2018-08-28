@@ -19,10 +19,10 @@ python ../generator/generate.py ../docker/Dockerfile.caffe-py36-cpu caffe python
 python ../generator/generate.py ../docker/Dockerfile.caffe2-py27-cpu caffe2 python==2.7
 python ../generator/generate.py ../docker/Dockerfile.caffe2-py36-cpu caffe2 python==3.6
 python ../generator/generate.py ../docker/Dockerfile.torch-cpu torch
-python ../generator/generate.py ../docker/Dockerfile.all-py27-cpu tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe caffe2 torch python==2.7
-python ../generator/generate.py ../docker/Dockerfile.all-py36-cpu tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe caffe2 torch python==3.6
-python ../generator/generate.py ../docker/Dockerfile.all-jupyter-py27-cpu tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe caffe2 torch python==2.7 jupyter
-python ../generator/generate.py ../docker/Dockerfile.all-jupyter-py36-cpu tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe caffe2 torch python==3.6 jupyter
+python ../generator/generate.py ../docker/Dockerfile.all-py27-cpu tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe caffe2 torch python==2.7 onnx
+python ../generator/generate.py ../docker/Dockerfile.all-py36-cpu tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe caffe2 torch python==3.6 onnx
+python ../generator/generate.py ../docker/Dockerfile.all-jupyter-py27-cpu tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe caffe2 torch python==2.7 onnx jupyter
+python ../generator/generate.py ../docker/Dockerfile.all-jupyter-py36-cpu tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe caffe2 torch python==3.6 onnx jupyter
 python ../generator/generate.py ../docker/Dockerfile.tensorflow-py27-cu90 tensorflow python==2.7 --cuda-ver 9.0 --cudnn-ver 7
 python ../generator/generate.py ../docker/Dockerfile.tensorflow-py36-cu90 tensorflow python==3.6 --cuda-ver 9.0 --cudnn-ver 7
 python ../generator/generate.py ../docker/Dockerfile.sonnet-py27-cu90 sonnet python==2.7 --cuda-ver 9.0 --cudnn-ver 7
@@ -46,7 +46,7 @@ python ../generator/generate.py ../docker/Dockerfile.caffe-py36-cu90 caffe pytho
 python ../generator/generate.py ../docker/Dockerfile.caffe2-py27-cu90 caffe2 python==2.7 --cuda-ver 9.0 --cudnn-ver 7
 python ../generator/generate.py ../docker/Dockerfile.caffe2-py36-cu90 caffe2 python==3.6 --cuda-ver 9.0 --cudnn-ver 7
 python ../generator/generate.py ../docker/Dockerfile.torch-cu90 torch --cuda-ver 9.0 --cudnn-ver 7
-python ../generator/generate.py ../docker/Dockerfile.all-py27-cu90 tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe caffe2 torch python==2.7 --cuda-ver 9.0 --cudnn-ver 7
-python ../generator/generate.py ../docker/Dockerfile.all-py36-cu90 tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe caffe2 torch python==3.6 --cuda-ver 9.0 --cudnn-ver 7
-python ../generator/generate.py ../docker/Dockerfile.all-jupyter-py27-cu90 tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe caffe2 torch python==2.7 jupyter --cuda-ver 9.0 --cudnn-ver 7
-python ../generator/generate.py ../docker/Dockerfile.all-jupyter-py36-cu90 tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe caffe2 torch python==3.6 jupyter --cuda-ver 9.0 --cudnn-ver 7
+python ../generator/generate.py ../docker/Dockerfile.all-py27-cu90 tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe caffe2 torch python==2.7 onnx --cuda-ver 9.0 --cudnn-ver 7
+python ../generator/generate.py ../docker/Dockerfile.all-py36-cu90 tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe caffe2 torch python==3.6 onnx --cuda-ver 9.0 --cudnn-ver 7
+python ../generator/generate.py ../docker/Dockerfile.all-jupyter-py27-cu90 tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe caffe2 torch python==2.7 onnx jupyter --cuda-ver 9.0 --cudnn-ver 7
+python ../generator/generate.py ../docker/Dockerfile.all-jupyter-py36-cu90 tensorflow sonnet mxnet cntk keras pytorch chainer theano lasagne caffe caffe2 torch python==3.6 onnx jupyter --cuda-ver 9.0 --cudnn-ver 7

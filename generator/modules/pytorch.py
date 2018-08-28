@@ -5,7 +5,7 @@ from .python import Python
 
 @dependency(Python)
 @source('pip')
-@version('0.4.0')
+@version('0.4.1')
 class Pytorch(Module):
 
     def build(self):
