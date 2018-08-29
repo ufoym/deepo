@@ -250,6 +250,7 @@ This may take several minutes as it compiles a few libraries from scratch.
  [ubuntu](https://www.ubuntu.com)                  | 16.04                | 14.04              | 14.04                | 16.04
  [cuda](https://developer.nvidia.com/cuda-zone)    | :x:                  | 8.0                | 6.5-8.0              | 8.0/9.0/None
  [cudnn](https://developer.nvidia.com/cudnn)       | :x:                  | v5                 | v2-5                 | v7
+ [onnx](https://onnx.ai)                           | :x:                  | :x:                | :x:                  | :heavy_check_mark:
  [theano](http://deeplearning.net/software/theano) | :x:                  | :heavy_check_mark: | :heavy_check_mark:   | :heavy_check_mark:
  [tensorflow](http://www.tensorflow.org)           | :heavy_check_mark:   | :heavy_check_mark: | :heavy_check_mark:   | :heavy_check_mark:
  [sonnet](https://github.com/deepmind/sonnet)      | :x:                  | :x:                | :x:                  | :heavy_check_mark:
