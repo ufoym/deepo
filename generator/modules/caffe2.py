@@ -22,13 +22,16 @@ class Caffe2(Module):
                 future \
                 numpy \
                 protobuf \
+                enum34 \
+                pyyaml \
+                typing \
                 && \
 
             $GIT_CLONE https://github.com/pytorch/pytorch.git \
                 ~/caffe2 --recursive && \
+            cd ~/caffe2 && \
             git submodule update --init && \
 
-            cd ~/caffe2 && \
             sed -i "s/prefix=''/prefix='', standard_lib=True) \
                 + '\/dist-packages'/g" CMakeLists.txt && \
 
