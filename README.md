@@ -217,7 +217,6 @@ nvidia-docker run -it -p 8888:8888 --ipc=host ufoym/deepo:all-jupyter-py36 jupyt
 ```bash
 git clone https://github.com/ufoym/deepo.git
 cd deepo/generator
-pip install -r requirements.txt
 ```
 
 #### Step 2. generate your customized Dockerfile
