@@ -13,12 +13,7 @@ class Caffe(Module):
     def build(self):
         pyver = self.composer.ver(Python)
         cpu_only = self.composer.cuda_ver is None
-        return (
-            r'' if cpu_only else r'''
-            $GIT_CLONE https://github.com/NVIDIA/nccl ~/nccl && \
-            cd ~/nccl && \
-            make -j"$(nproc)" install && \
-        ''') + (r'''
+        return (r'''
             $GIT_CLONE https://github.com/BVLC/caffe ~/caffe && \
             cp ~/caffe/Makefile.config.example ~/caffe/Makefile.config && \
             sed -i 's/# %s/%s/g' ~/caffe/Makefile.config && \

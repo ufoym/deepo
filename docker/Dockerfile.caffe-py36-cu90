@@ -102,10 +102,6 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # caffe
 # ------------------------------------------------------------------
 
-    $GIT_CLONE https://github.com/NVIDIA/nccl ~/nccl && \
-    cd ~/nccl && \
-    make -j"$(nproc)" install && \
-
     $GIT_CLONE https://github.com/BVLC/caffe ~/caffe && \
     cp ~/caffe/Makefile.config.example ~/caffe/Makefile.config && \
     sed -i 's/# USE_CUDNN/USE_CUDNN/g' ~/caffe/Makefile.config && \
