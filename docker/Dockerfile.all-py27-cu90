@@ -7,7 +7,7 @@
 # cntk          latest (pip)
 # mxnet         latest (pip)
 # onnx          latest (pip)
-# pytorch       0.4.1  (pip)
+# pytorch       latest (pip)
 # tensorflow    latest (pip)
 # theano        1.0.1  (git)
 # keras         latest (pip)
@@ -162,8 +162,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        http://download.pytorch.org/whl/cu90/torch-0.4.1-cp27-cp27mu-linux_x86_64.whl \
-        torchvision \
+        torch_nightly -f \
+        https://download.pytorch.org/whl/nightly/cu90/torch_nightly.html \
         && \
 
 # ==================================================================

@@ -2,7 +2,7 @@
 # module list
 # ------------------------------------------------------------------
 # python        3.6    (apt)
-# pytorch       0.4.1  (pip)
+# pytorch       latest (pip)
 # ==================================================================
 
 FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
@@ -64,8 +64,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        http://download.pytorch.org/whl/cu90/torch-0.4.1-cp36-cp36m-linux_x86_64.whl \
-        torchvision \
+        torch_nightly -f \
+        https://download.pytorch.org/whl/nightly/cu90/torch_nightly.html \
         && \
 
 # ==================================================================
