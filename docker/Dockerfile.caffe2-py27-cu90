@@ -105,22 +105,10 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         typing \
         && \
 
-    $GIT_CLONE https://github.com/pytorch/pytorch.git \
-        ~/caffe2 --branch master --recursive && \
-    cd ~/caffe2 && mkdir build && cd build && \
-    cmake -D CMAKE_BUILD_TYPE=RELEASE \
-          -D CMAKE_INSTALL_PREFIX=/usr/local \
-          -D USE_CUDA=ON \
-          -D USE_MPI=OFF \
-          -D USE_NNPACK=OFF \
-          -D USE_ROCKSDB=OFF \
-          -D BUILD_TEST=OFF \
-          -D CUDA_ARCH_NAME=Manual \
-          -D CUDA_ARCH_BIN="35 52 60 61" \
-          -D CUDA_ARCH_PTX="61" \
-          .. && \
-    make -j"$(nproc)" install && \
 
+    wget -O ~/caffe2.tar.xz \
+        https://github.com/ufoym/prebuild/raw/caffe2/caffe2-master-cu90-cp27-cp27mu-linux_x86_64.tar.xz && \
+    tar -xvf ~/caffe2.tar.xz -C /usr/local/lib && \
 
 # ==================================================================
 # config & cleanup

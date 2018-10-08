@@ -300,6 +300,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         typing \
         && \
 
+
     $GIT_CLONE https://github.com/pytorch/pytorch.git \
         ~/caffe2 --branch master --recursive && \
     cd ~/caffe2 && mkdir build && cd build && \
@@ -310,13 +311,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
           -D USE_NNPACK=OFF \
           -D USE_ROCKSDB=OFF \
           -D BUILD_TEST=OFF \
-          -D CUDA_ARCH_NAME=Manual \
-          -D CUDA_ARCH_BIN="35 52 60 61" \
-          -D CUDA_ARCH_PTX="61" \
           .. && \
     make -j"$(nproc)" install && \
-    mv /usr/local/lib/python3/dist-packages/caffe2 \
-        /usr/local/lib/python3.6/dist-packages && \
 
 # ==================================================================
 # config & cleanup

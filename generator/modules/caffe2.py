@@ -10,8 +10,13 @@ from .opencv import Opencv
 class Caffe2(Module):
 
     def build(self):
-        pyver = self.composer.ver(Python)
         switcher = 'OFF' if self.composer.cuda_ver is None else 'ON'
+        pyver = self.composer.ver(Python)
+        platform = 'cp35-cp35m' if pyver == '3.5' else (
+            'cp36-cp36m' if pyver == '3.6' else 'cp27-cp27mu')
+        cuver = 'cpu' if self.composer.cuda_ver is None else 'cu%d' % (
+            float(self.composer.cuda_ver) * 10)
+
         return r'''
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 libprotobuf-dev \
@@ -27,6 +32,11 @@ class Caffe2(Module):
                 typing \
                 && \
 
+        ''' + (r'''
+            wget -O ~/caffe2.tar.xz \
+                https://github.com/ufoym/prebuild/raw/caffe2/caffe2-master-%s-%s-linux_x86_64.tar.xz && \
+            tar -xvf ~/caffe2.tar.xz -C /usr/local/lib && \
+        ''' % (cuver, platform) if cuver in ['cu90'] and platform in ['cp27-cp27mu', 'cp36-cp36m'] else r'''
             $GIT_CLONE https://github.com/pytorch/pytorch.git \
                 ~/caffe2 --branch master --recursive && \
             cd ~/caffe2 && mkdir build && cd build && \
@@ -37,16 +47,6 @@ class Caffe2(Module):
                   -D USE_NNPACK=OFF \
                   -D USE_ROCKSDB=OFF \
                   -D BUILD_TEST=OFF \
-                  -D CUDA_ARCH_NAME=Manual \
-                  -D CUDA_ARCH_BIN="35 52 60 61" \
-                  -D CUDA_ARCH_PTX="61" \
                   .. && \
             make -j"$(nproc)" install && \
-            %s
-        ''' % (
-            switcher,
-            '' if pyver == '2.7' else (r'''
-            mv /usr/local/lib/python3/dist-packages/caffe2 \
-                /usr/local/lib/python%s/dist-packages && \
-            ''' % pyver).strip()
-            )
+        ''' % switcher)
