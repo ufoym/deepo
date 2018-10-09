@@ -59,6 +59,7 @@ class Python(Module):
                 numpy \
                 scipy \
                 pandas \
+                cloudpickle \
                 scikit-learn \
                 matplotlib \
                 Cython \

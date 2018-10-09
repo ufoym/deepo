@@ -2,7 +2,7 @@
 # module list
 # ------------------------------------------------------------------
 # python        2.7    (apt)
-# theano        1.0.1  (git)
+# theano        latest (git)
 # lasagne       latest (git)
 # ==================================================================
 
@@ -46,6 +46,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         numpy \
         scipy \
         pandas \
+        cloudpickle \
         scikit-learn \
         matplotlib \
         Cython \
@@ -59,10 +60,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         libblas-dev \
         && \
 
-    wget -qO- https://github.com/Theano/Theano/archive/rel-1.0.1.tar.gz | tar xz -C ~ && \
-    cd ~/Theano* && \
     $PIP_INSTALL \
-        . && \
+        Theano \
+        && \
 
 # ==================================================================
 # lasagne

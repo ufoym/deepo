@@ -54,6 +54,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         numpy \
         scipy \
         pandas \
+        cloudpickle \
         scikit-learn \
         matplotlib \
         Cython \

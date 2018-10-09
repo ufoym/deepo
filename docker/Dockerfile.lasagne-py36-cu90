@@ -2,7 +2,7 @@
 # module list
 # ------------------------------------------------------------------
 # python        3.6    (apt)
-# theano        1.0.1  (git)
+# theano        latest (git)
 # lasagne       latest (git)
 # ==================================================================
 
@@ -55,6 +55,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         numpy \
         scipy \
         pandas \
+        cloudpickle \
         scikit-learn \
         matplotlib \
         Cython \
@@ -68,18 +69,17 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         libblas-dev \
         && \
 
-    wget -qO- https://github.com/Theano/Theano/archive/rel-1.0.1.tar.gz | tar xz -C ~ && \
-    cd ~/Theano* && \
     $PIP_INSTALL \
-        . && \
+        Theano \
+        && \
 
-    $GIT_CLONE https://github.com/Theano/libgpuarray ~/gpuarray && \
-    mkdir -p ~/gpuarray/build && cd ~/gpuarray/build && \
+    wget -qO- https://github.com/Theano/libgpuarray/archive/v0.7.6.tar.gz | tar xz -C ~ && \
+    cd ~/libgpuarray* && mkdir -p build && cd build && \
     cmake -D CMAKE_BUILD_TYPE=RELEASE \
           -D CMAKE_INSTALL_PREFIX=/usr/local \
           .. && \
     make -j"$(nproc)" install && \
-    cd ~/gpuarray && \
+    cd ~/libgpuarray* && \
     python setup.py build && \
     python setup.py install && \
 

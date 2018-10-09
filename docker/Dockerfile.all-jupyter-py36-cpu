@@ -10,7 +10,7 @@
 # onnx          latest (pip)
 # pytorch       latest (pip)
 # tensorflow    latest (pip)
-# theano        1.0.1  (git)
+# theano        latest (git)
 # keras         latest (pip)
 # lasagne       latest (git)
 # opencv        3.4.1  (git)
@@ -68,6 +68,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         numpy \
         scipy \
         pandas \
+        cloudpickle \
         scikit-learn \
         matplotlib \
         Cython \
@@ -138,6 +139,18 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         libjasper-dev \
         && \
 
+    wget -O ~/mklml.tgz \
+        https://github.com/01org/mkl-dnn/releases/download/v0.14/mklml_lnx_2018.0.3.20180406.tgz && \
+    mkdir /usr/local/mklml && \
+    tar -xzf ~/mklml.tgz -C /usr/local/mklml && \
+    wget --no-verbose -O - https://github.com/01org/mkl-dnn/archive/v0.14.tar.gz | tar -xzf - && \
+    cd mkl-dnn-0.14 && mkdir build && cd build && \
+    ln -s /usr/local external && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+          -D CMAKE_INSTALL_PREFIX=/usr/local \
+          .. && \
+    make -j"$(nproc)" install && \
+
     $PIP_INSTALL \
         cntk \
         && \
@@ -202,10 +215,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         libblas-dev \
         && \
 
-    wget -qO- https://github.com/Theano/Theano/archive/rel-1.0.1.tar.gz | tar xz -C ~ && \
-    cd ~/Theano* && \
     $PIP_INSTALL \
-        . && \
+        Theano \
+        && \
 
 # ==================================================================
 # keras

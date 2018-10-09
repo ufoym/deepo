@@ -6,7 +6,6 @@ from .python import Python
 
 @dependency(Tools, Python)
 @source('git')
-@version('1.0.1')
 class Theano(Module):
 
     def build(self):
@@ -15,20 +14,18 @@ class Theano(Module):
                 libblas-dev \
                 && \
 
-            wget -qO- https://github.com/Theano/Theano/archive/rel-%s.tar.gz''' \
-            % self.version + r''' | tar xz -C ~ && \
-            cd ~/Theano* && \
             $PIP_INSTALL \
-                . && \
+                Theano \
+                && \
         ''' + (
             '' if self.composer.cuda_ver is None else r'''
-            $GIT_CLONE https://github.com/Theano/libgpuarray ~/gpuarray && \
-            mkdir -p ~/gpuarray/build && cd ~/gpuarray/build && \
+            wget -qO- https://github.com/Theano/libgpuarray/archive/v0.7.6.tar.gz | tar xz -C ~ && \
+            cd ~/libgpuarray* && mkdir -p build && cd build && \
             cmake -D CMAKE_BUILD_TYPE=RELEASE \
                   -D CMAKE_INSTALL_PREFIX=/usr/local \
                   .. && \
             make -j"$(nproc)" install && \
-            cd ~/gpuarray && \
+            cd ~/libgpuarray* && \
             python setup.py build && \
             python setup.py install && \
 
