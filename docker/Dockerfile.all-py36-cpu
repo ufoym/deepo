@@ -12,7 +12,7 @@
 # theano        latest (git)
 # keras         latest (pip)
 # lasagne       latest (git)
-# opencv        3.4.1  (git)
+# opencv        3.4.3  (git)
 # sonnet        latest (pip)
 # caffe         latest (git)
 # caffe2        latest (git)
@@ -244,7 +244,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         protobuf-compiler \
         && \
 
-    $GIT_CLONE --branch 3.4.1 https://github.com/opencv/opencv ~/opencv && \
+    $GIT_CLONE --branch 3.4.3 https://github.com/opencv/opencv ~/opencv && \
     mkdir -p ~/opencv/build && cd ~/opencv/build && \
     cmake -D CMAKE_BUILD_TYPE=RELEASE \
           -D CMAKE_INSTALL_PREFIX=/usr/local \
