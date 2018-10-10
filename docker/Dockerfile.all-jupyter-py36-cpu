@@ -4,7 +4,6 @@
 # python        3.6    (apt)
 # torch         latest (git)
 # chainer       latest (pip)
-# cntk          latest (pip)
 # jupyter       latest (pip)
 # mxnet         latest (pip)
 # onnx          latest (pip)
@@ -17,6 +16,7 @@
 # sonnet        latest (pip)
 # caffe         latest (git)
 # caffe2        latest (git)
+# cntk          latest (pip)
 # ==================================================================
 
 FROM ubuntu:16.04
@@ -129,33 +129,6 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
 # ==================================================================
-# cntk
-# ------------------------------------------------------------------
-
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        openmpi-bin \
-        libpng-dev \
-        libtiff-dev \
-        libjasper-dev \
-        && \
-
-    wget -O ~/mklml.tgz \
-        https://github.com/01org/mkl-dnn/releases/download/v0.14/mklml_lnx_2018.0.3.20180406.tgz && \
-    mkdir /usr/local/mklml && \
-    tar -xzf ~/mklml.tgz -C /usr/local/mklml && \
-    wget --no-verbose -O - https://github.com/01org/mkl-dnn/archive/v0.14.tar.gz | tar -xzf - && \
-    cd mkl-dnn-0.14 && mkdir build && cd build && \
-    ln -s /usr/local external && \
-    cmake -D CMAKE_BUILD_TYPE=RELEASE \
-          -D CMAKE_INSTALL_PREFIX=/usr/local \
-          .. && \
-    make -j"$(nproc)" install && \
-
-    $PIP_INSTALL \
-        cntk \
-        && \
-
-# ==================================================================
 # jupyter
 # ------------------------------------------------------------------
 
@@ -216,7 +189,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     $PIP_INSTALL \
-        Theano \
+        https://github.com/Theano/Theano/archive/master.zip \
         && \
 
 # ==================================================================
@@ -334,6 +307,33 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
           -D BUILD_TEST=OFF \
           .. && \
     make -j"$(nproc)" install && \
+
+# ==================================================================
+# cntk
+# ------------------------------------------------------------------
+
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        openmpi-bin \
+        libpng-dev \
+        libtiff-dev \
+        libjasper-dev \
+        && \
+
+    wget -O ~/mklml.tgz \
+        https://github.com/01org/mkl-dnn/releases/download/v0.14/mklml_lnx_2018.0.3.20180406.tgz && \
+    mkdir /usr/local/mklml && \
+    tar -xzf ~/mklml.tgz -C /usr/local/mklml && \
+    wget --no-verbose -O - https://github.com/01org/mkl-dnn/archive/v0.14.tar.gz | tar -xzf - && \
+    cd mkl-dnn-0.14 && mkdir build && cd build && \
+    ln -s /usr/local external && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+          -D CMAKE_INSTALL_PREFIX=/usr/local \
+          .. && \
+    make -j"$(nproc)" install && \
+
+    $PIP_INSTALL \
+        cntk \
+        && \
 
 # ==================================================================
 # config & cleanup

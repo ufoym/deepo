@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from .__module__ import Module, dependency, source, version
 from .python import Python
+from .opencv import Opencv
 
 
-@dependency(Python)
+@dependency(Python, Opencv)
 @source('pip')
 class Cntk(Module):
 

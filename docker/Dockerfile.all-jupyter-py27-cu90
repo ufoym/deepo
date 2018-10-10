@@ -4,7 +4,6 @@
 # python        2.7    (apt)
 # torch         latest (git)
 # chainer       latest (pip)
-# cntk          latest (pip)
 # jupyter       latest (pip)
 # mxnet         latest (pip)
 # onnx          latest (pip)
@@ -17,6 +16,7 @@
 # sonnet        latest (pip)
 # caffe         latest (git)
 # caffe2        latest (git)
+# cntk          latest (pip)
 # ==================================================================
 
 FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
@@ -118,33 +118,6 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
 # ==================================================================
-# cntk
-# ------------------------------------------------------------------
-
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        openmpi-bin \
-        libpng-dev \
-        libtiff-dev \
-        libjasper-dev \
-        && \
-
-    wget -O ~/mklml.tgz \
-        https://github.com/01org/mkl-dnn/releases/download/v0.14/mklml_lnx_2018.0.3.20180406.tgz && \
-    mkdir /usr/local/mklml && \
-    tar -xzf ~/mklml.tgz -C /usr/local/mklml && \
-    wget --no-verbose -O - https://github.com/01org/mkl-dnn/archive/v0.14.tar.gz | tar -xzf - && \
-    cd mkl-dnn-0.14 && mkdir build && cd build && \
-    ln -s /usr/local external && \
-    cmake -D CMAKE_BUILD_TYPE=RELEASE \
-          -D CMAKE_INSTALL_PREFIX=/usr/local \
-          .. && \
-    make -j"$(nproc)" install && \
-
-    $PIP_INSTALL \
-        cntk-gpu \
-        && \
-
-# ==================================================================
 # jupyter
 # ------------------------------------------------------------------
 
@@ -204,10 +177,6 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         libblas-dev \
         && \
 
-    $PIP_INSTALL \
-        Theano \
-        && \
-
     wget -qO- https://github.com/Theano/libgpuarray/archive/v0.7.6.tar.gz | tar xz -C ~ && \
     cd ~/libgpuarray* && mkdir -p build && cd build && \
     cmake -D CMAKE_BUILD_TYPE=RELEASE \
@@ -219,6 +188,10 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     python setup.py install && \
 
     printf '[global]\nfloatX = float32\ndevice = cuda0\n\n[dnn]\ninclude_path = /usr/local/cuda/targets/x86_64-linux/include\n' > ~/.theanorc && \
+
+    $PIP_INSTALL \
+        https://github.com/Theano/Theano/archive/master.zip \
+        && \
 
 # ==================================================================
 # keras
@@ -326,6 +299,33 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     wget -O ~/caffe2.tar.xz \
         https://github.com/ufoym/prebuild/raw/caffe2/caffe2-master-cu90-cp27-cp27mu-linux_x86_64.tar.xz && \
     tar -xvf ~/caffe2.tar.xz -C /usr/local/lib && \
+
+# ==================================================================
+# cntk
+# ------------------------------------------------------------------
+
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        openmpi-bin \
+        libpng-dev \
+        libtiff-dev \
+        libjasper-dev \
+        && \
+
+    wget -O ~/mklml.tgz \
+        https://github.com/01org/mkl-dnn/releases/download/v0.14/mklml_lnx_2018.0.3.20180406.tgz && \
+    mkdir /usr/local/mklml && \
+    tar -xzf ~/mklml.tgz -C /usr/local/mklml && \
+    wget --no-verbose -O - https://github.com/01org/mkl-dnn/archive/v0.14.tar.gz | tar -xzf - && \
+    cd mkl-dnn-0.14 && mkdir build && cd build && \
+    ln -s /usr/local external && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+          -D CMAKE_INSTALL_PREFIX=/usr/local \
+          .. && \
+    make -j"$(nproc)" install && \
+
+    $PIP_INSTALL \
+        cntk-gpu \
+        && \
 
 # ==================================================================
 # config & cleanup

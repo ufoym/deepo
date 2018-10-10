@@ -69,10 +69,6 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         libblas-dev \
         && \
 
-    $PIP_INSTALL \
-        Theano \
-        && \
-
     wget -qO- https://github.com/Theano/libgpuarray/archive/v0.7.6.tar.gz | tar xz -C ~ && \
     cd ~/libgpuarray* && mkdir -p build && cd build && \
     cmake -D CMAKE_BUILD_TYPE=RELEASE \
@@ -84,6 +80,10 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     python setup.py install && \
 
     printf '[global]\nfloatX = float32\ndevice = cuda0\n\n[dnn]\ninclude_path = /usr/local/cuda/targets/x86_64-linux/include\n' > ~/.theanorc && \
+
+    $PIP_INSTALL \
+        https://github.com/Theano/Theano/archive/master.zip \
+        && \
 
 # ==================================================================
 # lasagne
