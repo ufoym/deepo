@@ -15,14 +15,12 @@ candidate_modules = [
     'caffe',
     'caffe2',
     'torch',
+    'darknet',
 ]
 
 non_python_modules = [
     'torch',
-]
-
-non_cpu_only_modules = [
-    'pytorch',
+    'darknet',
 ]
 
 pyvers = [
@@ -47,9 +45,7 @@ def generate(f, cuda_ver=None, cudnn_ver=None):
 
         # single module
         for module in candidate_modules:
-            if module in non_cpu_only_modules and cuda_ver is None:
-                continue
-            elif module in non_python_modules:
+            if module in non_python_modules:
                 modules = [module]
                 f.write(get_command(modules, module, cuda_ver, cudnn_ver))
             else:

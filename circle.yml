@@ -65,6 +65,15 @@ jobs:
             - run: docker push $DOCKER_REPO:sonnet-py36-cpu            
             - run: docker push $DOCKER_REPO:sonnet-cpu
     
+    "darknet-cu90_darknet":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:darknet-cu90 -t $DOCKER_REPO:darknet -f docker/Dockerfile.darknet-cu90 .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:darknet-cu90            
+            - run: docker push $DOCKER_REPO:darknet
+    
     "all-py27-cpu_py27-cpu":
         machine: true
         steps:
@@ -120,6 +129,14 @@ jobs:
             - run: docker push $DOCKER_REPO:caffe-py36-cu90            
             - run: docker push $DOCKER_REPO:caffe-py36            
             - run: docker push $DOCKER_REPO:caffe
+    
+    "darknet-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:darknet-cpu -f docker/Dockerfile.darknet-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:darknet-cpu
     
     "mxnet-py27-cpu":
         machine: true
@@ -438,6 +455,15 @@ jobs:
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:caffe-py27-cpu
     
+    "pytorch-py36-cpu_pytorch-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:pytorch-py36-cpu -t $DOCKER_REPO:pytorch-cpu -f docker/Dockerfile.pytorch-py36-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:pytorch-py36-cpu            
+            - run: docker push $DOCKER_REPO:pytorch-cpu
+    
     "mxnet-py27-cu90_mxnet-py27":
         machine: true
         steps:
@@ -465,6 +491,14 @@ jobs:
             - run: docker push $DOCKER_REPO:sonnet-py27-cu90            
             - run: docker push $DOCKER_REPO:sonnet-py27
     
+    "pytorch-py27-cpu":
+        machine: true
+        steps:
+            - checkout
+            - run: docker build -t $DOCKER_REPO:pytorch-py27-cpu -f docker/Dockerfile.pytorch-py27-cpu .
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:pytorch-py27-cpu
+    
     "caffe2-py36-cu90_caffe2-py36_caffe2":
         machine: true
         steps:
@@ -486,12 +520,14 @@ workflows:
             - "tensorflow-py36-cpu_tensorflow-cpu"
             - "cntk-py36-cu90_cntk-py36_cntk"
             - "sonnet-py36-cpu_sonnet-cpu"
+            - "darknet-cu90_darknet"
             - "all-py27-cpu_py27-cpu"
             - "tensorflow-py27-cpu"
             - "keras-py36-cu90_keras-py36_keras"
             - "sonnet-py27-cpu"
             - "all-py36-cpu_all-cpu_py36-cpu_cpu"
             - "caffe-py36-cu90_caffe-py36_caffe"
+            - "darknet-cpu"
             - "mxnet-py27-cpu"
             - "lasagne-py36-cpu_lasagne-cpu"
             - "caffe-py27-cu90_caffe-py27"
@@ -527,7 +563,9 @@ workflows:
             - "tensorflow-py36-cu90_tensorflow-py36_tensorflow"
             - "theano-py27-cu90_theano-py27"
             - "caffe-py27-cpu"
+            - "pytorch-py36-cpu_pytorch-cpu"
             - "mxnet-py27-cu90_mxnet-py27"
             - "caffe-py36-cpu_caffe-cpu"
             - "sonnet-py27-cu90_sonnet-py27"
+            - "pytorch-py27-cpu"
             - "caffe2-py36-cu90_caffe2-py36_caffe2"
