@@ -209,7 +209,7 @@ Note that the tag could be either of `all-py36-jupyter`, `py36-jupyter`, `all-py
 
 #### Step 2. run the image
 ```bash
-nvidia-docker run -it -p 8888:8888 --ipc=host ufoym/deepo:all-jupyter-py36 jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token= --notebook-dir='/root'
+nvidia-docker run -it -p 8888:8888 --ipc=host ufoym/deepo:all-py36-jupyter jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token= --notebook-dir='/root'
 ```
 
 
