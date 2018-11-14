@@ -15,4 +15,7 @@ class Pytorch(Module):
                 torch_nightly -f \
                 https://download.pytorch.org/whl/nightly/%s/torch_nightly.html \
                 && \
+            $PIP_INSTALL \
+                torchvision_nightly \
+                && \
         ''' % cuver

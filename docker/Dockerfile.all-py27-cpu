@@ -166,6 +166,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         torch_nightly -f \
         https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html \
         && \
+    $PIP_INSTALL \
+        torchvision_nightly \
+        && \
 
 # ==================================================================
 # tensorflow
