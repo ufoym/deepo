@@ -51,6 +51,7 @@ class Caffe(Module):
             sed -i 's/\/usr\/local\/include/\/usr\/local\/include ''' \
         + r'''\/usr\/include\/hdf5\/serial/g' ~/caffe/Makefile.config && \
             sed -i 's/hdf5/hdf5_serial/g' ~/caffe/Makefile && \
+            sed -i 's/# Debugging/COMMON_FLAGS += -std=c++11\n# Debugging/g' ~/caffe/Makefile && \
             cd ~/caffe && \
             make -j"$(nproc)" -Wno-deprecated-gpu-targets distribute && \
 
