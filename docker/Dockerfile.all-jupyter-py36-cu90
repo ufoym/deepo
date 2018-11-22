@@ -123,6 +123,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     sed -i '/Restore anaconda/,/^Not updating$/d' install.sh && \
     sed -i '/You might want to/,/^fi$/d' install.sh && \
     yes no | ./install.sh && \
+    luarocks install image && \
+    luarocks install nn && \
 
 # ==================================================================
 # boost

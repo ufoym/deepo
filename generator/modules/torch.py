@@ -45,4 +45,6 @@ class Torch(Module):
             '''.rstrip() if self.composer.cuda_ver is None else ''
         ) + r'''
             yes no | ./install.sh && \
+            luarocks install image && \
+            luarocks install nn && \
         '''
