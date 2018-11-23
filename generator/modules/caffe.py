@@ -15,6 +15,9 @@ class Caffe(Module):
         cpu_only = self.composer.cuda_ver is None
         return (r'''
             $GIT_CLONE https://github.com/BVLC/caffe ~/caffe && \
+            sed -i 's/CV_LOAD_IMAGE_COLOR/cv::IMREAD_COLOR/g' ~/caffe/src/caffe/layers/window_data_layer.cpp && \
+            sed -i 's/CV_LOAD_IMAGE_COLOR/cv::IMREAD_COLOR/g' ~/caffe/src/caffe/util/io.cpp && \
+            sed -i 's/CV_LOAD_IMAGE_GRAYSCALE/cv::IMREAD_GRAYSCALE/g' ~/caffe/src/caffe/util/io.cpp && \
             cp ~/caffe/Makefile.config.example ~/caffe/Makefile.config && \
             sed -i 's/# %s/%s/g' ~/caffe/Makefile.config && \
         ''' % (
