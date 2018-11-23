@@ -60,7 +60,7 @@ class Python(Module):
                 scipy \
                 pandas \
                 cloudpickle \
-                scikit-learn \
+                scikit-learn==0.20.0 \
                 matplotlib \
                 Cython \
                 && \
