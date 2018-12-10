@@ -12,10 +12,11 @@ class Pytorch(Module):
             float(self.composer.cuda_ver) * 10)
         return r'''
             $PIP_INSTALL \
-                torch_nightly -f \
-                https://download.pytorch.org/whl/nightly/%s/torch_nightly.html \
+            	numpy \
+            	torchvision_nightly \
                 && \
             $PIP_INSTALL \
-                torchvision_nightly \
+                torch_nightly -f \
+                https://download.pytorch.org/whl/nightly/%s/torch_nightly.html \
                 && \
         ''' % cuver

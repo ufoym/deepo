@@ -165,11 +165,12 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        torch_nightly -f \
-        https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html \
+    	numpy \
+    	torchvision_nightly \
         && \
     $PIP_INSTALL \
-        torchvision_nightly \
+        torch_nightly -f \
+        https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html \
         && \
 
 # ==================================================================
