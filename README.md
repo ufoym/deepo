@@ -312,9 +312,3 @@ We appreciate all contributions. If you are planning to contribute back bug-fixe
 # Licensing
 
 Deepo is [MIT licensed](https://github.com/ufoym/deepo/blob/master/LICENSE).
-
-# Donation
-
-If you think deepo is useful and saves you a lot of work or makes you sleep better, then donating a small amount would be very cool:-)
-
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/ufoym)
