@@ -13,7 +13,6 @@ candidate_modules = [
     'theano',
     'lasagne',
     'caffe',
-    'caffe2',
     'torch',
     'darknet',
 ]

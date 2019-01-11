@@ -12,7 +12,12 @@ class Pytorch(Module):
             float(self.composer.cuda_ver) * 10)
         return r'''
             $PIP_INSTALL \
-            	numpy \
+                future \
+                numpy \
+                protobuf \
+                enum34 \
+                pyyaml \
+                typing \
             	torchvision_nightly \
                 && \
             $PIP_INSTALL \

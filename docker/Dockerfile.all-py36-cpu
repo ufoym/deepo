@@ -15,7 +15,6 @@
 # opencv        4.0.1  (git)
 # sonnet        latest (pip)
 # caffe         latest (git)
-# caffe2        latest (git)
 # cntk          latest (pip)
 # ==================================================================
 
@@ -176,7 +175,12 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-    	numpy \
+        future \
+        numpy \
+        protobuf \
+        enum34 \
+        pyyaml \
+        typing \
     	torchvision_nightly \
         && \
     $PIP_INSTALL \
@@ -292,38 +296,6 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     cd ~/caffe/distribute && \
     cp -r bin include lib proto /usr/local/ && \
     cp -r python/caffe /usr/local/lib/python3.6/dist-packages/ && \
-
-# ==================================================================
-# caffe2
-# ------------------------------------------------------------------
-
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        libprotobuf-dev \
-        protobuf-compiler \
-        && \
-
-    $PIP_INSTALL \
-        future \
-        numpy \
-        protobuf \
-        enum34 \
-        pyyaml \
-        typing \
-        && \
-
-
-    $GIT_CLONE https://github.com/pytorch/pytorch.git \
-        ~/caffe2 --branch master --recursive && \
-    cd ~/caffe2 && mkdir build && cd build && \
-    cmake -D CMAKE_BUILD_TYPE=RELEASE \
-          -D CMAKE_INSTALL_PREFIX=/usr/local \
-          -D USE_CUDA=OFF \
-          -D USE_MPI=OFF \
-          -D USE_NNPACK=OFF \
-          -D USE_ROCKSDB=OFF \
-          -D BUILD_TEST=OFF \
-          .. && \
-    make -j"$(nproc)" install && \
 
 # ==================================================================
 # cntk

@@ -188,15 +188,6 @@ jobs:
             - run: docker push $DOCKER_REPO:cntk-py36-cpu            
             - run: docker push $DOCKER_REPO:cntk-cpu
     
-    "caffe2-py36-cpu_caffe2-cpu":
-        machine: true
-        steps:
-            - checkout
-            - run: docker build -t $DOCKER_REPO:caffe2-py36-cpu -t $DOCKER_REPO:caffe2-cpu -f docker/Dockerfile.caffe2-py36-cpu .
-            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
-            - run: docker push $DOCKER_REPO:caffe2-py36-cpu            
-            - run: docker push $DOCKER_REPO:caffe2-cpu
-    
     "pytorch-py36-cu90_pytorch-py36_pytorch":
         machine: true
         steps:
@@ -275,16 +266,6 @@ jobs:
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:caffe-py36-cpu            
             - run: docker push $DOCKER_REPO:caffe-cpu
-    
-    "caffe2-py36-cu90_caffe2-py36_caffe2":
-        machine: true
-        steps:
-            - checkout
-            - run: docker build -t $DOCKER_REPO:caffe2-py36-cu90 -t $DOCKER_REPO:caffe2-py36 -t $DOCKER_REPO:caffe2 -f docker/Dockerfile.caffe2-py36-cu90 .
-            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
-            - run: docker push $DOCKER_REPO:caffe2-py36-cu90            
-            - run: docker push $DOCKER_REPO:caffe2-py36            
-            - run: docker push $DOCKER_REPO:caffe2
 
 workflows:
     version: 2
@@ -310,7 +291,6 @@ workflows:
             - "all-jupyter-py36-cpu_all-jupyter-cpu"
             - "torch-cpu"
             - "cntk-py36-cpu_cntk-cpu"
-            - "caffe2-py36-cpu_caffe2-cpu"
             - "pytorch-py36-cu90_pytorch-py36_pytorch"
             - "lasagne-py36-cu90_lasagne-py36_lasagne"
             - "theano-py36-cu90_theano-py36_theano"
@@ -319,4 +299,3 @@ workflows:
             - "tensorflow-py36-cu90_tensorflow-py36_tensorflow"
             - "pytorch-py36-cpu_pytorch-cpu"
             - "caffe-py36-cpu_caffe-cpu"
-            - "caffe2-py36-cu90_caffe2-py36_caffe2"
