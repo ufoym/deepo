@@ -18,6 +18,7 @@ class Python(Module):
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 python3-pip \
                 python3-dev \
+                python3-distutils \
                 && \
             ln -s /usr/bin/python3 /usr/local/bin/python && \
             pip3 --no-cache-dir install --upgrade pip && \
@@ -34,6 +35,7 @@ class Python(Module):
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 python3.6 \
                 python3.6-dev \
+                python3-distutils \
                 && \
             wget -O ~/get-pip.py \
                 https://bootstrap.pypa.io/get-pip.py && \
