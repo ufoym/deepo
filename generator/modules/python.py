@@ -14,18 +14,22 @@ class Python(Module):
             raise NotImplementedError('unsupported python version')
 
     def build(self):
+        if self.composer.ubuntu_ver.startswith("18."):
+            distutils = "python3-distutils"
+        else:
+            distutils = "python3-distutils-extra"
         return (r'''
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 python3-pip \
                 python3-dev \
-                python3-distutils \
+                %s \
                 && \
             ln -s /usr/bin/python3 /usr/local/bin/python && \
             pip3 --no-cache-dir install --upgrade pip && \
             $PIP_INSTALL \
                 setuptools \
                 && \
-            ''' if self.version == '3.5' else (
+            ''' % (distutils) if self.version == '3.5' else (
             r'''
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 software-properties-common \
@@ -35,7 +39,7 @@ class Python(Module):
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 python3.6 \
                 python3.6-dev \
-                python3-distutils \
+                %s \
                 && \
             wget -O ~/get-pip.py \
                 https://bootstrap.pypa.io/get-pip.py && \
@@ -45,7 +49,7 @@ class Python(Module):
             $PIP_INSTALL \
                 setuptools \
                 && \
-            ''' if self.version == '3.6' else
+            ''' % (distutils) if self.version == '3.6' else
             r'''
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 python-pip \

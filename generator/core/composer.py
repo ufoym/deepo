@@ -13,6 +13,7 @@ class Composer(object):
         self.instances = self._get_instances(versions)
         self.cuda_ver = cuda_ver
         self.cudnn_ver = cudnn_ver
+        self.ubuntu_ver = '16.04'
 
     def get(self):
         return self.modules
@@ -23,7 +24,9 @@ class Composer(object):
                 return ins.version
         return None
 
-    def to_dockerfile(self, ubuntu_ver='16.04'):
+    def to_dockerfile(self, ubuntu_ver):
+        if ubuntu_ver:
+            self.ubuntu_ver = ubuntu_ver
 
         def _indent(n, s):
             prefix = ' ' * 4 * n
@@ -48,9 +51,9 @@ class Composer(object):
                        /etc/apt/sources.list.d/nvidia-ml.list && \
 
                 apt-get update && \
-            ''' % ('ubuntu:%s' % ubuntu_ver if self.cuda_ver is None
+            ''' % ('ubuntu:%s' % self.ubuntu_ver if self.cuda_ver is None
                    else 'nvidia/cuda:%s-cudnn%s-devel-ubuntu%s' % (
-                    self.cuda_ver, self.cudnn_ver, ubuntu_ver)),
+                    self.cuda_ver, self.cudnn_ver, self.ubuntu_ver)),
             '\n',
             '\n'.join([
                 ''.join([
