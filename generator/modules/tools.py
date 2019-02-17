@@ -12,6 +12,7 @@ class Tools(Module):
         return r'''
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 build-essential \
+                apt-utils \
                 ca-certificates \
                 cmake \
                 wget \

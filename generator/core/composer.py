@@ -5,7 +5,7 @@ import functools
 
 class Composer(object):
 
-    def __init__(self, modules, cuda_ver, cudnn_ver, versions={}):
+    def __init__(self, modules, cuda_ver, cudnn_ver, ubuntu_ver='16.04', versions={}):
         if len(modules) == 0:
             raise ValueError('Modules should contain at least one module')
         pending = self._traverse(modules)
@@ -13,6 +13,7 @@ class Composer(object):
         self.instances = self._get_instances(versions)
         self.cuda_ver = cuda_ver
         self.cudnn_ver = cudnn_ver
+        self.ubuntu_ver = ubuntu_ver
 
     def get(self):
         return self.modules
@@ -23,8 +24,7 @@ class Composer(object):
                 return ins.version
         return None
 
-    def to_dockerfile(self, ubuntu_ver='16.04'):
-
+    def to_dockerfile(self):
         def _indent(n, s):
             prefix = ' ' * 4 * n
             return ''.join(prefix + l for l in s.splitlines(True))
@@ -48,9 +48,9 @@ class Composer(object):
                        /etc/apt/sources.list.d/nvidia-ml.list && \
 
                 apt-get update && \
-            ''' % ('ubuntu:%s' % ubuntu_ver if self.cuda_ver is None
+            ''' % ('ubuntu:%s' % self.ubuntu_ver if self.cuda_ver is None
                    else 'nvidia/cuda:%s-cudnn%s-devel-ubuntu%s' % (
-                    self.cuda_ver, self.cudnn_ver, ubuntu_ver)),
+                    self.cuda_ver, self.cudnn_ver, self.ubuntu_ver)),
             '\n',
             '\n'.join([
                 ''.join([

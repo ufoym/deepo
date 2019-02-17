@@ -22,6 +22,7 @@ def main():
     parser.add_argument('modules', nargs='*')
     parser.add_argument('--cuda-ver')
     parser.add_argument('--cudnn-ver')
+    parser.add_argument('--ubuntu-ver')
     args = parser.parse_args()
 
     in_modules = []
@@ -32,7 +33,7 @@ def main():
         in_modules.append(m)
         if len(terms) > 1:
             versions[m] = terms[1]
-    composer = Composer(in_modules, args.cuda_ver, args.cudnn_ver, versions)
+    composer = Composer(in_modules, args.cuda_ver, args.cudnn_ver, args.ubuntu_ver, versions)
     with open(args.path, 'w') as f:
         f.write(composer.to_dockerfile())
 
