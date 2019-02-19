@@ -1,10 +1,10 @@
 # ==================================================================
 # module list
 # ------------------------------------------------------------------
-# darknet       latest (git)
+# torch         latest (git)
 # ==================================================================
 
-FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -21,6 +21,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         build-essential \
+        apt-utils \
         ca-certificates \
         cmake \
         wget \
@@ -29,18 +30,41 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
 # ==================================================================
-# darknet
+# torch
 # ------------------------------------------------------------------
 
-    $GIT_CLONE https://github.com/pjreddie/darknet.git ~/darknet && \
-    cd ~/darknet && \
-    sed -i 's/GPU=0/GPU=1/g' ~/darknet/Makefile && \
-    sed -i 's/CUDNN=0/CUDNN=1/g' ~/darknet/Makefile && \
-    make -j"$(nproc)" && \
-    cp ~/darknet/include/* /usr/local/include && \
-    cp ~/darknet/*.a /usr/local/lib && \
-    cp ~/darknet/*.so /usr/local/lib && \
-    cp ~/darknet/darknet /usr/local/bin && \
+    export TORCH_NVCC_FLAGS="-D__CUDA_NO_HALF_OPERATORS__" && \
+    $GIT_CLONE https://github.com/torch/distro.git ~/torch --recursive && \
+
+    cd ~/torch/exe/luajit-rocks && \
+    mkdir build && cd build && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+          -D CMAKE_INSTALL_PREFIX=/usr/local \
+          -D WITH_LUAJIT21=ON \
+          .. && \
+    make -j"$(nproc)" install && \
+
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        libjpeg-dev \
+        libpng-dev \
+        libreadline-dev \
+        && \
+
+    $GIT_CLONE https://github.com/Yonaba/Moses ~/moses && \
+    cd ~/moses && \
+    luarocks install rockspec/moses-1.6.1-1.rockspec && \
+
+    cd ~/torch && \
+    sed -i 's/extra\/cudnn/extra\/cudnn \&\& git checkout R7/' install.sh && \
+    sed -i 's/$PREFIX\/bin\/luarocks/luarocks/' install.sh && \
+    sed -i '/qt/d' install.sh && \
+    sed -i '/Installing Lua/,/^cd \.\.$/d' install.sh && \
+    sed -i '/path_to_nvidiasmi/,/^fi$/d' install.sh && \
+    sed -i '/Restore anaconda/,/^Not updating$/d' install.sh && \
+    sed -i '/You might want to/,/^fi$/d' install.sh && \
+    yes no | ./install.sh && \
+    luarocks install image && \
+    luarocks install nn && \
 
 # ==================================================================
 # config & cleanup

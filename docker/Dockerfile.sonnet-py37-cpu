@@ -1,11 +1,12 @@
 # ==================================================================
 # module list
 # ------------------------------------------------------------------
-# python        3.6    (apt)
+# python        3.7    (apt)
 # tensorflow    latest (pip)
+# sonnet        latest (pip)
 # ==================================================================
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -22,6 +23,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         build-essential \
+        apt-utils \
         ca-certificates \
         cmake \
         wget \
@@ -39,14 +41,15 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        python3.6 \
-        python3.6-dev \
+        python3.7 \
+        python3.7-dev \
+        python3-distutils-extra \
         && \
     wget -O ~/get-pip.py \
         https://bootstrap.pypa.io/get-pip.py && \
-    python3.6 ~/get-pip.py && \
-    ln -s /usr/bin/python3.6 /usr/local/bin/python3 && \
-    ln -s /usr/bin/python3.6 /usr/local/bin/python && \
+    python3.7 ~/get-pip.py && \
+    ln -s /usr/bin/python3.7 /usr/local/bin/python3 && \
+    ln -s /usr/bin/python3.7 /usr/local/bin/python && \
     $PIP_INSTALL \
         setuptools \
         && \
@@ -55,7 +58,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         scipy \
         pandas \
         cloudpickle \
-        scikit-learn==0.20.0 \
+        scikit-learn \
         matplotlib \
         Cython \
         && \
@@ -66,6 +69,14 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     $PIP_INSTALL \
         tensorflow \
+        && \
+
+# ==================================================================
+# sonnet
+# ------------------------------------------------------------------
+
+    $PIP_INSTALL \
+        dm-sonnet \
         && \
 
 # ==================================================================

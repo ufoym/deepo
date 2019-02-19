@@ -1,11 +1,10 @@
 # ==================================================================
 # module list
 # ------------------------------------------------------------------
-# python        3.6    (apt)
-# pytorch       latest (pip)
+# darknet       latest (git)
 # ==================================================================
 
-FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -22,6 +21,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         build-essential \
+        apt-utils \
         ca-certificates \
         cmake \
         wget \
@@ -30,53 +30,18 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
 # ==================================================================
-# python
+# darknet
 # ------------------------------------------------------------------
 
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        software-properties-common \
-        && \
-    add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        python3.6 \
-        python3.6-dev \
-        && \
-    wget -O ~/get-pip.py \
-        https://bootstrap.pypa.io/get-pip.py && \
-    python3.6 ~/get-pip.py && \
-    ln -s /usr/bin/python3.6 /usr/local/bin/python3 && \
-    ln -s /usr/bin/python3.6 /usr/local/bin/python && \
-    $PIP_INSTALL \
-        setuptools \
-        && \
-    $PIP_INSTALL \
-        numpy \
-        scipy \
-        pandas \
-        cloudpickle \
-        scikit-learn==0.20.0 \
-        matplotlib \
-        Cython \
-        && \
-
-# ==================================================================
-# pytorch
-# ------------------------------------------------------------------
-
-    $PIP_INSTALL \
-        future \
-        numpy \
-        protobuf \
-        enum34 \
-        pyyaml \
-        typing \
-    	torchvision_nightly \
-        && \
-    $PIP_INSTALL \
-        torch_nightly -f \
-        https://download.pytorch.org/whl/nightly/cu90/torch_nightly.html \
-        && \
+    $GIT_CLONE https://github.com/pjreddie/darknet.git ~/darknet && \
+    cd ~/darknet && \
+    sed -i 's/GPU=0/GPU=1/g' ~/darknet/Makefile && \
+    sed -i 's/CUDNN=0/CUDNN=1/g' ~/darknet/Makefile && \
+    make -j"$(nproc)" && \
+    cp ~/darknet/include/* /usr/local/include && \
+    cp ~/darknet/*.a /usr/local/lib && \
+    cp ~/darknet/*.so /usr/local/lib && \
+    cp ~/darknet/darknet /usr/local/bin && \
 
 # ==================================================================
 # config & cleanup

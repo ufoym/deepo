@@ -5,7 +5,7 @@ import functools
 
 class Composer(object):
 
-    def __init__(self, modules, cuda_ver, cudnn_ver, ubuntu_ver='16.04', versions={}):
+    def __init__(self, modules, cuda_ver, cudnn_ver, ubuntu_ver, versions={}):
         if len(modules) == 0:
             raise ValueError('Modules should contain at least one module')
         pending = self._traverse(modules)

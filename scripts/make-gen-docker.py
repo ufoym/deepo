@@ -24,8 +24,8 @@ non_python_modules = [
 
 pyvers = [
     # '2.7',
-    # '3.5',
-    '3.6',
+    # '3.6',
+    '3.7',
 ]
 
 
@@ -71,4 +71,5 @@ if __name__ == '__main__':
     with open('gen-docker.sh', 'w') as f:
         generate(f)
         # generate(f, '8.0', '6')
-        generate(f, '9.0', '7')
+        # generate(f, '9.0', '7')
+        generate(f, '10.0', '7')

@@ -1,11 +1,12 @@
 # ==================================================================
 # module list
 # ------------------------------------------------------------------
-# python        3.6    (apt)
-# mxnet         latest (pip)
+# python        3.7    (apt)
+# theano        latest (git)
+# lasagne       latest (git)
 # ==================================================================
 
-FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -22,6 +23,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         build-essential \
+        apt-utils \
         ca-certificates \
         cmake \
         wget \
@@ -39,14 +41,15 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        python3.6 \
-        python3.6-dev \
+        python3.7 \
+        python3.7-dev \
+        python3-distutils-extra \
         && \
     wget -O ~/get-pip.py \
         https://bootstrap.pypa.io/get-pip.py && \
-    python3.6 ~/get-pip.py && \
-    ln -s /usr/bin/python3.6 /usr/local/bin/python3 && \
-    ln -s /usr/bin/python3.6 /usr/local/bin/python && \
+    python3.7 ~/get-pip.py && \
+    ln -s /usr/bin/python3.7 /usr/local/bin/python3 && \
+    ln -s /usr/bin/python3.7 /usr/local/bin/python && \
     $PIP_INSTALL \
         setuptools \
         && \
@@ -55,24 +58,43 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         scipy \
         pandas \
         cloudpickle \
-        scikit-learn==0.20.0 \
+        scikit-learn \
         matplotlib \
         Cython \
         && \
 
 # ==================================================================
-# mxnet
+# theano
 # ------------------------------------------------------------------
 
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        libatlas-base-dev \
-        graphviz \
+        libblas-dev \
         && \
 
+    wget -qO- https://github.com/Theano/libgpuarray/archive/v0.7.6.tar.gz | tar xz -C ~ && \
+    cd ~/libgpuarray* && mkdir -p build && cd build && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+          -D CMAKE_INSTALL_PREFIX=/usr/local \
+          .. && \
+    make -j"$(nproc)" install && \
+    cd ~/libgpuarray* && \
+    python setup.py build && \
+    python setup.py install && \
+
+    printf '[global]\nfloatX = float32\ndevice = cuda0\n\n[dnn]\ninclude_path = /usr/local/cuda/targets/x86_64-linux/include\n' > ~/.theanorc && \
+
     $PIP_INSTALL \
-        mxnet-cu90 \
-        graphviz \
+        https://github.com/Theano/Theano/archive/master.zip \
         && \
+
+# ==================================================================
+# lasagne
+# ------------------------------------------------------------------
+
+    $GIT_CLONE https://github.com/Lasagne/Lasagne ~/lasagne && \
+    cd ~/lasagne && \
+    $PIP_INSTALL \
+        . && \
 
 # ==================================================================
 # config & cleanup
