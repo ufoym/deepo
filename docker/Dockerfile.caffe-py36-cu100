@@ -1,7 +1,7 @@
 # ==================================================================
 # module list
 # ------------------------------------------------------------------
-# python        3.7    (apt)
+# python        3.6    (apt)
 # opencv        4.0.1  (git)
 # caffe         latest (git)
 # ==================================================================
@@ -41,15 +41,15 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        python3.7 \
-        python3.7-dev \
+        python3.6 \
+        python3.6-dev \
         python3-distutils-extra \
         && \
     wget -O ~/get-pip.py \
         https://bootstrap.pypa.io/get-pip.py && \
-    python3.7 ~/get-pip.py && \
-    ln -s /usr/bin/python3.7 /usr/local/bin/python3 && \
-    ln -s /usr/bin/python3.7 /usr/local/bin/python && \
+    python3.6 ~/get-pip.py && \
+    ln -s /usr/bin/python3.6 /usr/local/bin/python3 && \
+    ln -s /usr/bin/python3.6 /usr/local/bin/python && \
     $PIP_INSTALL \
         setuptools \
         && \
@@ -70,7 +70,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     wget -O ~/boost.tar.gz https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz && \
     tar -zxf ~/boost.tar.gz -C ~ && \
     cd ~/boost_* && \
-    ./bootstrap.sh --with-python=python3.7 && \
+    ./bootstrap.sh --with-python=python3.6 && \
     ./b2 install --prefix=/usr/local && \
 
 # ==================================================================
@@ -118,6 +118,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     sed -i 's/# USE_NCCL/USE_NCCL/g' ~/caffe/Makefile.config && \
     sed -i 's/-gencode arch=compute_20,code=sm_20//g' ~/caffe/Makefile.config && \
     sed -i 's/-gencode arch=compute_20,code=sm_21//g' ~/caffe/Makefile.config && \
+    sed -i 's/2\.7/3\.6/g' ~/caffe/Makefile.config && \
+    sed -i 's/3\.5/3\.6/g' ~/caffe/Makefile.config && \
     sed -i 's/\/usr\/lib\/python/\/usr\/local\/lib\/python/g' ~/caffe/Makefile.config && \
     sed -i 's/\/usr\/local\/include/\/usr\/local\/include \/usr\/include\/hdf5\/serial/g' ~/caffe/Makefile.config && \
     sed -i 's/hdf5/hdf5_serial/g' ~/caffe/Makefile && \
@@ -135,7 +137,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     for file in *.bin; do mv "$file" "${file%%.bin}"; done && \
     cd ~/caffe/distribute && \
     cp -r bin include lib proto /usr/local/ && \
-    cp -r python/caffe /usr/local/lib/python3.7/dist-packages/ && \
+    cp -r python/caffe /usr/local/lib/python3.6/dist-packages/ && \
 
 # ==================================================================
 # config & cleanup

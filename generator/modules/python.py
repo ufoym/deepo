@@ -4,13 +4,13 @@ from .tools import Tools
 
 
 @dependency(Tools)
-@version('3.7')
+@version('3.6')
 @source('apt')
 class Python(Module):
 
     def __init__(self, manager, **args):
         super(self.__class__, self).__init__(manager, **args)
-        if self.version not in ('2.7', '3.7',):
+        if self.version not in ('2.7', '3.6',):
             raise NotImplementedError('unsupported python version')
 
     def build(self):

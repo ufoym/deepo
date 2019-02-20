@@ -1,8 +1,8 @@
 # ==================================================================
 # module list
 # ------------------------------------------------------------------
-# python        3.7    (apt)
-# mxnet         latest (pip)
+# python        3.6    (apt)
+# chainer       latest (pip)
 # ==================================================================
 
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
@@ -40,15 +40,15 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        python3.7 \
-        python3.7-dev \
+        python3.6 \
+        python3.6-dev \
         python3-distutils-extra \
         && \
     wget -O ~/get-pip.py \
         https://bootstrap.pypa.io/get-pip.py && \
-    python3.7 ~/get-pip.py && \
-    ln -s /usr/bin/python3.7 /usr/local/bin/python3 && \
-    ln -s /usr/bin/python3.7 /usr/local/bin/python && \
+    python3.6 ~/get-pip.py && \
+    ln -s /usr/bin/python3.6 /usr/local/bin/python3 && \
+    ln -s /usr/bin/python3.6 /usr/local/bin/python && \
     $PIP_INSTALL \
         setuptools \
         && \
@@ -63,17 +63,12 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
 # ==================================================================
-# mxnet
+# chainer
 # ------------------------------------------------------------------
 
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        libatlas-base-dev \
-        graphviz \
-        && \
-
     $PIP_INSTALL \
-        mxnet-cu100 \
-        graphviz \
+        cupy \
+        chainer \
         && \
 
 # ==================================================================
