@@ -24,7 +24,6 @@ non_python_modules = [
 
 pyvers = [
     # '2.7',
-    # '3.5',
     '3.6',
 ]
 

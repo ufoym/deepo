@@ -4,33 +4,17 @@ from .tools import Tools
 
 
 @dependency(Tools)
-@version('3.5')
+@version('3.6')
 @source('apt')
 class Python(Module):
 
     def __init__(self, manager, **args):
         super(self.__class__, self).__init__(manager, **args)
-        if self.version not in ('2.7', '3.5', '3.6',):
+        if self.version not in ('2.7', '3.6',):
             raise NotImplementedError('unsupported python version')
 
     def build(self):
-        if self.composer.ubuntu_ver.startswith("18."):
-            distutils = "python3-distutils"
-        else:
-            distutils = "python3-distutils-extra"
         return (r'''
-            DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-                python3-pip \
-                python3-dev \
-                %s \
-                && \
-            ln -s /usr/bin/python3 /usr/local/bin/python && \
-            pip3 --no-cache-dir install --upgrade pip && \
-            $PIP_INSTALL \
-                setuptools \
-                && \
-            ''' % (distutils) if self.version == '3.5' else (
-            r'''
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 software-properties-common \
                 && \
@@ -39,7 +23,7 @@ class Python(Module):
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 python3.6 \
                 python3.6-dev \
-                %s \
+                python3-distutils%s \
                 && \
             wget -O ~/get-pip.py \
                 https://bootstrap.pypa.io/get-pip.py && \
@@ -49,7 +33,9 @@ class Python(Module):
             $PIP_INSTALL \
                 setuptools \
                 && \
-            ''' % (distutils) if self.version == '3.6' else
+            ''' % (
+                '' if self.composer.ubuntu_ver.startswith('18.') else '-extra'
+            ) if self.version == '3.6' else
             r'''
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 python-pip \
@@ -60,13 +46,13 @@ class Python(Module):
                 pip \
                 && \
             '''
-        )).rstrip() + r'''
+        ).rstrip() + r'''
             $PIP_INSTALL \
                 numpy \
                 scipy \
                 pandas \
                 cloudpickle \
-                scikit-learn==0.20.0 \
+                scikit-learn \
                 matplotlib \
                 Cython \
                 && \
