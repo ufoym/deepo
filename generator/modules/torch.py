@@ -10,30 +10,8 @@ class Torch(Module):
     def build(self):
         return r'''
             export TORCH_NVCC_FLAGS="-D__CUDA_NO_HALF_OPERATORS__" && \
-            $GIT_CLONE https://github.com/torch/distro.git ~/torch''' \
+            $GIT_CLONE https://github.com/nagadomi/distro.git ~/torch''' \
         + r''' --recursive && \
-
-            cd ~/torch && \
-            rm -fr cmake/3.6/Modules/FindCUDA* && \
-            patch -p0 <<'EOF'
-            diff --git a/lib/THC/THCAtomics.cuh b/lib/THC/THCAtomics.cuh
-            index 400875c..ccb7a1c 100644
-            --- a/lib/THC/THCAtomics.cuh
-            +++ b/lib/THC/THCAtomics.cuh
-            @@ -94,6 +94,7 @@ static inline __device__ void atomicAdd(long *address, long val) {
-             }
-
-             #ifdef CUDA_HALF_TENSOR
-            +#if !(__CUDA_ARCH__ >= 700 || !defined(__CUDA_ARCH__) )
-             static inline  __device__ void atomicAdd(half *address, half val) {
-               unsigned int * address_as_ui =
-                   (unsigned int *) ((char *)address - ((size_t)address & 2));
-            @@ -117,6 +118,7 @@ static inline  __device__ void atomicAdd(half *address, half val) {
-                } while (assumed != old);
-             }
-             #endif
-            +#endif
-            EOF && \
 
             cd ~/torch/exe/luajit-rocks && \
             mkdir build && cd build && \
