@@ -120,6 +120,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     sed -i 's/-gencode arch=compute_20,code=sm_21//g' ~/caffe/Makefile.config && \
     sed -i 's/2\.7/3\.6/g' ~/caffe/Makefile.config && \
     sed -i 's/3\.5/3\.6/g' ~/caffe/Makefile.config && \
+    sed -i 's/boost_python3/boost_python36/g' ~/caffe/Makefile.config && \
     sed -i 's/\/usr\/lib\/python/\/usr\/local\/lib\/python/g' ~/caffe/Makefile.config && \
     sed -i 's/\/usr\/local\/include/\/usr\/local\/include \/usr\/include\/hdf5\/serial/g' ~/caffe/Makefile.config && \
     sed -i 's/hdf5/hdf5_serial/g' ~/caffe/Makefile && \

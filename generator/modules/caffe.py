@@ -41,10 +41,12 @@ class Caffe(Module):
             '''.rstrip()
         ) + (r'''
             sed -i 's/2\.7/3\.5/g' ~/caffe/Makefile.config && \
+            sed -i 's/boost_python3/boost_python35/g' ~/caffe/Makefile.config && \
             ''' if pyver == '3.5' else (
             r'''
             sed -i 's/2\.7/3\.6/g' ~/caffe/Makefile.config && \
             sed -i 's/3\.5/3\.6/g' ~/caffe/Makefile.config && \
+            sed -i 's/boost_python3/boost_python36/g' ~/caffe/Makefile.config && \
             ''' if pyver == '3.6' else
             r'''
             '''
