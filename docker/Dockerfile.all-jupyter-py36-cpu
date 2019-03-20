@@ -165,7 +165,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        tensorflow \
+        tf-nightly-2.0-preview
         && \
 
 # ==================================================================
@@ -232,6 +232,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
+        tensorflow_probability \
         dm-sonnet \
         && \
 
