@@ -13,7 +13,7 @@ candidate_modules = [
     'theano',
     'lasagne',
     'caffe',
-    'torch',
+    # 'torch',  # does not support CUDA 10 currently
     'darknet',
 ]
 
