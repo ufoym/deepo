@@ -11,7 +11,7 @@ class Tensorflow(Module):
         is_gpu = '' if self.composer.cuda_ver is None else '-gpu'
         return r'''
             $PIP_INSTALL \
-                tf-nightly%s-2.0-preview
+                tf-nightly%s-2.0-preview \
                 && \
         ''' % is_gpu
 
