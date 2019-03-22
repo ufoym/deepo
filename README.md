@@ -27,7 +27,6 @@ and their Dockerfile generator that
     - [Usage](#Usage-cpu)
 - [Customization](#Customization)
   - [Unhappy with all-in-one solution?](#One)
-  - [Other python versions](#Python)
   - [Jupyter support](#Jupyter)
   - [Build your own customized image](#Build)
 - [Comparison to Alternatives](#Comparison)
@@ -179,23 +178,6 @@ Take tensorflow for example:
 ```bash
 docker pull ufoym/deepo:tensorflow
 ```
-
-<a name="Python"/>
-
-## Other python versions
-
-Note that all python-related images use `Python 3.6` by default. If you are unhappy with `Python 3.6`, you can also specify other python versions:
-```bash
-docker pull ufoym/deepo:py27
-```
-
-```bash
-docker pull ufoym/deepo:tensorflow-py27
-```
-
-Currently, we support `Python 2.7` and `Python 3.6`.
-
-See [Available Tags](#Available-tags) for a complete list of all available tags. These pre-built images are all built from `docker/Dockerfile.*` and `circle.yml`. See [How to generate `docker/Dockerfile.*` and `circle.yml`](https://github.com/ufoym/deepo/tree/master/scripts) if you are interested in how these files are generated.
 
 <a name="Jupyter"/>
 
