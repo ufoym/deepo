@@ -19,7 +19,7 @@
 # cntk          latest (pip)
 # ==================================================================
 
-FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -38,11 +38,15 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         build-essential \
         apt-utils \
         ca-certificates \
-        cmake \
         wget \
         git \
         vim \
         && \
+
+    $GIT_CLONE https://github.com/Kitware/CMake ~/cmake && \
+    cd ~/cmake && \
+    ./bootstrap && \
+    make -j"$(nproc)" install && \
 
 # ==================================================================
 # darknet
@@ -95,7 +99,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     export TORCH_NVCC_FLAGS="-D__CUDA_NO_HALF_OPERATORS__" && \
-    $GIT_CLONE https://github.com/torch/distro.git ~/torch --recursive && \
+    $GIT_CLONE https://github.com/nagadomi/distro.git ~/torch --recursive && \
 
     cd ~/torch/exe/luajit-rocks && \
     mkdir build && cd build && \
@@ -131,7 +135,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # boost
 # ------------------------------------------------------------------
 
-    wget -O ~/boost.tar.gz https://dl.bintray.com/boostorg/release/1.65.1/source/boost_1_65_1.tar.gz && \
+    wget -O ~/boost.tar.gz https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz && \
     tar -zxf ~/boost.tar.gz -C ~ && \
     cd ~/boost_* && \
     ./bootstrap.sh --with-python=python3.6 && \
@@ -164,7 +168,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     $PIP_INSTALL \
-        mxnet-cu90 \
+        mxnet-cu100 \
         graphviz \
         && \
 
@@ -196,7 +200,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
     $PIP_INSTALL \
         torch_nightly -f \
-        https://download.pytorch.org/whl/nightly/cu90/torch_nightly.html \
+        https://download.pytorch.org/whl/nightly/cu100/torch_nightly.html \
         && \
 
 # ==================================================================
@@ -204,7 +208,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        tensorflow-gpu \
+        tf-nightly-gpu-2.0-preview \
         && \
 
 # ==================================================================
@@ -283,6 +287,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
+        tensorflow_probability \
         dm-sonnet \
         && \
 
@@ -304,6 +309,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     sed -i 's/-gencode arch=compute_20,code=sm_21//g' ~/caffe/Makefile.config && \
     sed -i 's/2\.7/3\.6/g' ~/caffe/Makefile.config && \
     sed -i 's/3\.5/3\.6/g' ~/caffe/Makefile.config && \
+    sed -i 's/boost_python3/boost_python36/g' ~/caffe/Makefile.config && \
     sed -i 's/\/usr\/lib\/python/\/usr\/local\/lib\/python/g' ~/caffe/Makefile.config && \
     sed -i 's/\/usr\/local\/include/\/usr\/local\/include \/usr\/include\/hdf5\/serial/g' ~/caffe/Makefile.config && \
     sed -i 's/hdf5/hdf5_serial/g' ~/caffe/Makefile && \
@@ -330,9 +336,13 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         openmpi-bin \
         libpng-dev \
+        libjpeg-dev \
         libtiff-dev \
-        libjasper-dev \
         && \
+
+    # Fix ImportError for CNTK
+    ln -s /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.20 /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.1 && \
+    ln -s /usr/lib/x86_64-linux-gnu/libmpi.so.20.10.1 /usr/lib/x86_64-linux-gnu/libmpi.so.12 && \
 
     wget --no-verbose -O - https://github.com/01org/mkl-dnn/releases/download/v0.14/mklml_lnx_2018.0.3.20180406.tgz | tar -xzf - && \
     cp mklml*/* /usr/local -r && \

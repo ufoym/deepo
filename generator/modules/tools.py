@@ -14,9 +14,13 @@ class Tools(Module):
                 build-essential \
                 apt-utils \
                 ca-certificates \
-                cmake \
                 wget \
                 git \
                 vim \
                 && \
+
+            $GIT_CLONE https://github.com/Kitware/CMake ~/cmake && \
+            cd ~/cmake && \
+            ./bootstrap && \
+            make -j"$(nproc)" install && \
             '''

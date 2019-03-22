@@ -6,7 +6,7 @@
 # keras         latest (pip)
 # ==================================================================
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -25,11 +25,15 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         build-essential \
         apt-utils \
         ca-certificates \
-        cmake \
         wget \
         git \
         vim \
         && \
+
+    $GIT_CLONE https://github.com/Kitware/CMake ~/cmake && \
+    cd ~/cmake && \
+    ./bootstrap && \
+    make -j"$(nproc)" install && \
 
 # ==================================================================
 # python
@@ -68,7 +72,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        tensorflow \
+        tf-nightly-2.0-preview \
         && \
 
 # ==================================================================

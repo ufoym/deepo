@@ -1,11 +1,10 @@
 # ==================================================================
 # module list
 # ------------------------------------------------------------------
-# python        3.6    (apt)
-# mxnet         latest (pip)
+# torch         latest (git)
 # ==================================================================
 
-FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -24,57 +23,52 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         build-essential \
         apt-utils \
         ca-certificates \
-        cmake \
         wget \
         git \
         vim \
         && \
 
-# ==================================================================
-# python
-# ------------------------------------------------------------------
-
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        software-properties-common \
-        && \
-    add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        python3.6 \
-        python3.6-dev \
-        python3-distutils-extra \
-        && \
-    wget -O ~/get-pip.py \
-        https://bootstrap.pypa.io/get-pip.py && \
-    python3.6 ~/get-pip.py && \
-    ln -s /usr/bin/python3.6 /usr/local/bin/python3 && \
-    ln -s /usr/bin/python3.6 /usr/local/bin/python && \
-    $PIP_INSTALL \
-        setuptools \
-        && \
-    $PIP_INSTALL \
-        numpy \
-        scipy \
-        pandas \
-        cloudpickle \
-        scikit-learn \
-        matplotlib \
-        Cython \
-        && \
+    $GIT_CLONE https://github.com/Kitware/CMake ~/cmake && \
+    cd ~/cmake && \
+    ./bootstrap && \
+    make -j"$(nproc)" install && \
 
 # ==================================================================
-# mxnet
+# torch
 # ------------------------------------------------------------------
 
+    export TORCH_NVCC_FLAGS="-D__CUDA_NO_HALF_OPERATORS__" && \
+    $GIT_CLONE https://github.com/nagadomi/distro.git ~/torch --recursive && \
+
+    cd ~/torch/exe/luajit-rocks && \
+    mkdir build && cd build && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+          -D CMAKE_INSTALL_PREFIX=/usr/local \
+          -D WITH_LUAJIT21=ON \
+          .. && \
+    make -j"$(nproc)" install && \
+
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        libatlas-base-dev \
-        graphviz \
+        libjpeg-dev \
+        libpng-dev \
+        libreadline-dev \
         && \
 
-    $PIP_INSTALL \
-        mxnet-cu90 \
-        graphviz \
-        && \
+    $GIT_CLONE https://github.com/Yonaba/Moses ~/moses && \
+    cd ~/moses && \
+    luarocks install rockspec/moses-1.6.1-1.rockspec && \
+
+    cd ~/torch && \
+    sed -i 's/extra\/cudnn/extra\/cudnn \&\& git checkout R7/' install.sh && \
+    sed -i 's/$PREFIX\/bin\/luarocks/luarocks/' install.sh && \
+    sed -i '/qt/d' install.sh && \
+    sed -i '/Installing Lua/,/^cd \.\.$/d' install.sh && \
+    sed -i '/path_to_nvidiasmi/,/^fi$/d' install.sh && \
+    sed -i '/Restore anaconda/,/^Not updating$/d' install.sh && \
+    sed -i '/You might want to/,/^fi$/d' install.sh && \
+    yes no | ./install.sh && \
+    luarocks install image && \
+    luarocks install nn && \
 
 # ==================================================================
 # config & cleanup

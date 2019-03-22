@@ -3,10 +3,10 @@
 # ------------------------------------------------------------------
 # python        3.6    (apt)
 # tensorflow    latest (pip)
-# keras         latest (pip)
+# sonnet        latest (pip)
 # ==================================================================
 
-FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -25,11 +25,15 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         build-essential \
         apt-utils \
         ca-certificates \
-        cmake \
         wget \
         git \
         vim \
         && \
+
+    $GIT_CLONE https://github.com/Kitware/CMake ~/cmake && \
+    cd ~/cmake && \
+    ./bootstrap && \
+    make -j"$(nproc)" install && \
 
 # ==================================================================
 # python
@@ -68,16 +72,16 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        tensorflow-gpu \
+        tf-nightly-gpu-2.0-preview \
         && \
 
 # ==================================================================
-# keras
+# sonnet
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        h5py \
-        keras \
+        tensorflow_probability \
+        dm-sonnet \
         && \
 
 # ==================================================================

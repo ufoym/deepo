@@ -4,7 +4,7 @@
 # torch         latest (git)
 # ==================================================================
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -23,18 +23,22 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         build-essential \
         apt-utils \
         ca-certificates \
-        cmake \
         wget \
         git \
         vim \
         && \
+
+    $GIT_CLONE https://github.com/Kitware/CMake ~/cmake && \
+    cd ~/cmake && \
+    ./bootstrap && \
+    make -j"$(nproc)" install && \
 
 # ==================================================================
 # torch
 # ------------------------------------------------------------------
 
     export TORCH_NVCC_FLAGS="-D__CUDA_NO_HALF_OPERATORS__" && \
-    $GIT_CLONE https://github.com/torch/distro.git ~/torch --recursive && \
+    $GIT_CLONE https://github.com/nagadomi/distro.git ~/torch --recursive && \
 
     cd ~/torch/exe/luajit-rocks && \
     mkdir build && cd build && \

@@ -14,28 +14,34 @@ class Python(Module):
             raise NotImplementedError('unsupported python version')
 
     def build(self):
-        return (r'''
+        return (
+            r'''
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 software-properties-common \
                 && \
             add-apt-repository ppa:deadsnakes/ppa && \
             apt-get update && \
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-                python3.6 \
-                python3.6-dev \
+                python%s \
+                python%s-dev \
                 python3-distutils%s \
                 && \
             wget -O ~/get-pip.py \
                 https://bootstrap.pypa.io/get-pip.py && \
-            python3.6 ~/get-pip.py && \
-            ln -s /usr/bin/python3.6 /usr/local/bin/python3 && \
-            ln -s /usr/bin/python3.6 /usr/local/bin/python && \
+            python%s ~/get-pip.py && \
+            ln -s /usr/bin/python%s /usr/local/bin/python3 && \
+            ln -s /usr/bin/python%s /usr/local/bin/python && \
             $PIP_INSTALL \
                 setuptools \
                 && \
             ''' % (
-                '' if self.composer.ubuntu_ver.startswith('18.') else '-extra'
-            ) if self.version == '3.6' else
+                self.version,
+                self.version,
+                '-extra' if self.composer.ubuntu_ver.startswith('18.') else '',
+                self.version,
+                self.version,
+                self.version,
+                ) if self.version.startswith('3') else
             r'''
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 python-pip \

@@ -2,11 +2,11 @@
 # module list
 # ------------------------------------------------------------------
 # python        3.6    (apt)
-# tensorflow    latest (pip)
-# sonnet        latest (pip)
+# theano        latest (git)
+# lasagne       latest (git)
 # ==================================================================
 
-FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -25,11 +25,15 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         build-essential \
         apt-utils \
         ca-certificates \
-        cmake \
         wget \
         git \
         vim \
         && \
+
+    $GIT_CLONE https://github.com/Kitware/CMake ~/cmake && \
+    cd ~/cmake && \
+    ./bootstrap && \
+    make -j"$(nproc)" install && \
 
 # ==================================================================
 # python
@@ -64,20 +68,37 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
 # ==================================================================
-# tensorflow
+# theano
 # ------------------------------------------------------------------
 
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        libblas-dev \
+        && \
+
+    wget -qO- https://github.com/Theano/libgpuarray/archive/v0.7.6.tar.gz | tar xz -C ~ && \
+    cd ~/libgpuarray* && mkdir -p build && cd build && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+          -D CMAKE_INSTALL_PREFIX=/usr/local \
+          .. && \
+    make -j"$(nproc)" install && \
+    cd ~/libgpuarray* && \
+    python setup.py build && \
+    python setup.py install && \
+
+    printf '[global]\nfloatX = float32\ndevice = cuda0\n\n[dnn]\ninclude_path = /usr/local/cuda/targets/x86_64-linux/include\n' > ~/.theanorc && \
+
     $PIP_INSTALL \
-        tensorflow-gpu \
+        https://github.com/Theano/Theano/archive/master.zip \
         && \
 
 # ==================================================================
-# sonnet
+# lasagne
 # ------------------------------------------------------------------
 
+    $GIT_CLONE https://github.com/Lasagne/Lasagne ~/lasagne && \
+    cd ~/lasagne && \
     $PIP_INSTALL \
-        dm-sonnet \
-        && \
+        . && \
 
 # ==================================================================
 # config & cleanup
@@ -87,5 +108,3 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     apt-get clean && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/* /tmp/* ~/*
-
-EXPOSE 6006
