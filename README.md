@@ -234,8 +234,8 @@ This may take several minutes as it compiles a few libraries from scratch.
 # Comparison to alternatives
 .                                                  | modern-deep-learning | dl-docker          | jupyter-deeplearning | Deepo
 :------------------------------------------------: | :------------------: | :----------------: | :------------------: | :----------------:
- [ubuntu](https://www.ubuntu.com)                  | 16.04                | 14.04              | 14.04                | 16.04
- [cuda](https://developer.nvidia.com/cuda-zone)    | :x:                  | 8.0                | 6.5-8.0              | 8.0/9.0/None
+ [ubuntu](https://www.ubuntu.com)                  | 16.04                | 14.04              | 14.04                | 18.04
+ [cuda](https://developer.nvidia.com/cuda-zone)    | :x:                  | 8.0                | 6.5-8.0              | 8.0-10.0/None
  [cudnn](https://developer.nvidia.com/cudnn)       | :x:                  | v5                 | v2-5                 | v7
  [onnx](https://onnx.ai)                           | :x:                  | :x:                | :x:                  | :heavy_check_mark:
  [theano](http://deeplearning.net/software/theano) | :x:                  | :heavy_check_mark: | :heavy_check_mark:   | :heavy_check_mark:
@@ -268,22 +268,22 @@ This may take several minutes as it compiles a few libraries from scratch.
 ## Available Tags
 
 
-.                                                  | CUDA 9.0 / Python 3.6                                    | CPU-only / Python 3.6                      
-:------------------------------------------------: | :------------------------------------------------------: | :-----------------------------------------:
- all-in-one                                        | `latest` `all` `all-py36` `py36-cu90` `all-py36-cu90`    | `all-py36-cpu` `all-cpu` `py36-cpu` `cpu`  
- all-in-one with jupyter                           | `all-jupyter-py36-cu90` `all-jupyter-py36` `all-jupyter` | `all-py36-jupyter-cpu` `py36-jupyter-cpu`  
- [Theano](http://deeplearning.net/software/theano) | `theano-py36-cu90` `theano-py36` `theano`                | `theano-py36-cpu` `theano-cpu`             
- [TensorFlow](http://www.tensorflow.org)           | `tensorflow-py36-cu90` `tensorflow-py36` `tensorflow`    | `tensorflow-py36-cpu` `tensorflow-cpu`     
- [Sonnet](https://github.com/deepmind/sonnet)      | `sonnet-py36-cu90` `sonnet-py36` `sonnet`                | `sonnet-py36-cpu` `sonnet-cpu`             
- [PyTorch](http://pytorch.org) / [Caffe2](https://caffe2.ai)  | `pytorch-py36-cu90` `pytorch-py36` `pytorch`             | `pytorch-py36-cpu` `pytorch-cpu`           
- [Keras](https://keras.io)                         | `keras-py36-cu90` `keras-py36` `keras`                   | `keras-py36-cpu` `keras-cpu`               
- [Lasagne](http://lasagne.readthedocs.io)          | `lasagne-py36-cu90` `lasagne-py36` `lasagne`             | `lasagne-py36-cpu` `lasagne-cpu`           
- [MXNet](http://mxnet.incubator.apache.org)        | `mxnet-py36-cu90` `mxnet-py36` `mxnet`                   | `mxnet-py36-cpu` `mxnet-cpu`               
- [CNTK](http://cntk.ai)                            | `cntk-py36-cu90` `cntk-py36` `cntk`                      | `cntk-py36-cpu` `cntk-cpu`                 
- [Chainer](https://chainer.org)                    | `chainer-py36-cu90` `chainer-py36` `chainer`             | `chainer-py36-cpu` `chainer-cpu`           
- [Caffe](http://caffe.berkeleyvision.org)          | `caffe-py36-cu90` `caffe-py36` `caffe`                   | `caffe-py36-cpu` `caffe-cpu`               
- [Torch](http://torch.ch/)                         | `torch-cu90` `torch`                                     | `torch-cpu`                                
- [Darknet](https://pjreddie.com/darknet/)          | `darknet-cu90` `darknet`                                 | `darknet-cpu`                              
+.                                                  | CUDA 10.0 / Python 3.6                                    | CPU-only / Python 3.6
+:------------------------------------------------: | :-------------------------------------------------------: | :-----------------------------------------:
+ all-in-one                                        | `latest` `all` `all-py36` `py36-cu100` `all-py36-cu100`   | `all-py36-cpu` `all-cpu` `py36-cpu` `cpu`
+ all-in-one with jupyter                           | `all-jupyter-py36-cu100` `all-jupyter-py36` `all-jupyter` | `all-py36-jupyter-cpu` `py36-jupyter-cpu`
+ [Theano](http://deeplearning.net/software/theano) | `theano-py36-cu100` `theano-py36` `theano`                | `theano-py36-cpu` `theano-cpu`
+ [TensorFlow](http://www.tensorflow.org)           | `tensorflow-py36-cu100` `tensorflow-py36` `tensorflow`    | `tensorflow-py36-cpu` `tensorflow-cpu`
+ [Sonnet](https://github.com/deepmind/sonnet)      | `sonnet-py36-cu100` `sonnet-py36` `sonnet`                | `sonnet-py36-cpu` `sonnet-cpu`
+ [PyTorch](http://pytorch.org) / [Caffe2](https://caffe2.ai)  | `pytorch-py36-cu100` `pytorch-py36` `pytorch`  | `pytorch-py36-cpu` `pytorch-cpu`
+ [Keras](https://keras.io)                         | `keras-py36-cu100` `keras-py36` `keras`                   | `keras-py36-cpu` `keras-cpu`
+ [Lasagne](http://lasagne.readthedocs.io)          | `lasagne-py36-cu100` `lasagne-py36` `lasagne`             | `lasagne-py36-cpu` `lasagne-cpu`
+ [MXNet](http://mxnet.incubator.apache.org)        | `mxnet-py36-cu100` `mxnet-py36` `mxnet`                   | `mxnet-py36-cpu` `mxnet-cpu`
+ [CNTK](http://cntk.ai)                            | `cntk-py36-cu100` `cntk-py36` `cntk`                      | `cntk-py36-cpu` `cntk-cpu`
+ [Chainer](https://chainer.org)                    | `chainer-py36-cu100` `chainer-py36` `chainer`             | `chainer-py36-cpu` `chainer-cpu`
+ [Caffe](http://caffe.berkeleyvision.org)          | `caffe-py36-cu100` `caffe-py36` `caffe`                   | `caffe-py36-cpu` `caffe-cpu`
+ [Torch](http://torch.ch/)                         | `torch-cu100` `torch`                                     | `torch-cpu`
+ [Darknet](https://pjreddie.com/darknet/)          | `darknet-cu100` `darknet`                                 | `darknet-cpu`
 
 
 <a name="Deprecated-tags"/>
@@ -291,23 +291,23 @@ This may take several minutes as it compiles a few libraries from scratch.
 ## Deprecated Tags
 
 
-.                                                  | CUDA 9.0 / Python 3.6                                    | CUDA 9.0 / Python 2.7                    | CPU-only / Python 3.6                       | CPU-only / Python 2.7
-:------------------------------------------------: | :------------------------------------------------------: | :--------------------------------:       | :-----------------------------------------: | :----------------------------------------:
- all-in-one                                        |                                                          | `all-py27-cu90` `all-py27` `py27-cu90`   |                                             | `all-py27-cpu` `py27-cpu`
- all-in-one with jupyter                           |                                                          | `all-py27-jupyter` `py27-jupyter`        |                                             | `all-py27-jupyter-cpu` `py27-jupyter-cpu`
- [Theano](http://deeplearning.net/software/theano) |                                                          | `theano-py27-cu90` `theano-py27`         |                                             | `theano-py27-cpu`
- [TensorFlow](http://www.tensorflow.org)           |                                                          | `tensorflow-py27-cu90` `tensorflow-py27` |                                             | `tensorflow-py27-cpu`
- [Sonnet](https://github.com/deepmind/sonnet)      |                                                          | `sonnet-py27-cu90` `sonnet-py27`         |                                             | `sonnet-py27-cpu`
- [PyTorch](http://pytorch.org)                     |                                                          | `pytorch-py27-cu90` `pytorch-py27`       |                                             | `pytorch-py27-cpu`
- [Keras](https://keras.io)                         |                                                          | `keras-py27-cu90` `keras-py27`           |                                             | `keras-py27-cpu`
- [Lasagne](http://lasagne.readthedocs.io)          |                                                          | `lasagne-py27-cu90` `lasagne-py27`       |                                             | `lasagne-py27-cpu`
- [MXNet](http://mxnet.incubator.apache.org)        |                                                          | `mxnet-py27-cu90` `mxnet-py27`           |                                             | `mxnet-py27-cpu`
- [CNTK](http://cntk.ai)                            |                                                          | `cntk-py27-cu90` `cntk-py27`             |                                             | `cntk-py27-cpu`
- [Chainer](https://chainer.org)                    |                                                          | `chainer-py27-cu90` `chainer-py27`       |                                             | `chainer-py27-cpu`
- [Caffe](http://caffe.berkeleyvision.org)          |                                                          | `caffe-py27-cu90` `caffe-py27`           |                                             | `caffe-py27-cpu`
- [Caffe2](https://caffe2.ai)                       | `caffe2-py36-cu90` `caffe2-py36` `caffe2`                | `caffe2-py27-cu90` `caffe2-py27`         | `caffe2-py36-cpu` `caffe2-cpu`              | `caffe2-py27-cpu`
- [Torch](http://torch.ch/)                         |                                                          | `torch-cu90` `torch`                     |                                             | `torch-cpu`
- [Darknet](https://pjreddie.com/darknet/)          |                                                          | `darknet-cu90` `darknet`                 |                                             | `darknet-cpu`
+.                                                  | CUDA 9.0 / Python 3.6                        | CUDA 9.0 / Python 2.7                    | CPU-only / Python 3.6                       | CPU-only / Python 2.7
+:------------------------------------------------: | :------------------------------------------: | :--------------------------------:       | :-----------------------------------------: | :----------------------------------------:
+ all-in-one                                        | `py36-cu90` `all-py36-cu90`                  | `all-py27-cu90` `all-py27` `py27-cu90`   |                                             | `all-py27-cpu` `py27-cpu`
+ all-in-one with jupyter                           | `all-jupyter-py36-cu90`                      | `all-py27-jupyter` `py27-jupyter`        |                                             | `all-py27-jupyter-cpu` `py27-jupyter-cpu`
+ [Theano](http://deeplearning.net/software/theano) | `theano-py36-cu90`                           | `theano-py27-cu90` `theano-py27`         |                                             | `theano-py27-cpu`
+ [TensorFlow](http://www.tensorflow.org)           | `tensorflow-py36-cu90`                       | `tensorflow-py27-cu90` `tensorflow-py27` |                                             | `tensorflow-py27-cpu`
+ [Sonnet](https://github.com/deepmind/sonnet)      | `sonnet-py36-cu90`                           | `sonnet-py27-cu90` `sonnet-py27`         |                                             | `sonnet-py27-cpu`
+ [PyTorch](http://pytorch.org)                     | `pytorch-py36-cu90`                          | `pytorch-py27-cu90` `pytorch-py27`       |                                             | `pytorch-py27-cpu`
+ [Keras](https://keras.io)                         | `keras-py36-cu90`                            | `keras-py27-cu90` `keras-py27`           |                                             | `keras-py27-cpu`
+ [Lasagne](http://lasagne.readthedocs.io)          | `lasagne-py36-cu90`                          | `lasagne-py27-cu90` `lasagne-py27`       |                                             | `lasagne-py27-cpu`
+ [MXNet](http://mxnet.incubator.apache.org)        | `mxnet-py36-cu90`                            | `mxnet-py27-cu90` `mxnet-py27`           |                                             | `mxnet-py27-cpu`
+ [CNTK](http://cntk.ai)                            | `cntk-py36-cu90`                             | `cntk-py27-cu90` `cntk-py27`             |                                             | `cntk-py27-cpu`
+ [Chainer](https://chainer.org)                    | `chainer-py36-cu90`                          | `chainer-py27-cu90` `chainer-py27`       |                                             | `chainer-py27-cpu`
+ [Caffe](http://caffe.berkeleyvision.org)          | `caffe-py36-cu90`                            | `caffe-py27-cu90` `caffe-py27`           |                                             | `caffe-py27-cpu`
+ [Caffe2](https://caffe2.ai)                       | `caffe2-py36-cu90` `caffe2-py36` `caffe2`    | `caffe2-py27-cu90` `caffe2-py27`         | `caffe2-py36-cpu` `caffe2-cpu`              | `caffe2-py27-cpu`
+ [Torch](http://torch.ch/)                         | `torch-cu90`                                 | `torch-cu90` `torch`                     |                                             | `torch-cpu`
+ [Darknet](https://pjreddie.com/darknet/)          | `darknet-cu90`                               | `darknet-cu90` `darknet`                 |                                             | `darknet-cpu`
 
 ---
 
