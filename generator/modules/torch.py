@@ -13,11 +13,6 @@ class Torch(Module):
             $GIT_CLONE https://github.com/nagadomi/distro.git ~/torch''' \
         + r''' --recursive && \
 
-            cd ~/torch && \
-            ./clean.sh && \
-            git fetch && \
-            git reset --hard && \
-
             cd ~/torch/exe/luajit-rocks && \
             mkdir build && cd build && \
             cmake -D CMAKE_BUILD_TYPE=RELEASE \
