@@ -139,7 +139,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     tar -zxf ~/boost.tar.gz -C ~ && \
     cd ~/boost_* && \
     ./bootstrap.sh --with-python=python3.6 && \
-    ./b2 install --prefix=/usr/local && \
+    ./b2 install -j"$(nproc)" --prefix=/usr/local && \
 
 # ==================================================================
 # chainer
