@@ -25,6 +25,6 @@ class Boost(Module):
             tar -zxf ~/boost.tar.gz -C ~ && \
             cd ~/boost_* && \
             ./bootstrap.sh --with-python=python%s && \
-            ./b2 install --prefix=/usr/local && \
+            ./b2 install -j"$(nproc)" --prefix=/usr/local && \
             ''' % pyver
         )
