@@ -17,6 +17,9 @@ class Tools(Module):
                 wget \
                 git \
                 vim \
+                curl \
+                unzip \
+                unrar \
                 && \
 
             $GIT_CLONE https://github.com/Kitware/CMake ~/cmake && \
