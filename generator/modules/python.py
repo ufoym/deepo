@@ -56,6 +56,7 @@ class Python(Module):
             $PIP_INSTALL \
                 numpy \
                 scipy \
+                xgboost \
                 pandas \
                 cloudpickle \
                 scikit-learn \
