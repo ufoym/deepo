@@ -246,29 +246,27 @@ This may take several minutes as it compiles a few libraries from scratch.
 <a name="Comparison"/>
 
 # Comparison to alternatives
+
+
 .                                                  | modern-deep-learning | dl-docker          | jupyter-deeplearning | Deepo
 :------------------------------------------------: | :------------------: | :----------------: | :------------------: | :----------------:
  [ubuntu](https://www.ubuntu.com)                  | 16.04                | 14.04              | 14.04                | 18.04
- [cuda](https://developer.nvidia.com/cuda-zone)    | :x:                  | 8.0                | 6.5-8.0              | 8.0-10.0/None
- [cudnn](https://developer.nvidia.com/cudnn)       | :x:                  | v5                 | v2-5                 | v7
- [onnx](https://onnx.ai)                           | :x:                  | :x:                | :x:                  | :heavy_check_mark:
- [theano](http://deeplearning.net/software/theano) | :x:                  | :heavy_check_mark: | :heavy_check_mark:   | :heavy_check_mark:
- [tensorflow](http://www.tensorflow.org)           | :heavy_check_mark:   | :heavy_check_mark: | :heavy_check_mark:   | :heavy_check_mark:
- [sonnet](https://github.com/deepmind/sonnet)      | :x:                  | :x:                | :x:                  | :heavy_check_mark:
- [pytorch](http://pytorch.org)                     | :x:                  | :x:                | :x:                  | :heavy_check_mark:
- [keras](https://keras.io)                         | :heavy_check_mark:   | :heavy_check_mark: | :heavy_check_mark:   | :heavy_check_mark:
- [lasagne](http://lasagne.readthedocs.io)          | :x:                  | :heavy_check_mark: | :heavy_check_mark:   | :heavy_check_mark:
- [mxnet](http://mxnet.incubator.apache.org)        | :x:                  | :x:                | :x:                  | :heavy_check_mark:
- [cntk](http://cntk.ai)                            | :x:                  | :x:                | :x:                  | :heavy_check_mark:
- [chainer](https://chainer.org)                    | :x:                  | :x:                | :x:                  | :heavy_check_mark:
- [caffe](http://caffe.berkeleyvision.org)          | :heavy_check_mark:   | :heavy_check_mark: | :heavy_check_mark:   | :heavy_check_mark:
- [caffe2](https://caffe2.ai)                       | :x:                  | :x:                | :x:                  | :heavy_check_mark:
- [torch](http://torch.ch/)                         | :x:                  | :heavy_check_mark: | :heavy_check_mark:   | :heavy_check_mark:
- [darknet](https://pjreddie.com/darknet/)          | :x:                  | :x:                | :x:                  | :heavy_check_mark:
-
-
-
----
+ [cuda](https://developer.nvidia.com/cuda-zone)    | X                    | 8.0                | 6.5-8.0              | 8.0-10.0/None
+ [cudnn](https://developer.nvidia.com/cudnn)       | X                    | v5                 | v2-5                 | v7
+ [onnx](https://onnx.ai)                           | X                    | X                  | X                    | O
+ [theano](http://deeplearning.net/software/theano) | X                    | O                  | O                    | O
+ [tensorflow](http://www.tensorflow.org)           | O                    | O                  | O                    | O
+ [sonnet](https://github.com/deepmind/sonnet)      | X                    | X                  | X                    | O
+ [pytorch](http://pytorch.org)                     | X                    | X                  | X                    | O
+ [keras](https://keras.io)                         | O                    | O                  | O                    | O
+ [lasagne](http://lasagne.readthedocs.io)          | X                    | O                  | O                    | O
+ [mxnet](http://mxnet.incubator.apache.org)        | X                    | X                  | X                    | O
+ [cntk](http://cntk.ai)                            | X                    | X                  | X                    | O
+ [chainer](https://chainer.org)                    | X                    | X                  | X                    | O
+ [caffe](http://caffe.berkeleyvision.org)          | O                    | O                  | O                    | O
+ [caffe2](https://caffe2.ai)                       | X                    | X                  | X                    | O
+ [torch](http://torch.ch/)                         | X                    | O                  | O                    | O
+ [darknet](https://pjreddie.com/darknet/)          | X                    | X                  | X                    | O
 
 
 
@@ -323,7 +321,6 @@ This may take several minutes as it compiles a few libraries from scratch.
  [Torch](http://torch.ch/)                         | `torch-cu90`                                 | `torch-cu90` `torch`                     |                                             | `torch-cpu`
  [Darknet](https://pjreddie.com/darknet/)          | `darknet-cu90`                               | `darknet-cu90` `darknet`                 |                                             | `darknet-cpu`
 
----
 
 
 
