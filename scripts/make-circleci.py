@@ -37,7 +37,9 @@ def get_job(tags):
             machine: true
             steps:
                 - checkout
-                - run: docker build %s -f docker/Dockerfile.%s .
+                - run:
+                    command: docker build %s -f docker/Dockerfile.%s .
+                    no_output_timeout: 1h
                 - run: docker login -u $DOCKER_USER -p $DOCKER_PASS''' % (
                     job_name,
                     ' '.join('-t $DOCKER_REPO:%s' % tag for tag in tags),
