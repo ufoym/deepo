@@ -59,6 +59,20 @@ and their Dockerfile generator that
 docker pull ufoym/deepo
 ```
 
+For users in China who may suffer from slow speeds when pulling the image from the public Docker registry, you can pull `deepo` images from the China registry mirror by specifying the full path, including the registry, in your docker pull command, for example:
+
+```bash
+docker pull registry.docker-cn.com/ufoym/deepo
+```
+or
+```bash
+docker pull hub-mirror.c.163.com/ufoym/deepo
+```
+or
+```bash
+docker pull docker.mirrors.ustc.edu.cn/ufoym/deepo
+```
+
 <a name="Usage"/>
 
 ### Usage
