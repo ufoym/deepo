@@ -326,7 +326,7 @@ This may take several minutes as it compiles a few libraries from scratch.
 <a name="Citation"/>
 
 # Citation
-
+```
 @misc{ming2017deepo,
     author = {Ming Yang},
     title = {Deepo: set up your environment for deep learning in a single command line.},
@@ -335,7 +335,7 @@ This may take several minutes as it compiles a few libraries from scratch.
     journal = {GitHub repository},
     howpublished = {\url{https://github.com/ufoym/deepo}}
 }
-
+```
 <a name="Contributing"/>
 
 # Contributing
