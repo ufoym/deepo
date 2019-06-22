@@ -329,7 +329,7 @@ This may take several minutes as it compiles a few libraries from scratch.
 ```
 @misc{ming2017deepo,
     author = {Ming Yang},
-    title = {Deepo: set up your environment for deep learning in a single command line.},
+    title = {Deepo: set up deep learning environment in a single command line.},
     year = {2017},
     publisher = {GitHub},
     journal = {GitHub repository},
