@@ -33,6 +33,7 @@ and their Dockerfile generator that
 - [Tags](#Tags)
   - [Available Tags](#Available-tags)
   - [Deprecated Tags](#Deprecated-tags)
+- [Citation](#Citation)
 - [Contributing](#Contributing)
 - [Licensing](#Licensing)
 
@@ -322,7 +323,18 @@ This may take several minutes as it compiles a few libraries from scratch.
  [Darknet](https://pjreddie.com/darknet/)          | `darknet-cu90`                               | `darknet-cu90` `darknet`                 |                                             | `darknet-cpu`
 
 
+<a name="Citation"/>
 
+# Citation
+
+@misc{ming2017deepo,
+    author = {Ming Yang},
+    title = {Deepo: set up your environment for deep learning in a single command line.},
+    year = {2017},
+    publisher = {GitHub},
+    journal = {GitHub repository},
+    howpublished = {\url{https://github.com/ufoym/deepo}}
+}
 
 <a name="Contributing"/>
 
