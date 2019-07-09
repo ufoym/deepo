@@ -65,14 +65,6 @@ For users in China who may suffer from slow speeds when pulling the image from t
 ```bash
 docker pull registry.docker-cn.com/ufoym/deepo
 ```
-or
-```bash
-docker pull hub-mirror.c.163.com/ufoym/deepo
-```
-or
-```bash
-docker pull docker.mirrors.ustc.edu.cn/ufoym/deepo
-```
 
 <a name="Usage"/>
 
