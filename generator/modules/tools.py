@@ -17,6 +17,7 @@ class Tools(Module):
                 wget \
                 git \
                 vim \
+                libssl-dev \
                 curl \
                 unzip \
                 unrar \
