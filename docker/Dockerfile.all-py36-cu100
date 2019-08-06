@@ -41,6 +41,10 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         wget \
         git \
         vim \
+        libssl-dev \
+        curl \
+        unzip \
+        unrar \
         && \
 
     $GIT_CLONE https://github.com/Kitware/CMake ~/cmake && \
@@ -190,10 +194,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         typing \
     	torch \
         && \
-
     $PIP_INSTALL \
     "git+https://github.com/pytorch/vision.git" && \
-
     $PIP_INSTALL \
         torch_nightly -f \
         https://download.pytorch.org/whl/nightly/cu100/torch_nightly.html \

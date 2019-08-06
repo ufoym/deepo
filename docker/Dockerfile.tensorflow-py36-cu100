@@ -28,6 +28,10 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         wget \
         git \
         vim \
+        libssl-dev \
+        curl \
+        unzip \
+        unrar \
         && \
 
     $GIT_CLONE https://github.com/Kitware/CMake ~/cmake && \
