@@ -10,10 +10,10 @@ jobs:
  
     steps:
     - uses: actions/checkout@master
-    - run: docker build -t $DOCKER_REPO:all-py36-cu100 -t $DOCKER_REPO:all-py36 -t $DOCKER_REPO:all -t $DOCKER_REPO:py36-cu100 -t $DOCKER_REPO:latest -f docker/Dockerfile.all-py36-cu100 .
-    - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
-    - run: docker push $DOCKER_REPO:all-py36-cu100            
-    - run: docker push $DOCKER_REPO:all-py36            
-    - run: docker push $DOCKER_REPO:all            
-    - run: docker push $DOCKER_REPO:py36-cu100            
-    - run: docker push $DOCKER_REPO:latest
+    - run: docker build -t ${{ secrets.DOCKER_REPO }}:all-py36-cu100 -t ${{ secrets.DOCKER_REPO }}:all-py36 -t ${{ secrets.DOCKER_REPO }}:all -t ${{ secrets.DOCKER_REPO }}:py36-cu100 -t ${{ secrets.DOCKER_REPO }}:latest -f docker/Dockerfile.all-py36-cu100 .
+    - run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}            
+    - run: docker push ${{ secrets.DOCKER_REPO }}:all-py36-cu100            
+    - run: docker push ${{ secrets.DOCKER_REPO }}:all-py36            
+    - run: docker push ${{ secrets.DOCKER_REPO }}:all            
+    - run: docker push ${{ secrets.DOCKER_REPO }}:py36-cu100            
+    - run: docker push ${{ secrets.DOCKER_REPO }}:latest
