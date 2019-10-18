@@ -2,11 +2,11 @@
 # module list
 # ------------------------------------------------------------------
 # python        3.6    (apt)
-# opencv        4.1.2  (git)
-# cntk          latest (pip)
+# theano        latest (git)
+# lasagne       latest (git)
 # ==================================================================
 
-FROM ubuntu:18.04
+FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
 ENV LANG C.UTF-8
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
@@ -73,75 +73,37 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
 # ==================================================================
-# boost
-# ------------------------------------------------------------------
-
-    wget -O ~/boost.tar.gz https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz && \
-    tar -zxf ~/boost.tar.gz -C ~ && \
-    cd ~/boost_* && \
-    ./bootstrap.sh --with-python=python3.6 && \
-    ./b2 install -j"$(nproc)" --prefix=/usr/local && \
-
-# ==================================================================
-# opencv
+# theano
 # ------------------------------------------------------------------
 
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        libatlas-base-dev \
-        libgflags-dev \
-        libgoogle-glog-dev \
-        libhdf5-serial-dev \
-        libleveldb-dev \
-        liblmdb-dev \
-        libprotobuf-dev \
-        libsnappy-dev \
-        protobuf-compiler \
+        libblas-dev \
         && \
 
-    $GIT_CLONE --branch 4.1.2 https://github.com/opencv/opencv ~/opencv && \
-    mkdir -p ~/opencv/build && cd ~/opencv/build && \
-    cmake -D CMAKE_BUILD_TYPE=RELEASE \
-          -D CMAKE_INSTALL_PREFIX=/usr/local \
-          -D WITH_IPP=OFF \
-          -D WITH_CUDA=OFF \
-          -D WITH_OPENCL=OFF \
-          -D BUILD_TESTS=OFF \
-          -D BUILD_PERF_TESTS=OFF \
-          -D BUILD_DOCS=OFF \
-          -D BUILD_EXAMPLES=OFF \
-          .. && \
-    make -j"$(nproc)" install && \
-    ln -s /usr/local/include/opencv4/opencv2 /usr/local/include/opencv2 && \
-
-# ==================================================================
-# cntk
-# ------------------------------------------------------------------
-
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        openmpi-bin \
-        libpng-dev \
-        libjpeg-dev \
-        libtiff-dev \
-        && \
-
-    # Fix ImportError for CNTK
-    ln -s /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.20 /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.1 && \
-    ln -s /usr/lib/x86_64-linux-gnu/libmpi.so.20.10.1 /usr/lib/x86_64-linux-gnu/libmpi.so.12 && \
-
-    wget --no-verbose -O - https://github.com/01org/mkl-dnn/releases/download/v0.14/mklml_lnx_2018.0.3.20180406.tgz | tar -xzf - && \
-    cp mklml*/* /usr/local -r && \
-
-    wget --no-verbose -O - https://github.com/01org/mkl-dnn/archive/v0.14.tar.gz | tar -xzf - && \
-    cd mkl-dnn-0.14 && mkdir build && cd build && \
-    ln -s /usr/local external && \
+    wget -qO- https://github.com/Theano/libgpuarray/archive/v0.7.6.tar.gz | tar xz -C ~ && \
+    cd ~/libgpuarray* && mkdir -p build && cd build && \
     cmake -D CMAKE_BUILD_TYPE=RELEASE \
           -D CMAKE_INSTALL_PREFIX=/usr/local \
           .. && \
     make -j"$(nproc)" install && \
+    cd ~/libgpuarray* && \
+    python setup.py build && \
+    python setup.py install && \
+
+    printf '[global]\nfloatX = float32\ndevice = cuda0\n\n[dnn]\ninclude_path = /usr/local/cuda/targets/x86_64-linux/include\n' > ~/.theanorc && \
 
     $PIP_INSTALL \
-        cntk \
+        https://github.com/Theano/Theano/archive/master.zip \
         && \
+
+# ==================================================================
+# lasagne
+# ------------------------------------------------------------------
+
+    $GIT_CLONE https://github.com/Lasagne/Lasagne ~/lasagne && \
+    cd ~/lasagne && \
+    $PIP_INSTALL \
+        . && \
 
 # ==================================================================
 # config & cleanup

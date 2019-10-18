@@ -9,9 +9,6 @@ from .opencv import Opencv
 class Cntk(Module):
 
     def build(self):
-        pyver = self.composer.ver(Python)
-        platform = 'cp27-cp27mu' if pyver == '2.7' else (
-            'cp35-cp35m' if pyver == '3.5' else 'cp36-cp36m')
         return r'''
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 openmpi-bin \

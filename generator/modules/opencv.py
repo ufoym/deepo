@@ -7,7 +7,7 @@ from .python import Python
 
 @dependency(Tools, Python, Boost)
 @source('git')
-@version('4.0.1')
+@version('4.1.2')
 class Opencv(Module):
 
     def build(self):
@@ -33,6 +33,8 @@ class Opencv(Module):
                   -D WITH_OPENCL=OFF \
                   -D BUILD_TESTS=OFF \
                   -D BUILD_PERF_TESTS=OFF \
+                  -D BUILD_DOCS=OFF \
+                  -D BUILD_EXAMPLES=OFF \
                   .. && \
             make -j"$(nproc)" install && \
             ln -s /usr/local/include/opencv4/opencv2 /usr/local/include/opencv2 && \

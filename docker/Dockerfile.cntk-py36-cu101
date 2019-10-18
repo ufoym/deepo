@@ -6,7 +6,7 @@
 # cntk          latest (pip)
 # ==================================================================
 
-FROM ubuntu:18.04
+FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
 ENV LANG C.UTF-8
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
@@ -140,7 +140,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     make -j"$(nproc)" install && \
 
     $PIP_INSTALL \
-        cntk \
+        cntk-gpu \
         && \
 
 # ==================================================================

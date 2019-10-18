@@ -1,6 +1,16 @@
 version: 2.0
 jobs:
     
+    "chainer-py36-cu101":
+        machine: true
+        steps:
+            - checkout
+            - run:
+                command: docker build -t $DOCKER_REPO:chainer-py36-cu101 -f docker/Dockerfile.chainer-py36-cu101 .
+                no_output_timeout: 1h
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:chainer-py36-cu101
+    
     "mxnet-py36-cpu_mxnet-cpu":
         machine: true
         steps:
@@ -71,6 +81,16 @@ jobs:
             - run: docker push $DOCKER_REPO:py36-cpu            
             - run: docker push $DOCKER_REPO:cpu
     
+    "darknet-cu101":
+        machine: true
+        steps:
+            - checkout
+            - run:
+                command: docker build -t $DOCKER_REPO:darknet-cu101 -f docker/Dockerfile.darknet-cu101 .
+                no_output_timeout: 1h
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:darknet-cu101
+    
     "darknet-cpu":
         machine: true
         steps:
@@ -91,6 +111,16 @@ jobs:
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:darknet-cu100            
             - run: docker push $DOCKER_REPO:darknet
+    
+    "keras-py36-cu101":
+        machine: true
+        steps:
+            - checkout
+            - run:
+                command: docker build -t $DOCKER_REPO:keras-py36-cu101 -f docker/Dockerfile.keras-py36-cu101 .
+                no_output_timeout: 1h
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:keras-py36-cu101
     
     "lasagne-py36-cpu_lasagne-cpu":
         machine: true
@@ -129,6 +159,27 @@ jobs:
             - run: docker push $DOCKER_REPO:py36-cu100            
             - run: docker push $DOCKER_REPO:latest
     
+    "cntk-py36-cu101":
+        machine: true
+        steps:
+            - checkout
+            - run:
+                command: docker build -t $DOCKER_REPO:cntk-py36-cu101 -f docker/Dockerfile.cntk-py36-cu101 .
+                no_output_timeout: 1h
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:cntk-py36-cu101
+    
+    "all-py36-cu101_py36-cu101":
+        machine: true
+        steps:
+            - checkout
+            - run:
+                command: docker build -t $DOCKER_REPO:all-py36-cu101 -t $DOCKER_REPO:py36-cu101 -f docker/Dockerfile.all-py36-cu101 .
+                no_output_timeout: 1h
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:all-py36-cu101            
+            - run: docker push $DOCKER_REPO:py36-cu101
+    
     "tensorflow-py36-cu100_tensorflow-py36_tensorflow":
         machine: true
         steps:
@@ -140,6 +191,16 @@ jobs:
             - run: docker push $DOCKER_REPO:tensorflow-py36-cu100            
             - run: docker push $DOCKER_REPO:tensorflow-py36            
             - run: docker push $DOCKER_REPO:tensorflow
+    
+    "pytorch-py36-cu101":
+        machine: true
+        steps:
+            - checkout
+            - run:
+                command: docker build -t $DOCKER_REPO:pytorch-py36-cu101 -f docker/Dockerfile.pytorch-py36-cu101 .
+                no_output_timeout: 1h
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:pytorch-py36-cu101
     
     "sonnet-py36-cu100_sonnet-py36_sonnet":
         machine: true
@@ -164,6 +225,16 @@ jobs:
             - run: docker push $DOCKER_REPO:keras-py36-cpu            
             - run: docker push $DOCKER_REPO:keras-cpu
     
+    "tensorflow-py36-cu101":
+        machine: true
+        steps:
+            - checkout
+            - run:
+                command: docker build -t $DOCKER_REPO:tensorflow-py36-cu101 -f docker/Dockerfile.tensorflow-py36-cu101 .
+                no_output_timeout: 1h
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:tensorflow-py36-cu101
+    
     "theano-py36-cpu_theano-cpu":
         machine: true
         steps:
@@ -174,6 +245,16 @@ jobs:
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:theano-py36-cpu            
             - run: docker push $DOCKER_REPO:theano-cpu
+    
+    "sonnet-py36-cu101":
+        machine: true
+        steps:
+            - checkout
+            - run:
+                command: docker build -t $DOCKER_REPO:sonnet-py36-cu101 -f docker/Dockerfile.sonnet-py36-cu101 .
+                no_output_timeout: 1h
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:sonnet-py36-cu101
     
     "pytorch-py36-cu100_pytorch-py36_pytorch":
         machine: true
@@ -198,6 +279,16 @@ jobs:
             - run: docker push $DOCKER_REPO:all-jupyter-py36-cu100            
             - run: docker push $DOCKER_REPO:all-jupyter-py36            
             - run: docker push $DOCKER_REPO:all-jupyter
+    
+    "mxnet-py36-cu101":
+        machine: true
+        steps:
+            - checkout
+            - run:
+                command: docker build -t $DOCKER_REPO:mxnet-py36-cu101 -f docker/Dockerfile.mxnet-py36-cu101 .
+                no_output_timeout: 1h
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:mxnet-py36-cu101
     
     "chainer-py36-cpu_chainer-cpu":
         machine: true
@@ -231,6 +322,16 @@ jobs:
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:torch-cpu
     
+    "all-jupyter-py36-cu101":
+        machine: true
+        steps:
+            - checkout
+            - run:
+                command: docker build -t $DOCKER_REPO:all-jupyter-py36-cu101 -f docker/Dockerfile.all-jupyter-py36-cu101 .
+                no_output_timeout: 1h
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:all-jupyter-py36-cu101
+    
     "mxnet-py36-cu100_mxnet-py36_mxnet":
         machine: true
         steps:
@@ -254,6 +355,16 @@ jobs:
             - run: docker push $DOCKER_REPO:cntk-py36-cpu            
             - run: docker push $DOCKER_REPO:cntk-cpu
     
+    "caffe-py36-cu101":
+        machine: true
+        steps:
+            - checkout
+            - run:
+                command: docker build -t $DOCKER_REPO:caffe-py36-cu101 -f docker/Dockerfile.caffe-py36-cu101 .
+                no_output_timeout: 1h
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:caffe-py36-cu101
+    
     "theano-py36-cu100_theano-py36_theano":
         machine: true
         steps:
@@ -265,6 +376,16 @@ jobs:
             - run: docker push $DOCKER_REPO:theano-py36-cu100            
             - run: docker push $DOCKER_REPO:theano-py36            
             - run: docker push $DOCKER_REPO:theano
+    
+    "theano-py36-cu101":
+        machine: true
+        steps:
+            - checkout
+            - run:
+                command: docker build -t $DOCKER_REPO:theano-py36-cu101 -f docker/Dockerfile.theano-py36-cu101 .
+                no_output_timeout: 1h
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:theano-py36-cu101
     
     "caffe-py36-cu100_caffe-py36_caffe":
         machine: true
@@ -288,6 +409,16 @@ jobs:
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:torch-cu100            
             - run: docker push $DOCKER_REPO:torch
+    
+    "torch-cu101":
+        machine: true
+        steps:
+            - checkout
+            - run:
+                command: docker build -t $DOCKER_REPO:torch-cu101 -f docker/Dockerfile.torch-cu101 .
+                no_output_timeout: 1h
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:torch-cu101
     
     "pytorch-py36-cpu_pytorch-cpu":
         machine: true
@@ -322,36 +453,60 @@ jobs:
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:caffe-py36-cpu            
             - run: docker push $DOCKER_REPO:caffe-cpu
+    
+    "lasagne-py36-cu101":
+        machine: true
+        steps:
+            - checkout
+            - run:
+                command: docker build -t $DOCKER_REPO:lasagne-py36-cu101 -f docker/Dockerfile.lasagne-py36-cu101 .
+                no_output_timeout: 1h
+            - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
+            - run: docker push $DOCKER_REPO:lasagne-py36-cu101
 
 workflows:
     version: 2
     build:
         jobs:
+            - "chainer-py36-cu101"
             - "mxnet-py36-cpu_mxnet-cpu"
             - "tensorflow-py36-cpu_tensorflow-cpu"
             - "sonnet-py36-cpu_sonnet-cpu"
             - "chainer-py36-cu100_chainer-py36_chainer"
             - "keras-py36-cu100_keras-py36_keras"
             - "all-py36-cpu_all-cpu_py36-cpu_cpu"
+            - "darknet-cu101"
             - "darknet-cpu"
             - "darknet-cu100_darknet"
+            - "keras-py36-cu101"
             - "lasagne-py36-cpu_lasagne-cpu"
             - "cntk-py36-cu100_cntk-py36_cntk"
             - "all-py36-cu100_all-py36_all_py36-cu100_latest"
+            - "cntk-py36-cu101"
+            - "all-py36-cu101_py36-cu101"
             - "tensorflow-py36-cu100_tensorflow-py36_tensorflow"
+            - "pytorch-py36-cu101"
             - "sonnet-py36-cu100_sonnet-py36_sonnet"
             - "keras-py36-cpu_keras-cpu"
+            - "tensorflow-py36-cu101"
             - "theano-py36-cpu_theano-cpu"
+            - "sonnet-py36-cu101"
             - "pytorch-py36-cu100_pytorch-py36_pytorch"
             - "all-jupyter-py36-cu100_all-jupyter-py36_all-jupyter"
+            - "mxnet-py36-cu101"
             - "chainer-py36-cpu_chainer-cpu"
             - "all-jupyter-py36-cpu_all-jupyter-cpu"
             - "torch-cpu"
+            - "all-jupyter-py36-cu101"
             - "mxnet-py36-cu100_mxnet-py36_mxnet"
             - "cntk-py36-cpu_cntk-cpu"
+            - "caffe-py36-cu101"
             - "theano-py36-cu100_theano-py36_theano"
+            - "theano-py36-cu101"
             - "caffe-py36-cu100_caffe-py36_caffe"
             - "torch-cu100_torch"
+            - "torch-cu101"
             - "pytorch-py36-cpu_pytorch-cpu"
             - "lasagne-py36-cu100_lasagne-py36_lasagne"
             - "caffe-py36-cpu_caffe-cpu"
+            - "lasagne-py36-cu101"

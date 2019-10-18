@@ -3,10 +3,10 @@
 # ------------------------------------------------------------------
 # python        3.6    (apt)
 # opencv        4.1.2  (git)
-# cntk          latest (pip)
+# caffe         latest (git)
 # ==================================================================
 
-FROM ubuntu:18.04
+FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
 ENV LANG C.UTF-8
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
@@ -114,35 +114,13 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     ln -s /usr/local/include/opencv4/opencv2 /usr/local/include/opencv2 && \
 
 # ==================================================================
-# cntk
+# caffe
 # ------------------------------------------------------------------
 
+    apt-get update && \
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        openmpi-bin \
-        libpng-dev \
-        libjpeg-dev \
-        libtiff-dev \
+        caffe-cuda \
         && \
-
-    # Fix ImportError for CNTK
-    ln -s /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.20 /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.1 && \
-    ln -s /usr/lib/x86_64-linux-gnu/libmpi.so.20.10.1 /usr/lib/x86_64-linux-gnu/libmpi.so.12 && \
-
-    wget --no-verbose -O - https://github.com/01org/mkl-dnn/releases/download/v0.14/mklml_lnx_2018.0.3.20180406.tgz | tar -xzf - && \
-    cp mklml*/* /usr/local -r && \
-
-    wget --no-verbose -O - https://github.com/01org/mkl-dnn/archive/v0.14.tar.gz | tar -xzf - && \
-    cd mkl-dnn-0.14 && mkdir build && cd build && \
-    ln -s /usr/local external && \
-    cmake -D CMAKE_BUILD_TYPE=RELEASE \
-          -D CMAKE_INSTALL_PREFIX=/usr/local \
-          .. && \
-    make -j"$(nproc)" install && \
-
-    $PIP_INSTALL \
-        cntk \
-        && \
-
 # ==================================================================
 # config & cleanup
 # ------------------------------------------------------------------
