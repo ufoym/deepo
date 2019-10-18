@@ -18,12 +18,9 @@ class Pytorch(Module):
                 enum34 \
                 pyyaml \
                 typing \
-            	torch \
                 && \
             $PIP_INSTALL \
-            "git+https://github.com/pytorch/vision.git" && \
-            $PIP_INSTALL \
-                torch_nightly -f \
+                --pre torch torchvision -f \
                 https://download.pytorch.org/whl/nightly/%s/torch_nightly.html \
                 && \
         ''' % cuver
