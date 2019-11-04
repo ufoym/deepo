@@ -11,7 +11,8 @@ jobs:
             - run: docker login -u $DOCKER_USER -p $DOCKER_PASS            
             - run: docker push $DOCKER_REPO:chainer-py36-cu101            
             - run: docker push $DOCKER_REPO:chainer-py36            
-            - run: docker push $DOCKER_REPO:chainer
+            - run: docker push $DOCKER_REPO:chainer    
+            - run: docker run $DOCKER_REPO:chainer python -c "import chainer as m; print(m.__version__)"
     
     "mxnet-py36-cpu_mxnet-cpu":
         machine: true
