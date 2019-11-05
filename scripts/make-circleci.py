@@ -79,7 +79,7 @@ def get_job(tags):
             import theano as m; print(m.__name__, ':', m.__version__);
             import lasagne as m; print(m.__name__, ':', m.__version__);
             import caffe as m; print(m.__name__, ':', m.__version__);
-            import caffe2 as m; print(m.__name__, ':', m.__version__);
+            import caffe2.python as m; dir(m); print(m.__name__, ':', m.__version__);
             ''').replace('\n', '')
         run_prefix = '- run: docker run $DOCKER_REPO:%s ' % tags[0]
         build_scripts += indent(3, textwrap.dedent('''
