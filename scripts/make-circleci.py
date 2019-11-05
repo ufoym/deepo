@@ -61,9 +61,30 @@ def get_job(tags):
                     job_name,
                     ' '.join('-t $DOCKER_REPO:%s' % tag for tag in tags),
                     tags[0])))
+    is_all = False
     for tag in tags:
         build_scripts += indent(3, textwrap.dedent('''
             - run: docker push $DOCKER_REPO:%s''' % tag))
+        if 'all' in tag:
+            is_all = True
+    if is_all:
+        test_scripts = textwrap.dedent('''
+            import tensorflow as m; print(m.__name__, ':', m.__version__);
+            import sonnet as m; print(m.__name__, ':', m.__version__);
+            import torch as m; print(m.__name__, ':', m.__version__);
+            import keras as m; print(m.__name__, ':', m.__version__);
+            import mxnet as m; print(m.__name__, ':', m.__version__);
+            import cntk as m; print(m.__name__, ':', m.__version__);
+            import chainer as m; print(m.__name__, ':', m.__version__);
+            import theano as m; print(m.__name__, ':', m.__version__);
+            import lasagne as m; print(m.__name__, ':', m.__version__);
+            import caffe as m; print(m.__name__, ':', m.__version__);
+            import caffe2 as m; print(m.__name__, ':', m.__version__);
+            ''').replace('\n', '')
+        build_scripts += indent(3, textwrap.dedent('''
+            - run: docker run $DOCKER_REPO:%s python -c "%s"''' % (
+                tags[0], test_scripts)))
+
     build_scripts += '\n'
     return job_name, build_scripts
 

@@ -62,7 +62,8 @@ jobs:
             - run: docker push $DOCKER_REPO:all-jupyter-py36-cpu            
             - run: docker push $DOCKER_REPO:all-jupyter-cpu            
             - run: docker push $DOCKER_REPO:py36-cpu            
-            - run: docker push $DOCKER_REPO:cpu
+            - run: docker push $DOCKER_REPO:cpu            
+            - run: docker run $DOCKER_REPO:all-py36-cpu python -c "import tensorflow as m; print(m.__name__, ':', m.__version__);import sonnet as m; print(m.__name__, ':', m.__version__);import torch as m; print(m.__name__, ':', m.__version__);import keras as m; print(m.__name__, ':', m.__version__);import mxnet as m; print(m.__name__, ':', m.__version__);import cntk as m; print(m.__name__, ':', m.__version__);import chainer as m; print(m.__name__, ':', m.__version__);import theano as m; print(m.__name__, ':', m.__version__);import lasagne as m; print(m.__name__, ':', m.__version__);import caffe as m; print(m.__name__, ':', m.__version__);import caffe2 as m; print(m.__name__, ':', m.__version__);"
     
     "darknet-cu101_darknet":
         machine: true
@@ -145,7 +146,8 @@ jobs:
             - run: docker push $DOCKER_REPO:all-jupyter            
             - run: docker push $DOCKER_REPO:cu101            
             - run: docker push $DOCKER_REPO:py36            
-            - run: docker push $DOCKER_REPO:latest
+            - run: docker push $DOCKER_REPO:latest            
+            - run: docker run $DOCKER_REPO:all-py36-cu101 python -c "import tensorflow as m; print(m.__name__, ':', m.__version__);import sonnet as m; print(m.__name__, ':', m.__version__);import torch as m; print(m.__name__, ':', m.__version__);import keras as m; print(m.__name__, ':', m.__version__);import mxnet as m; print(m.__name__, ':', m.__version__);import cntk as m; print(m.__name__, ':', m.__version__);import chainer as m; print(m.__name__, ':', m.__version__);import theano as m; print(m.__name__, ':', m.__version__);import lasagne as m; print(m.__name__, ':', m.__version__);import caffe as m; print(m.__name__, ':', m.__version__);import caffe2 as m; print(m.__name__, ':', m.__version__);"
     
     "pytorch-py36-cu101_pytorch-py36_pytorch-cu101_pytorch":
         machine: true
