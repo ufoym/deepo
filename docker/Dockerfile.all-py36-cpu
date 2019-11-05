@@ -5,6 +5,7 @@
 # python        3.6    (apt)
 # torch         latest (git)
 # chainer       latest (pip)
+# jupyter       latest (pip)
 # mxnet         latest (pip)
 # onnx          latest (pip)
 # pytorch       latest (pip)
@@ -152,6 +153,14 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     $PIP_INSTALL \
         chainer \
+        && \
+
+# ==================================================================
+# jupyter
+# ------------------------------------------------------------------
+
+    $PIP_INSTALL \
+        jupyter \
         && \
 
 # ==================================================================
@@ -323,4 +332,4 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/* /tmp/* ~/*
 
-EXPOSE 6006
+EXPOSE 8888 6006

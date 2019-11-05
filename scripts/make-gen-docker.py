@@ -55,14 +55,8 @@ def generate(f, cuda_ver=None, cudnn_ver=None):
 
         # all modules
         for pyver in pyvers:
-            modules = candidate_modules + ['python==%s' % pyver, 'onnx']
-            postfix = 'all-py%s' % pyver.replace('.', '')
-            f.write(get_command(modules, postfix, cuda_ver, cudnn_ver))
-
-        # all modules with jupyter
-        for pyver in pyvers:
             modules = candidate_modules + ['python==%s' % pyver, 'onnx', 'jupyter']
-            postfix = 'all-jupyter-py%s' % pyver.replace('.', '')
+            postfix = 'all-py%s' % pyver.replace('.', '')
             f.write(get_command(modules, postfix, cuda_ver, cudnn_ver))
 
 

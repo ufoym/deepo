@@ -11,22 +11,39 @@ def indent(n, s):
     return ''.join(prefix + l for l in s.splitlines(True))
 
 
-def get_tags(postfix, py_split='-py'):
+def get_tags(postfix,
+    default_mod='all',
+    default_platform='cu101',
+    default_pyver='py36'):
+
+    terms = postfix.split('-')
+    if len(terms) == 2:
+        mod, platform = terms
+        pyver = None
+    else:
+        mod = '-'.join(terms[:-2])
+        pyver, platform = terms[-2], terms[-1]
+
     tags = [postfix]
-    if postfix.endswith('-cu101'):
-        tags.append(postfix[:-6])
-    if py_split in postfix:
-        name, platform = postfix.split(py_split)
-        if platform == '36-cu101':
-            tags.append(name)
-        elif platform == '36-cpu':
-            tags.append(name + '-cpu')
-        if name == 'all':
-            tags.append('py%s' % platform)
-            if platform == '36-cu101':
-                tags.append('latest')
-            elif platform == '36-cpu':
-                tags.append('cpu')
+    if platform == default_platform:
+        tags.append('-'.join(filter(None, (mod, pyver))))
+    if pyver == default_pyver:
+        tags.append('-'.join(filter(None, (mod, platform))))
+    if mod == default_mod:
+        tags.append('-'.join(filter(None, (pyver, platform))))
+    if platform == default_platform and pyver == default_pyver:
+        tags.append(mod)
+    if mod == default_mod and pyver == default_pyver:
+        tags.append(platform)
+    if mod == default_mod and platform == default_platform:
+        tags.append(pyver)
+        if platform == default_platform:
+            tags.append('latest')
+
+    if mod == 'all':
+        for t in list(tags):
+            tags.append(t.replace('all', 'all-jupyter'))
+
     return tags
 
 
