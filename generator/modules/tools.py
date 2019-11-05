@@ -21,6 +21,10 @@ class Tools(Module):
                 curl \
                 unzip \
                 unrar \
-                cmake \
                 && \
+
+            $GIT_CLONE https://github.com/Kitware/CMake ~/cmake && \
+            cd ~/cmake && \
+            ./bootstrap && \
+            make -j"$(nproc)" install && \
             '''

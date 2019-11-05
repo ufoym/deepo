@@ -58,6 +58,7 @@ class Python(Module):
                 scipy \
                 pandas \
                 cloudpickle \
+                scikit-image>=0.14.2 \
                 scikit-learn \
                 matplotlib \
                 Cython \
