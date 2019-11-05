@@ -12,6 +12,6 @@ class Sonnet(Module):
         return r'''
             $PIP_INSTALL \
                 tensorflow_probability \
-                dm-sonnet \
+                "dm-sonnet>=2.0.0b0" --pre \
                 && \
         '''
