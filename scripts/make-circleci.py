@@ -81,9 +81,14 @@ def get_job(tags):
             import caffe as m; print(m.__name__, ':', m.__version__);
             import caffe2 as m; print(m.__name__, ':', m.__version__);
             ''').replace('\n', '')
+        run_prefix = '- run: docker run $DOCKER_REPO:%s ' % tags[0]
         build_scripts += indent(3, textwrap.dedent('''
-            - run: docker run $DOCKER_REPO:%s python -c "%s"''' % (
-                tags[0], test_scripts)))
+            %s python -c "%s"
+            %s caffe --version
+            %s darknet
+            %s th
+            ''' % (run_prefix, test_scripts,
+                   run_prefix, run_prefix, run_prefix)))
 
     build_scripts += '\n'
     return job_name, build_scripts
