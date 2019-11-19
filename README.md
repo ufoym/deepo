@@ -72,24 +72,24 @@ docker pull registry.docker-cn.com/ufoym/deepo
 
 Now you can try this command:
 ```bash
-docker run --runtime=nvidia --rm ufoym/deepo nvidia-smi
+docker run --gpus all --rm ufoym/deepo nvidia-smi
 ```
 This should work and enables Deepo to use the GPU from inside a docker container.
 If this does not work, search [the issues section on the nvidia-docker GitHub](https://github.com/NVIDIA/nvidia-docker/issues) -- many solutions are already documented. To get an interactive shell to a container that will not be automatically deleted after you exit do
 
 ```bash
-docker run --runtime=nvidia -it ufoym/deepo bash
+docker run --gpus all -it ufoym/deepo bash
 ```
 
 If you want to share your data and configurations between the host (your machine or VM) and the container in which you are using Deepo, use the -v option, e.g.
 ```bash
-docker run --runtime=nvidia -it -v /host/data:/data -v /host/config:/config ufoym/deepo bash
+docker run --gpus all -it -v /host/data:/data -v /host/config:/config ufoym/deepo bash
 ```
 This will make `/host/data` from the host visible as `/data` in the container, and `/host/config` as `/config`. Such isolation reduces the chances of your containerized experiments overwriting or using wrong data.
 
 Please note that some frameworks (e.g. PyTorch) use shared memory to share data between processes, so if multiprocessing is used the default shared memory segment size that container runs with is not enough, and you should increase shared memory size either with `--ipc=host` or `--shm-size` command line options to `docker run`.
 ```bash
-docker run --runtime=nvidia -it --ipc=host ufoym/deepo bash
+docker run --gpus all -it --ipc=host ufoym/deepo bash
 ```
 
 
@@ -190,15 +190,15 @@ docker pull ufoym/deepo:tensorflow
 
 ## Jupyter support
 
-#### Step 1. pull the image with jupyter support
+#### Step 1. pull the all-in-one image
 
 ```bash
-docker pull ufoym/deepo:all-jupyter
+docker pull ufoym/deepo
 ```
 
 #### Step 2. run the image
 ```bash
-docker run --runtime=nvidia -it -p 8888:8888 --ipc=host ufoym/deepo:all-jupyter jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token= --notebook-dir='/root'
+docker run --gpus all -it -p 8888:8888 --ipc=host ufoym/deepo jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token= --notebook-dir='/root'
 ```
 
 
@@ -276,7 +276,6 @@ This may take several minutes as it compiles a few libraries from scratch.
 .                                                  | CUDA 10.0 / Python 3.6                                    | CPU-only / Python 3.6
 :------------------------------------------------: | :-------------------------------------------------------: | :-----------------------------------------:
  all-in-one                                        | `latest` `all` `all-py36` `py36-cu100` `all-py36-cu100`   | `all-py36-cpu` `all-cpu` `py36-cpu` `cpu`
- all-in-one with jupyter                           | `all-jupyter-py36-cu100` `all-jupyter-py36` `all-jupyter` | `all-py36-jupyter-cpu` `py36-jupyter-cpu`
  [Theano](http://deeplearning.net/software/theano) | `theano-py36-cu100` `theano-py36` `theano`                | `theano-py36-cpu` `theano-cpu`
  [TensorFlow](http://www.tensorflow.org)           | `tensorflow-py36-cu100` `tensorflow-py36` `tensorflow`    | `tensorflow-py36-cpu` `tensorflow-cpu`
  [Sonnet](https://github.com/deepmind/sonnet)      | `sonnet-py36-cu100` `sonnet-py36` `sonnet`                | `sonnet-py36-cpu` `sonnet-cpu`
