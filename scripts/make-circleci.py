@@ -50,21 +50,19 @@ def get_tags(postfix,
 def get_job(tags):
     job_name = '_'.join(tags)
     build_scripts = indent(1, textwrap.dedent('''
-        "%s":
-            machine: true
+        %s:
+            runs-on: ubuntu-latest
             steps:
-                - checkout
-                - run:
-                    command: docker build %s -f docker/Dockerfile.%s .
-                    no_output_timeout: 1h
-                - run: docker login -u $DOCKER_USER -p $DOCKER_PASS''' % (
+                - uses: actions/checkout@master
+                - run: docker build %s -f docker/Dockerfile.%s .
+                - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}''' % (
                     job_name,
-                    ' '.join('-t $DOCKER_REPO:%s' % tag for tag in tags),
+                    ' '.join('-t ${{secrets.DOCKER_REPO}}:%s' % tag for tag in tags),
                     tags[0])))
     is_all = False
     for tag in tags:
         build_scripts += indent(3, textwrap.dedent('''
-            - run: docker push $DOCKER_REPO:%s''' % tag))
+            - run: docker push ${{secrets.DOCKER_REPO}}:%s''' % tag))
         if 'all' in tag:
             is_all = True
     if is_all:
@@ -79,9 +77,9 @@ def get_job(tags):
             import theano as m; print(m.__name__, ':', m.__version__);
             import lasagne as m; print(m.__name__, ':', m.__version__);
             import caffe as m; print(m.__name__, ':', m.__version__);
-            import caffe2.python as m; dir(m); print(m.__name__, ':', m.__version__);
+            import caffe2.python as m; print(m.__name__, ':', dir(m));
             ''').replace('\n', '')
-        run_prefix = '- run: docker run $DOCKER_REPO:%s ' % tags[0]
+        run_prefix = '- run: docker run ${{secrets.DOCKER_REPO}}:%s ' % tags[0]
         build_scripts += indent(3, textwrap.dedent('''
             %s python -c "%s"
             %s caffe --version
@@ -97,7 +95,8 @@ def get_job(tags):
 def generate(ci_fname):
     with open(ci_fname, 'w') as f:
         f.write(textwrap.dedent('''
-            version: 2.0
+            name: deepo CI
+            on: [push]
             jobs:
         ''')[1:])
 
@@ -111,18 +110,6 @@ def generate(ci_fname):
         with open(ci_fname, 'a') as f:
             f.write(build_scripts)
 
-    workflow_scripts = textwrap.dedent('''
-
-        workflows:
-            version: 2
-            build:
-                jobs:
-    ''')[1:]
-    workflow_scripts += indent(
-        3, '\n'.join('- "%s"' % job_name for job_name in job_names))
-    with open(ci_fname, 'a') as f:
-        f.write(workflow_scripts)
-
 
 if __name__ == '__main__':
-    generate('../circle.yml')
+    generate('../.github/workflows/dockerimage.yml')
