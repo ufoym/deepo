@@ -1,6 +1,6 @@
 ![deepo](https://user-images.githubusercontent.com/2270240/32102393-aecf573c-bb4e-11e7-811c-dc673cae7b9c.png)
 
-[![CircleCI](https://img.shields.io/circleci/project/github/ufoym/deepo.svg)](https://circleci.com/gh/ufoym/deepo)
+![workflows](https://github.com/ufoym/deepo/workflows/deepo%20CI/badge.svg)
 [![docker](https://img.shields.io/docker/pulls/ufoym/deepo.svg)](https://hub.docker.com/r/ufoym/deepo)
 ![license](https://img.shields.io/github/license/ufoym/deepo.svg)
 
