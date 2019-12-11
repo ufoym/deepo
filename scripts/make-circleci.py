@@ -60,12 +60,15 @@ def get_job(tags):
                     ' '.join('-t ${{secrets.DOCKER_REPO}}:%s' % tag for tag in tags),
                     tags[0])))
     is_all = False
+    is_cpu = False
     for tag in tags:
         build_scripts += indent(3, textwrap.dedent('''
             - run: docker push ${{secrets.DOCKER_REPO}}:%s''' % tag))
         if 'all' in tag:
             is_all = True
-    if is_all:
+        if 'cpu' in tag:
+            is_cpu = True
+    if is_all and is_cpu:
         test_scripts = textwrap.dedent('''
             import tensorflow as m; print(m.__name__, ':', m.__version__);
             import sonnet as m; print(m.__name__, ':', m.__version__);
