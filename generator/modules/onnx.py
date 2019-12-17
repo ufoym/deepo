@@ -15,6 +15,6 @@ class Onnx(Module):
                 && \
 
             $PIP_INSTALL \
-                onnx \
+                --no-binary onnx onnx \
                 && \
         '''
