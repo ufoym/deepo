@@ -98,6 +98,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         scikit-learn \
         matplotlib \
         Cython \
+        tqdm \
         && \
 
 # ==================================================================
@@ -189,6 +190,10 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     $PIP_INSTALL \
         --no-binary onnx onnx \
+        && \
+
+    $PIP_INSTALL \
+        onnxruntime \
         && \
 
 # ==================================================================

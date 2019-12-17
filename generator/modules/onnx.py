@@ -17,4 +17,8 @@ class Onnx(Module):
             $PIP_INSTALL \
                 --no-binary onnx onnx \
                 && \
+
+            $PIP_INSTALL \
+                onnxruntime \
+                && \
         '''

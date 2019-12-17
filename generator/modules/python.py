@@ -62,5 +62,6 @@ class Python(Module):
                 scikit-learn \
                 matplotlib \
                 Cython \
+                tqdm \
                 && \
         '''
