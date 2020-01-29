@@ -4,6 +4,7 @@
 
 import os
 import textwrap
+import datetime
 
 
 def indent(n, s):
@@ -43,6 +44,10 @@ def get_tags(postfix,
     if mod == 'all':
         for t in list(tags):
             tags.append(t.replace('all', 'all-jupyter'))
+
+    for t in list(tags):
+        if 'latest' not in t:
+            tags.append('%s-ver%s' % (t, datetime.datetime.now().strftime('%y%m%d')))
 
     return tags
 
