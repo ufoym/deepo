@@ -244,7 +244,7 @@ This may take several minutes as it compiles a few libraries from scratch.
 .                                                  | modern-deep-learning | dl-docker          | jupyter-deeplearning | Deepo
 :------------------------------------------------: | :------------------: | :----------------: | :------------------: | :----------------:
  [ubuntu](https://www.ubuntu.com)                  | 16.04                | 14.04              | 14.04                | 18.04
- [cuda](https://developer.nvidia.com/cuda-zone)    | X                    | 8.0                | 6.5-8.0              | 8.0-10.0/None
+ [cuda](https://developer.nvidia.com/cuda-zone)    | X                    | 8.0                | 6.5-8.0              | 8.0-10.1/None
  [cudnn](https://developer.nvidia.com/cudnn)       | X                    | v5                 | v2-5                 | v7
  [onnx](https://onnx.ai)                           | X                    | X                  | X                    | O
  [theano](http://deeplearning.net/software/theano) | X                    | O                  | O                    | O
