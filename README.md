@@ -2,8 +2,8 @@
 
 ![workflows](https://github.com/ufoym/deepo/workflows/deepo%20CI/badge.svg)
 [![docker](https://img.shields.io/docker/pulls/ufoym/deepo.svg)](https://hub.docker.com/r/ufoym/deepo)
+![build](https://img.shields.io/docker/automated/ufoym/deepo.svg)
 ![license](https://img.shields.io/github/license/ufoym/deepo.svg)
-
 
 ***Deepo*** is a series of [*Docker*](http://www.docker.com/) images that
 - allows you to quickly set up your deep learning research environment
