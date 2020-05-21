@@ -2,59 +2,59 @@ name: deepo CI
 on: [push]
 jobs:
     
-    chainer-py36-cu101_chainer-py36_chainer-cu101_chainer_chainer-py36-cu101-ver200129_chainer-py36-ver200129_chainer-cu101-ver200129_chainer-ver200129:
+    chainer-py36-cu101_chainer-py36_chainer-cu101_chainer_chainer-py36-cu101-ver200521_chainer-py36-ver200521_chainer-cu101-ver200521_chainer-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:chainer-py36-cu101 -t ${{secrets.DOCKER_REPO}}:chainer-py36 -t ${{secrets.DOCKER_REPO}}:chainer-cu101 -t ${{secrets.DOCKER_REPO}}:chainer -t ${{secrets.DOCKER_REPO}}:chainer-py36-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:chainer-py36-ver200129 -t ${{secrets.DOCKER_REPO}}:chainer-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:chainer-ver200129 -f docker/Dockerfile.chainer-py36-cu101 .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:chainer-py36-cu101 -t ${{secrets.DOCKER_REPO}}:chainer-py36 -t ${{secrets.DOCKER_REPO}}:chainer-cu101 -t ${{secrets.DOCKER_REPO}}:chainer -t ${{secrets.DOCKER_REPO}}:chainer-py36-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:chainer-py36-ver200521 -t ${{secrets.DOCKER_REPO}}:chainer-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:chainer-ver200521 -f docker/Dockerfile.chainer-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:chainer-py36-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:chainer-py36            
             - run: docker push ${{secrets.DOCKER_REPO}}:chainer-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:chainer            
-            - run: docker push ${{secrets.DOCKER_REPO}}:chainer-py36-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:chainer-py36-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:chainer-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:chainer-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:chainer-py36-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:chainer-py36-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:chainer-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:chainer-ver200521
     
-    mxnet-py36-cpu_mxnet-cpu_mxnet-py36-cpu-ver200129_mxnet-cpu-ver200129:
+    mxnet-py36-cpu_mxnet-cpu_mxnet-py36-cpu-ver200521_mxnet-cpu-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:mxnet-py36-cpu -t ${{secrets.DOCKER_REPO}}:mxnet-cpu -t ${{secrets.DOCKER_REPO}}:mxnet-py36-cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:mxnet-cpu-ver200129 -f docker/Dockerfile.mxnet-py36-cpu .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:mxnet-py36-cpu -t ${{secrets.DOCKER_REPO}}:mxnet-cpu -t ${{secrets.DOCKER_REPO}}:mxnet-py36-cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:mxnet-cpu-ver200521 -f docker/Dockerfile.mxnet-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-py36-cpu            
             - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-cpu            
-            - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-py36-cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-cpu-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-py36-cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-cpu-ver200521
     
-    tensorflow-py36-cpu_tensorflow-cpu_tensorflow-py36-cpu-ver200129_tensorflow-cpu-ver200129:
+    tensorflow-py36-cpu_tensorflow-cpu_tensorflow-py36-cpu-ver200521_tensorflow-cpu-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:tensorflow-py36-cpu -t ${{secrets.DOCKER_REPO}}:tensorflow-cpu -t ${{secrets.DOCKER_REPO}}:tensorflow-py36-cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:tensorflow-cpu-ver200129 -f docker/Dockerfile.tensorflow-py36-cpu .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:tensorflow-py36-cpu -t ${{secrets.DOCKER_REPO}}:tensorflow-cpu -t ${{secrets.DOCKER_REPO}}:tensorflow-py36-cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:tensorflow-cpu-ver200521 -f docker/Dockerfile.tensorflow-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-py36-cpu            
             - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-cpu            
-            - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-py36-cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-cpu-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-py36-cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-cpu-ver200521
     
-    sonnet-py36-cpu_sonnet-cpu_sonnet-py36-cpu-ver200129_sonnet-cpu-ver200129:
+    sonnet-py36-cpu_sonnet-cpu_sonnet-py36-cpu-ver200521_sonnet-cpu-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:sonnet-py36-cpu -t ${{secrets.DOCKER_REPO}}:sonnet-cpu -t ${{secrets.DOCKER_REPO}}:sonnet-py36-cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:sonnet-cpu-ver200129 -f docker/Dockerfile.sonnet-py36-cpu .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:sonnet-py36-cpu -t ${{secrets.DOCKER_REPO}}:sonnet-cpu -t ${{secrets.DOCKER_REPO}}:sonnet-py36-cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:sonnet-cpu-ver200521 -f docker/Dockerfile.sonnet-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-py36-cpu            
             - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-cpu            
-            - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-py36-cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-cpu-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-py36-cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-cpu-ver200521
     
-    all-py36-cpu_all-cpu_py36-cpu_cpu_all-jupyter-py36-cpu_all-jupyter-cpu_py36-cpu_cpu_all-py36-cpu-ver200129_all-cpu-ver200129_py36-cpu-ver200129_cpu-ver200129_all-jupyter-py36-cpu-ver200129_all-jupyter-cpu-ver200129_py36-cpu-ver200129_cpu-ver200129:
+    all-py36-cpu_all-cpu_py36-cpu_cpu_all-jupyter-py36-cpu_all-jupyter-cpu_py36-cpu_cpu_all-py36-cpu-ver200521_all-cpu-ver200521_py36-cpu-ver200521_cpu-ver200521_all-jupyter-py36-cpu-ver200521_all-jupyter-cpu-ver200521_py36-cpu-ver200521_cpu-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:all-py36-cpu -t ${{secrets.DOCKER_REPO}}:all-cpu -t ${{secrets.DOCKER_REPO}}:py36-cpu -t ${{secrets.DOCKER_REPO}}:cpu -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cpu -t ${{secrets.DOCKER_REPO}}:all-jupyter-cpu -t ${{secrets.DOCKER_REPO}}:py36-cpu -t ${{secrets.DOCKER_REPO}}:cpu -t ${{secrets.DOCKER_REPO}}:all-py36-cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:all-cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:py36-cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:all-jupyter-cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:py36-cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:cpu-ver200129 -f docker/Dockerfile.all-py36-cpu .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:all-py36-cpu -t ${{secrets.DOCKER_REPO}}:all-cpu -t ${{secrets.DOCKER_REPO}}:py36-cpu -t ${{secrets.DOCKER_REPO}}:cpu -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cpu -t ${{secrets.DOCKER_REPO}}:all-jupyter-cpu -t ${{secrets.DOCKER_REPO}}:py36-cpu -t ${{secrets.DOCKER_REPO}}:cpu -t ${{secrets.DOCKER_REPO}}:all-py36-cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:all-cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:py36-cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:all-jupyter-cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:py36-cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:cpu-ver200521 -f docker/Dockerfile.all-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:all-py36-cpu            
             - run: docker push ${{secrets.DOCKER_REPO}}:all-cpu            
@@ -64,86 +64,86 @@ jobs:
             - run: docker push ${{secrets.DOCKER_REPO}}:all-jupyter-cpu            
             - run: docker push ${{secrets.DOCKER_REPO}}:py36-cpu            
             - run: docker push ${{secrets.DOCKER_REPO}}:cpu            
-            - run: docker push ${{secrets.DOCKER_REPO}}:all-py36-cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:all-cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:py36-cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:all-jupyter-cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:py36-cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:cpu-ver200129            
+            - run: docker push ${{secrets.DOCKER_REPO}}:all-py36-cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:all-cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:py36-cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:all-jupyter-cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:py36-cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:cpu-ver200521            
             - run: docker run ${{secrets.DOCKER_REPO}}:all-py36-cpu  python -c "import tensorflow as m; print(m.__name__, ':', m.__version__);import sonnet as m; print(m.__name__, ':', m.__version__);import torch as m; print(m.__name__, ':', m.__version__);import keras as m; print(m.__name__, ':', m.__version__);import mxnet as m; print(m.__name__, ':', m.__version__);import cntk as m; print(m.__name__, ':', m.__version__);import chainer as m; print(m.__name__, ':', m.__version__);import theano as m; print(m.__name__, ':', m.__version__);import lasagne as m; print(m.__name__, ':', m.__version__);import caffe as m; print(m.__name__, ':', m.__version__);import caffe2.python as m; print(m.__name__, ':', dir(m));"
             - run: docker run ${{secrets.DOCKER_REPO}}:all-py36-cpu  caffe --version
             - run: docker run ${{secrets.DOCKER_REPO}}:all-py36-cpu  darknet
             - run: docker run ${{secrets.DOCKER_REPO}}:all-py36-cpu  th
 
     
-    darknet-cu101_darknet_darknet-cu101-ver200129_darknet-ver200129:
+    darknet-cu101_darknet_darknet-cu101-ver200521_darknet-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:darknet-cu101 -t ${{secrets.DOCKER_REPO}}:darknet -t ${{secrets.DOCKER_REPO}}:darknet-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:darknet-ver200129 -f docker/Dockerfile.darknet-cu101 .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:darknet-cu101 -t ${{secrets.DOCKER_REPO}}:darknet -t ${{secrets.DOCKER_REPO}}:darknet-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:darknet-ver200521 -f docker/Dockerfile.darknet-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:darknet-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:darknet            
-            - run: docker push ${{secrets.DOCKER_REPO}}:darknet-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:darknet-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:darknet-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:darknet-ver200521
     
-    darknet-cpu_darknet-cpu-ver200129:
+    darknet-cpu_darknet-cpu-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:darknet-cpu -t ${{secrets.DOCKER_REPO}}:darknet-cpu-ver200129 -f docker/Dockerfile.darknet-cpu .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:darknet-cpu -t ${{secrets.DOCKER_REPO}}:darknet-cpu-ver200521 -f docker/Dockerfile.darknet-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:darknet-cpu            
-            - run: docker push ${{secrets.DOCKER_REPO}}:darknet-cpu-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:darknet-cpu-ver200521
     
-    keras-py36-cu101_keras-py36_keras-cu101_keras_keras-py36-cu101-ver200129_keras-py36-ver200129_keras-cu101-ver200129_keras-ver200129:
+    keras-py36-cu101_keras-py36_keras-cu101_keras_keras-py36-cu101-ver200521_keras-py36-ver200521_keras-cu101-ver200521_keras-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:keras-py36-cu101 -t ${{secrets.DOCKER_REPO}}:keras-py36 -t ${{secrets.DOCKER_REPO}}:keras-cu101 -t ${{secrets.DOCKER_REPO}}:keras -t ${{secrets.DOCKER_REPO}}:keras-py36-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:keras-py36-ver200129 -t ${{secrets.DOCKER_REPO}}:keras-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:keras-ver200129 -f docker/Dockerfile.keras-py36-cu101 .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:keras-py36-cu101 -t ${{secrets.DOCKER_REPO}}:keras-py36 -t ${{secrets.DOCKER_REPO}}:keras-cu101 -t ${{secrets.DOCKER_REPO}}:keras -t ${{secrets.DOCKER_REPO}}:keras-py36-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:keras-py36-ver200521 -t ${{secrets.DOCKER_REPO}}:keras-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:keras-ver200521 -f docker/Dockerfile.keras-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:keras-py36-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:keras-py36            
             - run: docker push ${{secrets.DOCKER_REPO}}:keras-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:keras            
-            - run: docker push ${{secrets.DOCKER_REPO}}:keras-py36-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:keras-py36-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:keras-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:keras-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:keras-py36-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:keras-py36-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:keras-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:keras-ver200521
     
-    lasagne-py36-cpu_lasagne-cpu_lasagne-py36-cpu-ver200129_lasagne-cpu-ver200129:
+    lasagne-py36-cpu_lasagne-cpu_lasagne-py36-cpu-ver200521_lasagne-cpu-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:lasagne-py36-cpu -t ${{secrets.DOCKER_REPO}}:lasagne-cpu -t ${{secrets.DOCKER_REPO}}:lasagne-py36-cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:lasagne-cpu-ver200129 -f docker/Dockerfile.lasagne-py36-cpu .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:lasagne-py36-cpu -t ${{secrets.DOCKER_REPO}}:lasagne-cpu -t ${{secrets.DOCKER_REPO}}:lasagne-py36-cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:lasagne-cpu-ver200521 -f docker/Dockerfile.lasagne-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-py36-cpu            
             - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-cpu            
-            - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-py36-cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-cpu-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-py36-cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-cpu-ver200521
     
-    cntk-py36-cu101_cntk-py36_cntk-cu101_cntk_cntk-py36-cu101-ver200129_cntk-py36-ver200129_cntk-cu101-ver200129_cntk-ver200129:
+    cntk-py36-cu101_cntk-py36_cntk-cu101_cntk_cntk-py36-cu101-ver200521_cntk-py36-ver200521_cntk-cu101-ver200521_cntk-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:cntk-py36-cu101 -t ${{secrets.DOCKER_REPO}}:cntk-py36 -t ${{secrets.DOCKER_REPO}}:cntk-cu101 -t ${{secrets.DOCKER_REPO}}:cntk -t ${{secrets.DOCKER_REPO}}:cntk-py36-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:cntk-py36-ver200129 -t ${{secrets.DOCKER_REPO}}:cntk-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:cntk-ver200129 -f docker/Dockerfile.cntk-py36-cu101 .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:cntk-py36-cu101 -t ${{secrets.DOCKER_REPO}}:cntk-py36 -t ${{secrets.DOCKER_REPO}}:cntk-cu101 -t ${{secrets.DOCKER_REPO}}:cntk -t ${{secrets.DOCKER_REPO}}:cntk-py36-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:cntk-py36-ver200521 -t ${{secrets.DOCKER_REPO}}:cntk-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:cntk-ver200521 -f docker/Dockerfile.cntk-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:cntk-py36-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:cntk-py36            
             - run: docker push ${{secrets.DOCKER_REPO}}:cntk-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:cntk            
-            - run: docker push ${{secrets.DOCKER_REPO}}:cntk-py36-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:cntk-py36-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:cntk-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:cntk-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:cntk-py36-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:cntk-py36-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:cntk-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:cntk-ver200521
     
-    all-py36-cu101_all-py36_all-cu101_py36-cu101_all_cu101_py36_latest_all-jupyter-py36-cu101_all-jupyter-py36_all-jupyter-cu101_py36-cu101_all-jupyter_cu101_py36_latest_all-py36-cu101-ver200129_all-py36-ver200129_all-cu101-ver200129_py36-cu101-ver200129_all-ver200129_cu101-ver200129_py36-ver200129_all-jupyter-py36-cu101-ver200129_all-jupyter-py36-ver200129_all-jupyter-cu101-ver200129_py36-cu101-ver200129_all-jupyter-ver200129_cu101-ver200129_py36-ver200129:
+    all-py36-cu101_all-py36_all-cu101_py36-cu101_all_cu101_py36_latest_all-jupyter-py36-cu101_all-jupyter-py36_all-jupyter-cu101_py36-cu101_all-jupyter_cu101_py36_latest_all-py36-cu101-ver200521_all-py36-ver200521_all-cu101-ver200521_py36-cu101-ver200521_all-ver200521_cu101-ver200521_py36-ver200521_all-jupyter-py36-cu101-ver200521_all-jupyter-py36-ver200521_all-jupyter-cu101-ver200521_py36-cu101-ver200521_all-jupyter-ver200521_cu101-ver200521_py36-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:all-py36-cu101 -t ${{secrets.DOCKER_REPO}}:all-py36 -t ${{secrets.DOCKER_REPO}}:all-cu101 -t ${{secrets.DOCKER_REPO}}:py36-cu101 -t ${{secrets.DOCKER_REPO}}:all -t ${{secrets.DOCKER_REPO}}:cu101 -t ${{secrets.DOCKER_REPO}}:py36 -t ${{secrets.DOCKER_REPO}}:latest -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cu101 -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36 -t ${{secrets.DOCKER_REPO}}:all-jupyter-cu101 -t ${{secrets.DOCKER_REPO}}:py36-cu101 -t ${{secrets.DOCKER_REPO}}:all-jupyter -t ${{secrets.DOCKER_REPO}}:cu101 -t ${{secrets.DOCKER_REPO}}:py36 -t ${{secrets.DOCKER_REPO}}:latest -t ${{secrets.DOCKER_REPO}}:all-py36-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:all-py36-ver200129 -t ${{secrets.DOCKER_REPO}}:all-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:py36-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:all-ver200129 -t ${{secrets.DOCKER_REPO}}:cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:py36-ver200129 -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-ver200129 -t ${{secrets.DOCKER_REPO}}:all-jupyter-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:py36-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:all-jupyter-ver200129 -t ${{secrets.DOCKER_REPO}}:cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:py36-ver200129 -f docker/Dockerfile.all-py36-cu101 .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:all-py36-cu101 -t ${{secrets.DOCKER_REPO}}:all-py36 -t ${{secrets.DOCKER_REPO}}:all-cu101 -t ${{secrets.DOCKER_REPO}}:py36-cu101 -t ${{secrets.DOCKER_REPO}}:all -t ${{secrets.DOCKER_REPO}}:cu101 -t ${{secrets.DOCKER_REPO}}:py36 -t ${{secrets.DOCKER_REPO}}:latest -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cu101 -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36 -t ${{secrets.DOCKER_REPO}}:all-jupyter-cu101 -t ${{secrets.DOCKER_REPO}}:py36-cu101 -t ${{secrets.DOCKER_REPO}}:all-jupyter -t ${{secrets.DOCKER_REPO}}:cu101 -t ${{secrets.DOCKER_REPO}}:py36 -t ${{secrets.DOCKER_REPO}}:latest -t ${{secrets.DOCKER_REPO}}:all-py36-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:all-py36-ver200521 -t ${{secrets.DOCKER_REPO}}:all-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:py36-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:all-ver200521 -t ${{secrets.DOCKER_REPO}}:cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:py36-ver200521 -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-ver200521 -t ${{secrets.DOCKER_REPO}}:all-jupyter-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:py36-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:all-jupyter-ver200521 -t ${{secrets.DOCKER_REPO}}:cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:py36-ver200521 -f docker/Dockerfile.all-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:all-py36-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:all-py36            
@@ -161,208 +161,208 @@ jobs:
             - run: docker push ${{secrets.DOCKER_REPO}}:cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:py36            
             - run: docker push ${{secrets.DOCKER_REPO}}:latest            
-            - run: docker push ${{secrets.DOCKER_REPO}}:all-py36-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:all-py36-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:all-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:py36-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:all-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:py36-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:all-jupyter-py36-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:all-jupyter-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:py36-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:all-jupyter-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:py36-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:all-py36-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:all-py36-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:all-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:py36-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:all-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:py36-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:all-jupyter-py36-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:all-jupyter-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:py36-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:all-jupyter-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:py36-ver200521
     
-    pytorch-py36-cu101_pytorch-py36_pytorch-cu101_pytorch_pytorch-py36-cu101-ver200129_pytorch-py36-ver200129_pytorch-cu101-ver200129_pytorch-ver200129:
+    pytorch-py36-cu101_pytorch-py36_pytorch-cu101_pytorch_pytorch-py36-cu101-ver200521_pytorch-py36-ver200521_pytorch-cu101-ver200521_pytorch-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:pytorch-py36-cu101 -t ${{secrets.DOCKER_REPO}}:pytorch-py36 -t ${{secrets.DOCKER_REPO}}:pytorch-cu101 -t ${{secrets.DOCKER_REPO}}:pytorch -t ${{secrets.DOCKER_REPO}}:pytorch-py36-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:pytorch-py36-ver200129 -t ${{secrets.DOCKER_REPO}}:pytorch-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:pytorch-ver200129 -f docker/Dockerfile.pytorch-py36-cu101 .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:pytorch-py36-cu101 -t ${{secrets.DOCKER_REPO}}:pytorch-py36 -t ${{secrets.DOCKER_REPO}}:pytorch-cu101 -t ${{secrets.DOCKER_REPO}}:pytorch -t ${{secrets.DOCKER_REPO}}:pytorch-py36-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:pytorch-py36-ver200521 -t ${{secrets.DOCKER_REPO}}:pytorch-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:pytorch-ver200521 -f docker/Dockerfile.pytorch-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-py36-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-py36            
             - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:pytorch            
-            - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-py36-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-py36-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-py36-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-py36-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-ver200521
     
-    keras-py36-cpu_keras-cpu_keras-py36-cpu-ver200129_keras-cpu-ver200129:
+    keras-py36-cpu_keras-cpu_keras-py36-cpu-ver200521_keras-cpu-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:keras-py36-cpu -t ${{secrets.DOCKER_REPO}}:keras-cpu -t ${{secrets.DOCKER_REPO}}:keras-py36-cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:keras-cpu-ver200129 -f docker/Dockerfile.keras-py36-cpu .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:keras-py36-cpu -t ${{secrets.DOCKER_REPO}}:keras-cpu -t ${{secrets.DOCKER_REPO}}:keras-py36-cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:keras-cpu-ver200521 -f docker/Dockerfile.keras-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:keras-py36-cpu            
             - run: docker push ${{secrets.DOCKER_REPO}}:keras-cpu            
-            - run: docker push ${{secrets.DOCKER_REPO}}:keras-py36-cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:keras-cpu-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:keras-py36-cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:keras-cpu-ver200521
     
-    tensorflow-py36-cu101_tensorflow-py36_tensorflow-cu101_tensorflow_tensorflow-py36-cu101-ver200129_tensorflow-py36-ver200129_tensorflow-cu101-ver200129_tensorflow-ver200129:
+    tensorflow-py36-cu101_tensorflow-py36_tensorflow-cu101_tensorflow_tensorflow-py36-cu101-ver200521_tensorflow-py36-ver200521_tensorflow-cu101-ver200521_tensorflow-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:tensorflow-py36-cu101 -t ${{secrets.DOCKER_REPO}}:tensorflow-py36 -t ${{secrets.DOCKER_REPO}}:tensorflow-cu101 -t ${{secrets.DOCKER_REPO}}:tensorflow -t ${{secrets.DOCKER_REPO}}:tensorflow-py36-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:tensorflow-py36-ver200129 -t ${{secrets.DOCKER_REPO}}:tensorflow-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:tensorflow-ver200129 -f docker/Dockerfile.tensorflow-py36-cu101 .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:tensorflow-py36-cu101 -t ${{secrets.DOCKER_REPO}}:tensorflow-py36 -t ${{secrets.DOCKER_REPO}}:tensorflow-cu101 -t ${{secrets.DOCKER_REPO}}:tensorflow -t ${{secrets.DOCKER_REPO}}:tensorflow-py36-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:tensorflow-py36-ver200521 -t ${{secrets.DOCKER_REPO}}:tensorflow-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:tensorflow-ver200521 -f docker/Dockerfile.tensorflow-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-py36-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-py36            
             - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow            
-            - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-py36-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-py36-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-py36-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-py36-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-ver200521
     
-    theano-py36-cpu_theano-cpu_theano-py36-cpu-ver200129_theano-cpu-ver200129:
+    theano-py36-cpu_theano-cpu_theano-py36-cpu-ver200521_theano-cpu-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:theano-py36-cpu -t ${{secrets.DOCKER_REPO}}:theano-cpu -t ${{secrets.DOCKER_REPO}}:theano-py36-cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:theano-cpu-ver200129 -f docker/Dockerfile.theano-py36-cpu .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:theano-py36-cpu -t ${{secrets.DOCKER_REPO}}:theano-cpu -t ${{secrets.DOCKER_REPO}}:theano-py36-cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:theano-cpu-ver200521 -f docker/Dockerfile.theano-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:theano-py36-cpu            
             - run: docker push ${{secrets.DOCKER_REPO}}:theano-cpu            
-            - run: docker push ${{secrets.DOCKER_REPO}}:theano-py36-cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:theano-cpu-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:theano-py36-cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:theano-cpu-ver200521
     
-    sonnet-py36-cu101_sonnet-py36_sonnet-cu101_sonnet_sonnet-py36-cu101-ver200129_sonnet-py36-ver200129_sonnet-cu101-ver200129_sonnet-ver200129:
+    sonnet-py36-cu101_sonnet-py36_sonnet-cu101_sonnet_sonnet-py36-cu101-ver200521_sonnet-py36-ver200521_sonnet-cu101-ver200521_sonnet-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:sonnet-py36-cu101 -t ${{secrets.DOCKER_REPO}}:sonnet-py36 -t ${{secrets.DOCKER_REPO}}:sonnet-cu101 -t ${{secrets.DOCKER_REPO}}:sonnet -t ${{secrets.DOCKER_REPO}}:sonnet-py36-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:sonnet-py36-ver200129 -t ${{secrets.DOCKER_REPO}}:sonnet-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:sonnet-ver200129 -f docker/Dockerfile.sonnet-py36-cu101 .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:sonnet-py36-cu101 -t ${{secrets.DOCKER_REPO}}:sonnet-py36 -t ${{secrets.DOCKER_REPO}}:sonnet-cu101 -t ${{secrets.DOCKER_REPO}}:sonnet -t ${{secrets.DOCKER_REPO}}:sonnet-py36-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:sonnet-py36-ver200521 -t ${{secrets.DOCKER_REPO}}:sonnet-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:sonnet-ver200521 -f docker/Dockerfile.sonnet-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-py36-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-py36            
             - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:sonnet            
-            - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-py36-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-py36-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-py36-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-py36-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-ver200521
     
-    mxnet-py36-cu101_mxnet-py36_mxnet-cu101_mxnet_mxnet-py36-cu101-ver200129_mxnet-py36-ver200129_mxnet-cu101-ver200129_mxnet-ver200129:
+    mxnet-py36-cu101_mxnet-py36_mxnet-cu101_mxnet_mxnet-py36-cu101-ver200521_mxnet-py36-ver200521_mxnet-cu101-ver200521_mxnet-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:mxnet-py36-cu101 -t ${{secrets.DOCKER_REPO}}:mxnet-py36 -t ${{secrets.DOCKER_REPO}}:mxnet-cu101 -t ${{secrets.DOCKER_REPO}}:mxnet -t ${{secrets.DOCKER_REPO}}:mxnet-py36-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:mxnet-py36-ver200129 -t ${{secrets.DOCKER_REPO}}:mxnet-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:mxnet-ver200129 -f docker/Dockerfile.mxnet-py36-cu101 .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:mxnet-py36-cu101 -t ${{secrets.DOCKER_REPO}}:mxnet-py36 -t ${{secrets.DOCKER_REPO}}:mxnet-cu101 -t ${{secrets.DOCKER_REPO}}:mxnet -t ${{secrets.DOCKER_REPO}}:mxnet-py36-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:mxnet-py36-ver200521 -t ${{secrets.DOCKER_REPO}}:mxnet-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:mxnet-ver200521 -f docker/Dockerfile.mxnet-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-py36-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-py36            
             - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:mxnet            
-            - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-py36-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-py36-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-py36-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-py36-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-ver200521
     
-    chainer-py36-cpu_chainer-cpu_chainer-py36-cpu-ver200129_chainer-cpu-ver200129:
+    chainer-py36-cpu_chainer-cpu_chainer-py36-cpu-ver200521_chainer-cpu-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:chainer-py36-cpu -t ${{secrets.DOCKER_REPO}}:chainer-cpu -t ${{secrets.DOCKER_REPO}}:chainer-py36-cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:chainer-cpu-ver200129 -f docker/Dockerfile.chainer-py36-cpu .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:chainer-py36-cpu -t ${{secrets.DOCKER_REPO}}:chainer-cpu -t ${{secrets.DOCKER_REPO}}:chainer-py36-cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:chainer-cpu-ver200521 -f docker/Dockerfile.chainer-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:chainer-py36-cpu            
             - run: docker push ${{secrets.DOCKER_REPO}}:chainer-cpu            
-            - run: docker push ${{secrets.DOCKER_REPO}}:chainer-py36-cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:chainer-cpu-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:chainer-py36-cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:chainer-cpu-ver200521
     
-    torch-cpu_torch-cpu-ver200129:
+    torch-cpu_torch-cpu-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:torch-cpu -t ${{secrets.DOCKER_REPO}}:torch-cpu-ver200129 -f docker/Dockerfile.torch-cpu .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:torch-cpu -t ${{secrets.DOCKER_REPO}}:torch-cpu-ver200521 -f docker/Dockerfile.torch-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:torch-cpu            
-            - run: docker push ${{secrets.DOCKER_REPO}}:torch-cpu-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:torch-cpu-ver200521
     
-    cntk-py36-cpu_cntk-cpu_cntk-py36-cpu-ver200129_cntk-cpu-ver200129:
+    cntk-py36-cpu_cntk-cpu_cntk-py36-cpu-ver200521_cntk-cpu-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:cntk-py36-cpu -t ${{secrets.DOCKER_REPO}}:cntk-cpu -t ${{secrets.DOCKER_REPO}}:cntk-py36-cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:cntk-cpu-ver200129 -f docker/Dockerfile.cntk-py36-cpu .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:cntk-py36-cpu -t ${{secrets.DOCKER_REPO}}:cntk-cpu -t ${{secrets.DOCKER_REPO}}:cntk-py36-cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:cntk-cpu-ver200521 -f docker/Dockerfile.cntk-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:cntk-py36-cpu            
             - run: docker push ${{secrets.DOCKER_REPO}}:cntk-cpu            
-            - run: docker push ${{secrets.DOCKER_REPO}}:cntk-py36-cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:cntk-cpu-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:cntk-py36-cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:cntk-cpu-ver200521
     
-    caffe-py36-cu101_caffe-py36_caffe-cu101_caffe_caffe-py36-cu101-ver200129_caffe-py36-ver200129_caffe-cu101-ver200129_caffe-ver200129:
+    caffe-py36-cu101_caffe-py36_caffe-cu101_caffe_caffe-py36-cu101-ver200521_caffe-py36-ver200521_caffe-cu101-ver200521_caffe-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:caffe-py36-cu101 -t ${{secrets.DOCKER_REPO}}:caffe-py36 -t ${{secrets.DOCKER_REPO}}:caffe-cu101 -t ${{secrets.DOCKER_REPO}}:caffe -t ${{secrets.DOCKER_REPO}}:caffe-py36-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:caffe-py36-ver200129 -t ${{secrets.DOCKER_REPO}}:caffe-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:caffe-ver200129 -f docker/Dockerfile.caffe-py36-cu101 .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:caffe-py36-cu101 -t ${{secrets.DOCKER_REPO}}:caffe-py36 -t ${{secrets.DOCKER_REPO}}:caffe-cu101 -t ${{secrets.DOCKER_REPO}}:caffe -t ${{secrets.DOCKER_REPO}}:caffe-py36-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:caffe-py36-ver200521 -t ${{secrets.DOCKER_REPO}}:caffe-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:caffe-ver200521 -f docker/Dockerfile.caffe-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:caffe-py36-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:caffe-py36            
             - run: docker push ${{secrets.DOCKER_REPO}}:caffe-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:caffe            
-            - run: docker push ${{secrets.DOCKER_REPO}}:caffe-py36-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:caffe-py36-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:caffe-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:caffe-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:caffe-py36-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:caffe-py36-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:caffe-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:caffe-ver200521
     
-    theano-py36-cu101_theano-py36_theano-cu101_theano_theano-py36-cu101-ver200129_theano-py36-ver200129_theano-cu101-ver200129_theano-ver200129:
+    theano-py36-cu101_theano-py36_theano-cu101_theano_theano-py36-cu101-ver200521_theano-py36-ver200521_theano-cu101-ver200521_theano-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:theano-py36-cu101 -t ${{secrets.DOCKER_REPO}}:theano-py36 -t ${{secrets.DOCKER_REPO}}:theano-cu101 -t ${{secrets.DOCKER_REPO}}:theano -t ${{secrets.DOCKER_REPO}}:theano-py36-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:theano-py36-ver200129 -t ${{secrets.DOCKER_REPO}}:theano-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:theano-ver200129 -f docker/Dockerfile.theano-py36-cu101 .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:theano-py36-cu101 -t ${{secrets.DOCKER_REPO}}:theano-py36 -t ${{secrets.DOCKER_REPO}}:theano-cu101 -t ${{secrets.DOCKER_REPO}}:theano -t ${{secrets.DOCKER_REPO}}:theano-py36-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:theano-py36-ver200521 -t ${{secrets.DOCKER_REPO}}:theano-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:theano-ver200521 -f docker/Dockerfile.theano-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:theano-py36-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:theano-py36            
             - run: docker push ${{secrets.DOCKER_REPO}}:theano-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:theano            
-            - run: docker push ${{secrets.DOCKER_REPO}}:theano-py36-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:theano-py36-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:theano-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:theano-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:theano-py36-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:theano-py36-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:theano-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:theano-ver200521
     
-    torch-cu101_torch_torch-cu101-ver200129_torch-ver200129:
+    torch-cu101_torch_torch-cu101-ver200521_torch-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:torch-cu101 -t ${{secrets.DOCKER_REPO}}:torch -t ${{secrets.DOCKER_REPO}}:torch-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:torch-ver200129 -f docker/Dockerfile.torch-cu101 .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:torch-cu101 -t ${{secrets.DOCKER_REPO}}:torch -t ${{secrets.DOCKER_REPO}}:torch-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:torch-ver200521 -f docker/Dockerfile.torch-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:torch-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:torch            
-            - run: docker push ${{secrets.DOCKER_REPO}}:torch-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:torch-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:torch-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:torch-ver200521
     
-    pytorch-py36-cpu_pytorch-cpu_pytorch-py36-cpu-ver200129_pytorch-cpu-ver200129:
+    pytorch-py36-cpu_pytorch-cpu_pytorch-py36-cpu-ver200521_pytorch-cpu-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:pytorch-py36-cpu -t ${{secrets.DOCKER_REPO}}:pytorch-cpu -t ${{secrets.DOCKER_REPO}}:pytorch-py36-cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:pytorch-cpu-ver200129 -f docker/Dockerfile.pytorch-py36-cpu .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:pytorch-py36-cpu -t ${{secrets.DOCKER_REPO}}:pytorch-cpu -t ${{secrets.DOCKER_REPO}}:pytorch-py36-cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:pytorch-cpu-ver200521 -f docker/Dockerfile.pytorch-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-py36-cpu            
             - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-cpu            
-            - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-py36-cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-cpu-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-py36-cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-cpu-ver200521
     
-    caffe-py36-cpu_caffe-cpu_caffe-py36-cpu-ver200129_caffe-cpu-ver200129:
+    caffe-py36-cpu_caffe-cpu_caffe-py36-cpu-ver200521_caffe-cpu-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:caffe-py36-cpu -t ${{secrets.DOCKER_REPO}}:caffe-cpu -t ${{secrets.DOCKER_REPO}}:caffe-py36-cpu-ver200129 -t ${{secrets.DOCKER_REPO}}:caffe-cpu-ver200129 -f docker/Dockerfile.caffe-py36-cpu .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:caffe-py36-cpu -t ${{secrets.DOCKER_REPO}}:caffe-cpu -t ${{secrets.DOCKER_REPO}}:caffe-py36-cpu-ver200521 -t ${{secrets.DOCKER_REPO}}:caffe-cpu-ver200521 -f docker/Dockerfile.caffe-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:caffe-py36-cpu            
             - run: docker push ${{secrets.DOCKER_REPO}}:caffe-cpu            
-            - run: docker push ${{secrets.DOCKER_REPO}}:caffe-py36-cpu-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:caffe-cpu-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:caffe-py36-cpu-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:caffe-cpu-ver200521
     
-    lasagne-py36-cu101_lasagne-py36_lasagne-cu101_lasagne_lasagne-py36-cu101-ver200129_lasagne-py36-ver200129_lasagne-cu101-ver200129_lasagne-ver200129:
+    lasagne-py36-cu101_lasagne-py36_lasagne-cu101_lasagne_lasagne-py36-cu101-ver200521_lasagne-py36-ver200521_lasagne-cu101-ver200521_lasagne-ver200521:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: docker build -t ${{secrets.DOCKER_REPO}}:lasagne-py36-cu101 -t ${{secrets.DOCKER_REPO}}:lasagne-py36 -t ${{secrets.DOCKER_REPO}}:lasagne-cu101 -t ${{secrets.DOCKER_REPO}}:lasagne -t ${{secrets.DOCKER_REPO}}:lasagne-py36-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:lasagne-py36-ver200129 -t ${{secrets.DOCKER_REPO}}:lasagne-cu101-ver200129 -t ${{secrets.DOCKER_REPO}}:lasagne-ver200129 -f docker/Dockerfile.lasagne-py36-cu101 .
+            - run: docker build -t ${{secrets.DOCKER_REPO}}:lasagne-py36-cu101 -t ${{secrets.DOCKER_REPO}}:lasagne-py36 -t ${{secrets.DOCKER_REPO}}:lasagne-cu101 -t ${{secrets.DOCKER_REPO}}:lasagne -t ${{secrets.DOCKER_REPO}}:lasagne-py36-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:lasagne-py36-ver200521 -t ${{secrets.DOCKER_REPO}}:lasagne-cu101-ver200521 -t ${{secrets.DOCKER_REPO}}:lasagne-ver200521 -f docker/Dockerfile.lasagne-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-py36-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-py36            
             - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-cu101            
             - run: docker push ${{secrets.DOCKER_REPO}}:lasagne            
-            - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-py36-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-py36-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-cu101-ver200129            
-            - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-ver200129
+            - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-py36-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-py36-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-cu101-ver200521            
+            - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-ver200521
