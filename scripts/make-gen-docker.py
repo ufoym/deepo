@@ -15,6 +15,7 @@ candidate_modules = [
     'caffe',
     'torch',
     'darknet',
+    'paddle',
 ]
 
 non_python_modules = [

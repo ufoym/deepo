@@ -8,6 +8,7 @@
 # jupyter       latest (pip)
 # mxnet         latest (pip)
 # onnx          latest (pip)
+# paddle        latest (pip)
 # pytorch       latest (pip)
 # tensorflow    latest (pip)
 # theano        latest (git)
@@ -171,6 +172,14 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     $PIP_INSTALL \
         onnxruntime \
+        && \
+
+# ==================================================================
+# paddle
+# ------------------------------------------------------------------
+
+    $PIP_INSTALL \
+        paddlepaddle-gpu \
         && \
 
 # ==================================================================

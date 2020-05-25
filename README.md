@@ -146,6 +146,7 @@ _You are now ready to begin your journey._
 >>> import lasagne
 >>> import caffe
 >>> import caffe2
+>>> import paddle
 ```
 
 ```$ caffe --version```
@@ -260,6 +261,7 @@ This may take several minutes as it compiles a few libraries from scratch.
  [caffe2](https://caffe2.ai)                       | X                    | X                  | X                    | O
  [torch](http://torch.ch/)                         | X                    | O                  | O                    | O
  [darknet](https://pjreddie.com/darknet/)          | X                    | X                  | X                    | O
+ [paddlepaddle](https://www.paddlepaddle.org.cn/)  | X                    | X                  | X                    | O
 
 
 
@@ -288,6 +290,7 @@ This may take several minutes as it compiles a few libraries from scratch.
  [Caffe](http://caffe.berkeleyvision.org)          | `caffe-py36-cu101` `caffe-py36` `caffe`                   | `caffe-py36-cpu` `caffe-cpu`
  [Torch](http://torch.ch/)                         | `torch-cu101` `torch`                                     | `torch-cpu`
  [Darknet](https://pjreddie.com/darknet/)          | `darknet-cu101` `darknet`                                 | `darknet-cpu`
+ [paddlepaddle](https://www.paddlepaddle.org.cn/)  | `paddle-cu101` `paddle`                                   | `paddle-cpu`
 
 
 <a name="Deprecated-tags"/>
