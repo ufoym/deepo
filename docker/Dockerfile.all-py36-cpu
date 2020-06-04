@@ -15,7 +15,7 @@
 # jupyterlab    latest (pip)
 # keras         latest (pip)
 # lasagne       latest (git)
-# opencv        4.1.2  (git)
+# opencv        4.3.0  (git)
 # sonnet        latest (pip)
 # caffe         latest (git)
 # cntk          latest (pip)
@@ -261,7 +261,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         protobuf-compiler \
         && \
 
-    $GIT_CLONE --branch 4.1.2 https://github.com/opencv/opencv ~/opencv && \
+    $GIT_CLONE --branch 4.3.0 https://github.com/opencv/opencv ~/opencv && \
     mkdir -p ~/opencv/build && cd ~/opencv/build && \
     cmake -D CMAKE_BUILD_TYPE=RELEASE \
           -D CMAKE_INSTALL_PREFIX=/usr/local \

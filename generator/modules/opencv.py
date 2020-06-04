@@ -7,7 +7,7 @@ from .python import Python
 
 @dependency(Tools, Python, Boost)
 @source('git')
-@version('4.1.2')
+@version('4.3.0')
 class Opencv(Module):
 
     def build(self):
