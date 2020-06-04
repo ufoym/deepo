@@ -12,6 +12,7 @@
 # pytorch       latest (pip)
 # tensorflow    latest (pip)
 # theano        latest (git)
+# jupyterlab    latest (pip)
 # keras         latest (pip)
 # lasagne       latest (git)
 # opencv        4.1.2  (git)
@@ -216,6 +217,14 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     $PIP_INSTALL \
         https://github.com/Theano/Theano/archive/master.zip \
+        && \
+
+# ==================================================================
+# jupyterlab
+# ------------------------------------------------------------------
+
+    $PIP_INSTALL \
+        jupyterlab \
         && \
 
 # ==================================================================
