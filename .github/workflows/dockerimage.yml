@@ -6,7 +6,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:chainer-py36-cu101 -t ${{secrets.DOCKER_REPO}}:chainer-py36 -t ${{secrets.DOCKER_REPO}}:chainer-cu101 -t ${{secrets.DOCKER_REPO}}:chainer -f docker/Dockerfile.chainer-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:chainer-py36-cu101            
@@ -18,7 +17,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:mxnet-py36-cpu -t ${{secrets.DOCKER_REPO}}:mxnet-cpu -f docker/Dockerfile.mxnet-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-py36-cpu            
@@ -28,7 +26,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:tensorflow-py36-cpu -t ${{secrets.DOCKER_REPO}}:tensorflow-cpu -f docker/Dockerfile.tensorflow-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-py36-cpu            
@@ -38,7 +35,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:sonnet-py36-cpu -t ${{secrets.DOCKER_REPO}}:sonnet-cpu -f docker/Dockerfile.sonnet-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-py36-cpu            
@@ -48,7 +44,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:all-py36-cpu -t ${{secrets.DOCKER_REPO}}:all-cpu -t ${{secrets.DOCKER_REPO}}:py36-cpu -t ${{secrets.DOCKER_REPO}}:cpu -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cpu -t ${{secrets.DOCKER_REPO}}:all-jupyter-cpu -t ${{secrets.DOCKER_REPO}}:py36-cpu -t ${{secrets.DOCKER_REPO}}:cpu -f docker/Dockerfile.all-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:all-py36-cpu            
@@ -69,7 +64,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:darknet-cu101 -t ${{secrets.DOCKER_REPO}}:darknet -f docker/Dockerfile.darknet-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:darknet-cu101            
@@ -79,7 +73,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:darknet-cpu -f docker/Dockerfile.darknet-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:darknet-cpu
@@ -88,7 +81,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:keras-py36-cu101 -t ${{secrets.DOCKER_REPO}}:keras-py36 -t ${{secrets.DOCKER_REPO}}:keras-cu101 -t ${{secrets.DOCKER_REPO}}:keras -f docker/Dockerfile.keras-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:keras-py36-cu101            
@@ -100,7 +92,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:lasagne-py36-cpu -t ${{secrets.DOCKER_REPO}}:lasagne-cpu -f docker/Dockerfile.lasagne-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-py36-cpu            
@@ -110,7 +101,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:cntk-py36-cu101 -t ${{secrets.DOCKER_REPO}}:cntk-py36 -t ${{secrets.DOCKER_REPO}}:cntk-cu101 -t ${{secrets.DOCKER_REPO}}:cntk -f docker/Dockerfile.cntk-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:cntk-py36-cu101            
@@ -122,7 +112,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:all-py36-cu101 -t ${{secrets.DOCKER_REPO}}:all-py36 -t ${{secrets.DOCKER_REPO}}:all-cu101 -t ${{secrets.DOCKER_REPO}}:py36-cu101 -t ${{secrets.DOCKER_REPO}}:all -t ${{secrets.DOCKER_REPO}}:cu101 -t ${{secrets.DOCKER_REPO}}:py36 -t ${{secrets.DOCKER_REPO}}:latest -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cu101 -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36 -t ${{secrets.DOCKER_REPO}}:all-jupyter-cu101 -t ${{secrets.DOCKER_REPO}}:py36-cu101 -t ${{secrets.DOCKER_REPO}}:all-jupyter -t ${{secrets.DOCKER_REPO}}:cu101 -t ${{secrets.DOCKER_REPO}}:py36 -t ${{secrets.DOCKER_REPO}}:latest -f docker/Dockerfile.all-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:all-py36-cu101            
@@ -146,7 +135,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:pytorch-py36-cu101 -t ${{secrets.DOCKER_REPO}}:pytorch-py36 -t ${{secrets.DOCKER_REPO}}:pytorch-cu101 -t ${{secrets.DOCKER_REPO}}:pytorch -f docker/Dockerfile.pytorch-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-py36-cu101            
@@ -158,7 +146,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:keras-py36-cpu -t ${{secrets.DOCKER_REPO}}:keras-cpu -f docker/Dockerfile.keras-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:keras-py36-cpu            
@@ -168,7 +155,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:tensorflow-py36-cu101 -t ${{secrets.DOCKER_REPO}}:tensorflow-py36 -t ${{secrets.DOCKER_REPO}}:tensorflow-cu101 -t ${{secrets.DOCKER_REPO}}:tensorflow -f docker/Dockerfile.tensorflow-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:tensorflow-py36-cu101            
@@ -180,7 +166,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:theano-py36-cpu -t ${{secrets.DOCKER_REPO}}:theano-cpu -f docker/Dockerfile.theano-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:theano-py36-cpu            
@@ -190,7 +175,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:sonnet-py36-cu101 -t ${{secrets.DOCKER_REPO}}:sonnet-py36 -t ${{secrets.DOCKER_REPO}}:sonnet-cu101 -t ${{secrets.DOCKER_REPO}}:sonnet -f docker/Dockerfile.sonnet-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:sonnet-py36-cu101            
@@ -202,7 +186,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:mxnet-py36-cu101 -t ${{secrets.DOCKER_REPO}}:mxnet-py36 -t ${{secrets.DOCKER_REPO}}:mxnet-cu101 -t ${{secrets.DOCKER_REPO}}:mxnet -f docker/Dockerfile.mxnet-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:mxnet-py36-cu101            
@@ -214,7 +197,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:chainer-py36-cpu -t ${{secrets.DOCKER_REPO}}:chainer-cpu -f docker/Dockerfile.chainer-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:chainer-py36-cpu            
@@ -224,7 +206,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:torch-cpu -f docker/Dockerfile.torch-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:torch-cpu
@@ -233,7 +214,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:cntk-py36-cpu -t ${{secrets.DOCKER_REPO}}:cntk-cpu -f docker/Dockerfile.cntk-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:cntk-py36-cpu            
@@ -243,7 +223,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:caffe-py36-cu101 -t ${{secrets.DOCKER_REPO}}:caffe-py36 -t ${{secrets.DOCKER_REPO}}:caffe-cu101 -t ${{secrets.DOCKER_REPO}}:caffe -f docker/Dockerfile.caffe-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:caffe-py36-cu101            
@@ -255,7 +234,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:theano-py36-cu101 -t ${{secrets.DOCKER_REPO}}:theano-py36 -t ${{secrets.DOCKER_REPO}}:theano-cu101 -t ${{secrets.DOCKER_REPO}}:theano -f docker/Dockerfile.theano-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:theano-py36-cu101            
@@ -267,7 +245,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:paddle-py36-cu101 -t ${{secrets.DOCKER_REPO}}:paddle-py36 -t ${{secrets.DOCKER_REPO}}:paddle-cu101 -t ${{secrets.DOCKER_REPO}}:paddle -f docker/Dockerfile.paddle-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:paddle-py36-cu101            
@@ -279,7 +256,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:paddle-py36-cpu -t ${{secrets.DOCKER_REPO}}:paddle-cpu -f docker/Dockerfile.paddle-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:paddle-py36-cpu            
@@ -289,7 +265,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:torch-cu101 -t ${{secrets.DOCKER_REPO}}:torch -f docker/Dockerfile.torch-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:torch-cu101            
@@ -299,7 +274,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:pytorch-py36-cpu -t ${{secrets.DOCKER_REPO}}:pytorch-cpu -f docker/Dockerfile.pytorch-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:pytorch-py36-cpu            
@@ -309,7 +283,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:caffe-py36-cpu -t ${{secrets.DOCKER_REPO}}:caffe-cpu -f docker/Dockerfile.caffe-py36-cpu .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:caffe-py36-cpu            
@@ -319,7 +292,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
             - run: docker build -t ${{secrets.DOCKER_REPO}}:lasagne-py36-cu101 -t ${{secrets.DOCKER_REPO}}:lasagne-py36 -t ${{secrets.DOCKER_REPO}}:lasagne-cu101 -t ${{secrets.DOCKER_REPO}}:lasagne -f docker/Dockerfile.lasagne-py36-cu101 .
             - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}            
             - run: docker push ${{secrets.DOCKER_REPO}}:lasagne-py36-cu101            

@@ -40,6 +40,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     ./bootstrap && \
     make -j"$(nproc)" install && \
 
+    du -d 2 -h / && \
 # ==================================================================
 # python
 # ------------------------------------------------------------------
@@ -74,6 +75,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         tqdm \
         && \
 
+    du -d 2 -h / && \
 # ==================================================================
 # theano
 # ------------------------------------------------------------------
@@ -86,6 +88,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         https://github.com/Theano/Theano/archive/master.zip \
         && \
 
+    du -d 2 -h / && \
 # ==================================================================
 # lasagne
 # ------------------------------------------------------------------
@@ -95,6 +98,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     $PIP_INSTALL \
         . && \
 
+    du -d 2 -h / && \
 # ==================================================================
 # config & cleanup
 # ------------------------------------------------------------------

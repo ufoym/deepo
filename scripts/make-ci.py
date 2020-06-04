@@ -59,7 +59,6 @@ def get_job(tags):
             runs-on: ubuntu-latest
             steps:
                 - uses: actions/checkout@master
-                - run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
                 - run: docker build %s -f docker/Dockerfile.%s .
                 - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}''' % (
                     job_name,

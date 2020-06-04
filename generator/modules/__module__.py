@@ -44,6 +44,13 @@ class Module(object):
     def build(self):
         pass
 
+    def end(self):
+        return (r'''
+            du -d 2 -h / && \
+        '''
+        ).rstrip()
+
+
     def expose(self):
         return []
 

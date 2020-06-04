@@ -38,6 +38,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     ./bootstrap && \
     make -j"$(nproc)" install && \
 
+    du -d 2 -h / && \
 # ==================================================================
 # torch
 # ------------------------------------------------------------------
@@ -52,6 +53,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     sed -i 's/${THIS_DIR}\/install/\/usr\/local/g' ./install.sh && \
     ./install.sh && \
 
+    du -d 2 -h / && \
 # ==================================================================
 # config & cleanup
 # ------------------------------------------------------------------

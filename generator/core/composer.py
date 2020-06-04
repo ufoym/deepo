@@ -57,6 +57,7 @@ class Composer(object):
                 ''.join([
                     _indent(3, self._split(m.name())),
                     _indent(1, m.build()),
+                    _indent(1, m.end()),
                 ]) for m in self.instances
             ]),
             '\n',
