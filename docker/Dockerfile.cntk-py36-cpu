@@ -78,11 +78,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # boost
 # ------------------------------------------------------------------
 
-    wget -O ~/boost.tar.gz https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz && \
-    tar -zxf ~/boost.tar.gz -C ~ && \
-    cd ~/boost_* && \
-    ./bootstrap.sh --with-python=python3.6 && \
-    ./b2 install -j"$(nproc)" --prefix=/usr/local && \
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        libboost-all-dev \
+        && \
 
 # ==================================================================
 # opencv
