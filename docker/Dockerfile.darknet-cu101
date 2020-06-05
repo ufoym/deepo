@@ -38,7 +38,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     ./bootstrap && \
     make -j"$(nproc)" install && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # darknet
 # ------------------------------------------------------------------
@@ -53,7 +53,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     cp ~/darknet/*.so /usr/local/lib && \
     cp ~/darknet/darknet /usr/local/bin && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # config & cleanup
 # ------------------------------------------------------------------

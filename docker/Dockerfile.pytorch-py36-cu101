@@ -39,7 +39,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     ./bootstrap && \
     make -j"$(nproc)" install && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # python
 # ------------------------------------------------------------------
@@ -74,7 +74,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         tqdm \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # pytorch
 # ------------------------------------------------------------------
@@ -92,7 +92,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         https://download.pytorch.org/whl/nightly/cu101/torch_nightly.html \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # config & cleanup
 # ------------------------------------------------------------------

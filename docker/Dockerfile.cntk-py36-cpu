@@ -40,7 +40,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     ./bootstrap && \
     make -j"$(nproc)" install && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # python
 # ------------------------------------------------------------------
@@ -75,7 +75,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         tqdm \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # boost
 # ------------------------------------------------------------------
@@ -84,7 +84,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         libboost-all-dev \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # opencv
 # ------------------------------------------------------------------
@@ -116,7 +116,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     make -j"$(nproc)" install && \
     ln -s /usr/local/include/opencv4/opencv2 /usr/local/include/opencv2 && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # cntk
 # ------------------------------------------------------------------
@@ -147,7 +147,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         cntk \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # config & cleanup
 # ------------------------------------------------------------------

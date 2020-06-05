@@ -46,7 +46,7 @@ class Module(object):
 
     def end(self):
         return (r'''
-            du -d 2 -h / && \
+            df -h / && \
         '''
         ).rstrip()
 

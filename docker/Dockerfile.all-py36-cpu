@@ -55,7 +55,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     ./bootstrap && \
     make -j"$(nproc)" install && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # darknet
 # ------------------------------------------------------------------
@@ -70,7 +70,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     cp ~/darknet/*.so /usr/local/lib && \
     cp ~/darknet/darknet /usr/local/bin && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # python
 # ------------------------------------------------------------------
@@ -105,7 +105,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         tqdm \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # torch
 # ------------------------------------------------------------------
@@ -120,7 +120,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     sed -i 's/${THIS_DIR}\/install/\/usr\/local/g' ./install.sh && \
     ./install.sh && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # boost
 # ------------------------------------------------------------------
@@ -129,7 +129,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         libboost-all-dev \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # chainer
 # ------------------------------------------------------------------
@@ -138,7 +138,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         chainer \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # jupyter
 # ------------------------------------------------------------------
@@ -147,7 +147,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         jupyter \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # mxnet
 # ------------------------------------------------------------------
@@ -162,7 +162,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         graphviz \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # onnx
 # ------------------------------------------------------------------
@@ -180,7 +180,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         onnxruntime \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # paddle
 # ------------------------------------------------------------------
@@ -189,7 +189,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         paddlepaddle \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # pytorch
 # ------------------------------------------------------------------
@@ -207,7 +207,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # tensorflow
 # ------------------------------------------------------------------
@@ -216,7 +216,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         tensorflow \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # theano
 # ------------------------------------------------------------------
@@ -229,7 +229,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         https://github.com/Theano/Theano/archive/master.zip \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # jupyterlab
 # ------------------------------------------------------------------
@@ -238,7 +238,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         jupyterlab \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # keras
 # ------------------------------------------------------------------
@@ -248,7 +248,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         keras \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # lasagne
 # ------------------------------------------------------------------
@@ -258,7 +258,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     $PIP_INSTALL \
         . && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # opencv
 # ------------------------------------------------------------------
@@ -290,7 +290,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     make -j"$(nproc)" install && \
     ln -s /usr/local/include/opencv4/opencv2 /usr/local/include/opencv2 && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # sonnet
 # ------------------------------------------------------------------
@@ -300,7 +300,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         "dm-sonnet>=2.0.0b0" --pre \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # caffe
 # ------------------------------------------------------------------
@@ -309,7 +309,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         caffe-cpu \
         && \    
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # cntk
 # ------------------------------------------------------------------
@@ -340,7 +340,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         cntk \
         && \
 
-    du -d 2 -h / && \
+    df -h / && \
 # ==================================================================
 # config & cleanup
 # ------------------------------------------------------------------
