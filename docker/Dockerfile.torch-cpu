@@ -57,7 +57,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     sed -i 's/${THIS_DIR}\/install/\/usr\/local/g' ./install.sh && \
     ./install.sh && \
 
-    rm -rf ~/torch && \
+    cd ~ && rm -rf ~/torch && \
 
     df -h / && \
 # ==================================================================

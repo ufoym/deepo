@@ -23,5 +23,5 @@ class Torch(Module):
             sed -i 's/${THIS_DIR}\/install/\/usr\/local/g' ./install.sh && \
             ./install.sh && \
 
-            rm -rf ~/torch && \
+            cd ~ && rm -rf ~/torch && \
         '''
