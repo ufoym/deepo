@@ -47,6 +47,9 @@ class Module(object):
     def end(self):
         return (r'''
             df -h / && \
+            cd ~ && \
+            rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+            df -h / && \
         '''
         ).rstrip()
 

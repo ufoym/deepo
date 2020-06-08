@@ -39,6 +39,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     make -j"$(nproc)" install && \
 
     df -h / && \
+    cd ~ && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    df -h / && \
 # ==================================================================
 # torch
 # ------------------------------------------------------------------
@@ -48,17 +51,14 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     $GIT_CLONE https://github.com/nagadomi/distro.git ~/torch --recursive && \
-
-    mkdir -p ~/torch/tmp && \
-    export TMPDIR=~/torch/tmp && \
-
     cd ~/torch && \
     bash install-deps && \
     sed -i 's/${THIS_DIR}\/install/\/usr\/local/g' ./install.sh && \
     ./install.sh && \
 
-    cd ~ && rm -rf ~/torch && \
-
+    df -h / && \
+    cd ~ && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # config & cleanup

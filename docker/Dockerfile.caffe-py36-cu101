@@ -41,6 +41,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     make -j"$(nproc)" install && \
 
     df -h / && \
+    cd ~ && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    df -h / && \
 # ==================================================================
 # python
 # ------------------------------------------------------------------
@@ -76,6 +79,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     df -h / && \
+    cd ~ && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    df -h / && \
 # ==================================================================
 # boost
 # ------------------------------------------------------------------
@@ -84,6 +90,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         libboost-all-dev \
         && \
 
+    df -h / && \
+    cd ~ && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # opencv
@@ -117,6 +126,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     ln -s /usr/local/include/opencv4/opencv2 /usr/local/include/opencv2 && \
 
     df -h / && \
+    cd ~ && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    df -h / && \
 # ==================================================================
 # caffe
 # ------------------------------------------------------------------
@@ -125,6 +137,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         caffe-cuda \
         && \    
+    df -h / && \
+    cd ~ && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # config & cleanup

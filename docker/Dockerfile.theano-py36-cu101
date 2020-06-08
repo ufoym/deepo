@@ -40,6 +40,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     make -j"$(nproc)" install && \
 
     df -h / && \
+    cd ~ && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    df -h / && \
 # ==================================================================
 # python
 # ------------------------------------------------------------------
@@ -75,6 +78,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     df -h / && \
+    cd ~ && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    df -h / && \
 # ==================================================================
 # theano
 # ------------------------------------------------------------------
@@ -99,6 +105,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         https://github.com/Theano/Theano/archive/master.zip \
         && \
 
+    df -h / && \
+    cd ~ && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # config & cleanup

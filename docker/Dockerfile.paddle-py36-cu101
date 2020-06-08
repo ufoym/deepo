@@ -40,6 +40,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     make -j"$(nproc)" install && \
 
     df -h / && \
+    cd ~ && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    df -h / && \
 # ==================================================================
 # python
 # ------------------------------------------------------------------
@@ -75,6 +78,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     df -h / && \
+    cd ~ && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    df -h / && \
 # ==================================================================
 # paddle
 # ------------------------------------------------------------------
@@ -83,6 +89,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         paddlepaddle-gpu \
         && \
 
+    df -h / && \
+    cd ~ && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # config & cleanup

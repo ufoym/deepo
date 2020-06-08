@@ -39,6 +39,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     make -j"$(nproc)" install && \
 
     df -h / && \
+    cd ~ && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    df -h / && \
 # ==================================================================
 # darknet
 # ------------------------------------------------------------------
@@ -53,6 +56,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     cp ~/darknet/*.so /usr/local/lib && \
     cp ~/darknet/darknet /usr/local/bin && \
 
+    df -h / && \
+    cd ~ && \
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # config & cleanup
