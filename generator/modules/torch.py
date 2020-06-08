@@ -13,9 +13,14 @@ class Torch(Module):
                 sudo \
                 && \
 
+            mkdir ~/torch/tmp && \
+            export TMPDIR=~/torch/tmp && \
+
             $GIT_CLONE https://github.com/nagadomi/distro.git ~/torch --recursive && \
             cd ~/torch && \
             bash install-deps && \
             sed -i 's/${THIS_DIR}\/install/\/usr\/local/g' ./install.sh && \
             ./install.sh && \
+
+            rm -rf ~/torch && \
         '''
