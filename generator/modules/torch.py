@@ -13,7 +13,7 @@ class Torch(Module):
                 sudo \
                 && \
 
-            mkdir ~/torch/tmp && \
+            mkdir -p ~/torch/tmp && \
             export TMPDIR=~/torch/tmp && \
 
             $GIT_CLONE https://github.com/nagadomi/distro.git ~/torch --recursive && \
