@@ -42,7 +42,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # python
@@ -80,7 +80,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # tensorflow
@@ -92,7 +92,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # keras
@@ -105,7 +105,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # config & cleanup

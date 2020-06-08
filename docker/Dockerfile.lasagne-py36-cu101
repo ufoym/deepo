@@ -42,7 +42,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # python
@@ -80,7 +80,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # theano
@@ -108,7 +108,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # lasagne
@@ -121,7 +121,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # config & cleanup

@@ -57,7 +57,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # darknet
@@ -75,7 +75,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # python
@@ -113,7 +113,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # torch
@@ -131,7 +131,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # boost
@@ -143,7 +143,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # chainer
@@ -156,7 +156,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # jupyter
@@ -168,7 +168,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # mxnet
@@ -186,7 +186,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # onnx
@@ -207,7 +207,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # paddle
@@ -219,7 +219,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # pytorch
@@ -240,7 +240,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # tensorflow
@@ -252,7 +252,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # theano
@@ -280,7 +280,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # jupyterlab
@@ -292,7 +292,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # keras
@@ -305,7 +305,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # lasagne
@@ -318,7 +318,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # opencv
@@ -353,7 +353,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # sonnet
@@ -366,7 +366,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # caffe
@@ -378,7 +378,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \    
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # cntk
@@ -412,7 +412,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     df -h / && \
     cd ~ && \
-    rm -rf /var/lib/apt/lists/* /tmp/* ~/* && \
+    rm -rf /tmp/* ~/* && \
     df -h / && \
 # ==================================================================
 # config & cleanup
