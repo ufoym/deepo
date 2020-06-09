@@ -214,7 +214,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        paddlepaddle_gpu-latest-cp36-cp36m-linux_x86_64.whl
+        paddlepaddle_gpu-latest-cp36-cp36m-linux_x86_64.whl \
         && \
 
     df -h / && \
