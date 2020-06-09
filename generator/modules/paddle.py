@@ -12,6 +12,9 @@ class Paddle(Module):
         pyver = pyver.replace('.', '')
         return r'''
             $PIP_INSTALL \
-                paddlepaddle%s-latest-cp%s-cp%sm-linux_x86_64.whl \
+                https://paddle-wheel.bj.bcebos.com/0.0.0-%s-mkl/paddlepaddle%s-0.0.0-cp%s-cp%sm-linux_x86_64.whl \
                 && \
-        ''' % ('' if self.composer.cuda_ver is None else '_gpu', pyver, pyver)
+        ''' % (
+            'cpu' if self.composer.cuda_ver is None else 'gpu-cuda10-cudnn7',
+            '' if self.composer.cuda_ver is None else '_gpu',
+            pyver, pyver)
