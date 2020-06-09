@@ -8,8 +8,10 @@ from .python import Python
 class Paddle(Module):
 
     def build(self):
+        pyver = self.composer.ver(Python)
+        pyver = pyver.replace('.', '')
         return r'''
             $PIP_INSTALL \
-                paddlepaddle%s \
+                paddlepaddle%s-latest-cp%s-cp%sm-linux_x86_64.whl
                 && \
-        ''' % ('' if self.composer.cuda_ver is None else '-gpu')
+        ''' % ('' if self.composer.cuda_ver is None else '_gpu', pyver, pyver)
