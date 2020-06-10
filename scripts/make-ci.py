@@ -59,16 +59,29 @@ def get_job(tags):
             runs-on: ubuntu-latest
             steps:
                 - uses: actions/checkout@master
-                - run: docker build %s -f docker/Dockerfile.%s .
-                - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}''' % (
+                - name: Free disk space
+                  run: |
+                    df -h
+                    sudo apt-get remove -y '^ghc-8.*' '^dotnet-.*' '^llvm-.*' 'php.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+                    sudo apt-get autoremove -y
+                    sudo apt-get clean
+                    sudo swapoff -a
+                    sudo rm -f /swapfile
+                    docker rmi $(docker image ls -aq)
+                    df -h
+                - name: Build docker image
+                  run: docker build %s -f docker/Dockerfile.%s .
+                - name: Deploy docker image
+                  run: |
+                    docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+                    ''' % (
                     job_name,
                     ' '.join('-t ${{secrets.DOCKER_REPO}}:%s' % tag for tag in tags),
                     tags[0])))
     is_all = False
     is_cpu = False
     for tag in tags:
-        build_scripts += indent(3, textwrap.dedent('''
-            - run: docker push ${{secrets.DOCKER_REPO}}:%s''' % tag))
+        build_scripts += indent(4, 'docker push ${{secrets.DOCKER_REPO}}:%s\n' % tag)
         if 'all' in tag:
             is_all = True
         if 'cpu' in tag:
