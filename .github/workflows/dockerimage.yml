@@ -27,6 +27,29 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:chainer
 
     
+    mxnet-py36-cu102_mxnet-cu102:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Free disk space
+              run: |
+                df -h
+                sudo apt-get remove -y '^ghc-8.*' '^dotnet-.*' '^llvm-.*' 'php.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+                sudo apt-get autoremove -y
+                sudo apt-get clean
+                sudo swapoff -a
+                sudo rm -f /swapfile
+                docker rmi $(docker image ls -aq)
+                df -h
+            - name: Build docker image
+              run: docker build -t ${{secrets.DOCKER_REPO}}:mxnet-py36-cu102 -t ${{secrets.DOCKER_REPO}}:mxnet-cu102 -f docker/Dockerfile.mxnet-py36-cu102 .
+            - name: Deploy docker image
+              run: |
+                docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+                docker push ${{secrets.DOCKER_REPO}}:mxnet-py36-cu102
+                docker push ${{secrets.DOCKER_REPO}}:mxnet-cu102
+
+    
     mxnet-py36-cpu_mxnet-cpu:
         runs-on: ubuntu-latest
         steps:
@@ -94,6 +117,29 @@ jobs:
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:sonnet-py36-cpu
                 docker push ${{secrets.DOCKER_REPO}}:sonnet-cpu
+
+    
+    caffe-py36-cu102_caffe-cu102:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Free disk space
+              run: |
+                df -h
+                sudo apt-get remove -y '^ghc-8.*' '^dotnet-.*' '^llvm-.*' 'php.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+                sudo apt-get autoremove -y
+                sudo apt-get clean
+                sudo swapoff -a
+                sudo rm -f /swapfile
+                docker rmi $(docker image ls -aq)
+                df -h
+            - name: Build docker image
+              run: docker build -t ${{secrets.DOCKER_REPO}}:caffe-py36-cu102 -t ${{secrets.DOCKER_REPO}}:caffe-cu102 -f docker/Dockerfile.caffe-py36-cu102 .
+            - name: Deploy docker image
+              run: |
+                docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+                docker push ${{secrets.DOCKER_REPO}}:caffe-py36-cu102
+                docker push ${{secrets.DOCKER_REPO}}:caffe-cu102
 
     
     all-py36-cpu_all-cpu_py36-cpu_cpu_all-jupyter-py36-cpu_all-jupyter-cpu_py36-cpu_cpu:
@@ -175,6 +221,52 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:darknet-cpu
 
     
+    theano-py36-cu102_theano-cu102:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Free disk space
+              run: |
+                df -h
+                sudo apt-get remove -y '^ghc-8.*' '^dotnet-.*' '^llvm-.*' 'php.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+                sudo apt-get autoremove -y
+                sudo apt-get clean
+                sudo swapoff -a
+                sudo rm -f /swapfile
+                docker rmi $(docker image ls -aq)
+                df -h
+            - name: Build docker image
+              run: docker build -t ${{secrets.DOCKER_REPO}}:theano-py36-cu102 -t ${{secrets.DOCKER_REPO}}:theano-cu102 -f docker/Dockerfile.theano-py36-cu102 .
+            - name: Deploy docker image
+              run: |
+                docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+                docker push ${{secrets.DOCKER_REPO}}:theano-py36-cu102
+                docker push ${{secrets.DOCKER_REPO}}:theano-cu102
+
+    
+    paddle-py36-cu102_paddle-cu102:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Free disk space
+              run: |
+                df -h
+                sudo apt-get remove -y '^ghc-8.*' '^dotnet-.*' '^llvm-.*' 'php.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+                sudo apt-get autoremove -y
+                sudo apt-get clean
+                sudo swapoff -a
+                sudo rm -f /swapfile
+                docker rmi $(docker image ls -aq)
+                df -h
+            - name: Build docker image
+              run: docker build -t ${{secrets.DOCKER_REPO}}:paddle-py36-cu102 -t ${{secrets.DOCKER_REPO}}:paddle-cu102 -f docker/Dockerfile.paddle-py36-cu102 .
+            - name: Deploy docker image
+              run: |
+                docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+                docker push ${{secrets.DOCKER_REPO}}:paddle-py36-cu102
+                docker push ${{secrets.DOCKER_REPO}}:paddle-cu102
+
+    
     keras-py36-cu101_keras-py36_keras-cu101_keras:
         runs-on: ubuntu-latest
         steps:
@@ -221,6 +313,28 @@ jobs:
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:lasagne-py36-cpu
                 docker push ${{secrets.DOCKER_REPO}}:lasagne-cpu
+
+    
+    torch-cu102:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Free disk space
+              run: |
+                df -h
+                sudo apt-get remove -y '^ghc-8.*' '^dotnet-.*' '^llvm-.*' 'php.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+                sudo apt-get autoremove -y
+                sudo apt-get clean
+                sudo swapoff -a
+                sudo rm -f /swapfile
+                docker rmi $(docker image ls -aq)
+                df -h
+            - name: Build docker image
+              run: docker build -t ${{secrets.DOCKER_REPO}}:torch-cu102 -f docker/Dockerfile.torch-cu102 .
+            - name: Deploy docker image
+              run: |
+                docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+                docker push ${{secrets.DOCKER_REPO}}:torch-cu102
 
     
     cntk-py36-cu101_cntk-py36_cntk-cu101_cntk:
@@ -406,6 +520,52 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:sonnet
 
     
+    lasagne-py36-cu102_lasagne-cu102:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Free disk space
+              run: |
+                df -h
+                sudo apt-get remove -y '^ghc-8.*' '^dotnet-.*' '^llvm-.*' 'php.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+                sudo apt-get autoremove -y
+                sudo apt-get clean
+                sudo swapoff -a
+                sudo rm -f /swapfile
+                docker rmi $(docker image ls -aq)
+                df -h
+            - name: Build docker image
+              run: docker build -t ${{secrets.DOCKER_REPO}}:lasagne-py36-cu102 -t ${{secrets.DOCKER_REPO}}:lasagne-cu102 -f docker/Dockerfile.lasagne-py36-cu102 .
+            - name: Deploy docker image
+              run: |
+                docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+                docker push ${{secrets.DOCKER_REPO}}:lasagne-py36-cu102
+                docker push ${{secrets.DOCKER_REPO}}:lasagne-cu102
+
+    
+    chainer-py36-cu102_chainer-cu102:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Free disk space
+              run: |
+                df -h
+                sudo apt-get remove -y '^ghc-8.*' '^dotnet-.*' '^llvm-.*' 'php.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+                sudo apt-get autoremove -y
+                sudo apt-get clean
+                sudo swapoff -a
+                sudo rm -f /swapfile
+                docker rmi $(docker image ls -aq)
+                df -h
+            - name: Build docker image
+              run: docker build -t ${{secrets.DOCKER_REPO}}:chainer-py36-cu102 -t ${{secrets.DOCKER_REPO}}:chainer-cu102 -f docker/Dockerfile.chainer-py36-cu102 .
+            - name: Deploy docker image
+              run: |
+                docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+                docker push ${{secrets.DOCKER_REPO}}:chainer-py36-cu102
+                docker push ${{secrets.DOCKER_REPO}}:chainer-cu102
+
+    
     mxnet-py36-cu101_mxnet-py36_mxnet-cu101_mxnet:
         runs-on: ubuntu-latest
         steps:
@@ -499,6 +659,28 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:cntk-cpu
 
     
+    darknet-cu102:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Free disk space
+              run: |
+                df -h
+                sudo apt-get remove -y '^ghc-8.*' '^dotnet-.*' '^llvm-.*' 'php.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+                sudo apt-get autoremove -y
+                sudo apt-get clean
+                sudo swapoff -a
+                sudo rm -f /swapfile
+                docker rmi $(docker image ls -aq)
+                df -h
+            - name: Build docker image
+              run: docker build -t ${{secrets.DOCKER_REPO}}:darknet-cu102 -f docker/Dockerfile.darknet-cu102 .
+            - name: Deploy docker image
+              run: |
+                docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+                docker push ${{secrets.DOCKER_REPO}}:darknet-cu102
+
+    
     caffe-py36-cu101_caffe-py36_caffe-cu101_caffe:
         runs-on: ubuntu-latest
         steps:
@@ -574,6 +756,58 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:paddle
 
     
+    keras-py36-cu102_keras-cu102:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Free disk space
+              run: |
+                df -h
+                sudo apt-get remove -y '^ghc-8.*' '^dotnet-.*' '^llvm-.*' 'php.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+                sudo apt-get autoremove -y
+                sudo apt-get clean
+                sudo swapoff -a
+                sudo rm -f /swapfile
+                docker rmi $(docker image ls -aq)
+                df -h
+            - name: Build docker image
+              run: docker build -t ${{secrets.DOCKER_REPO}}:keras-py36-cu102 -t ${{secrets.DOCKER_REPO}}:keras-cu102 -f docker/Dockerfile.keras-py36-cu102 .
+            - name: Deploy docker image
+              run: |
+                docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+                docker push ${{secrets.DOCKER_REPO}}:keras-py36-cu102
+                docker push ${{secrets.DOCKER_REPO}}:keras-cu102
+
+    
+    all-py36-cu102_all-cu102_py36-cu102_cu102_all-jupyter-py36-cu102_all-jupyter-cu102_py36-cu102_cu102:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Free disk space
+              run: |
+                df -h
+                sudo apt-get remove -y '^ghc-8.*' '^dotnet-.*' '^llvm-.*' 'php.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+                sudo apt-get autoremove -y
+                sudo apt-get clean
+                sudo swapoff -a
+                sudo rm -f /swapfile
+                docker rmi $(docker image ls -aq)
+                df -h
+            - name: Build docker image
+              run: docker build -t ${{secrets.DOCKER_REPO}}:all-py36-cu102 -t ${{secrets.DOCKER_REPO}}:all-cu102 -t ${{secrets.DOCKER_REPO}}:py36-cu102 -t ${{secrets.DOCKER_REPO}}:cu102 -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cu102 -t ${{secrets.DOCKER_REPO}}:all-jupyter-cu102 -t ${{secrets.DOCKER_REPO}}:py36-cu102 -t ${{secrets.DOCKER_REPO}}:cu102 -f docker/Dockerfile.all-py36-cu102 .
+            - name: Deploy docker image
+              run: |
+                docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+                docker push ${{secrets.DOCKER_REPO}}:all-py36-cu102
+                docker push ${{secrets.DOCKER_REPO}}:all-cu102
+                docker push ${{secrets.DOCKER_REPO}}:py36-cu102
+                docker push ${{secrets.DOCKER_REPO}}:cu102
+                docker push ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cu102
+                docker push ${{secrets.DOCKER_REPO}}:all-jupyter-cu102
+                docker push ${{secrets.DOCKER_REPO}}:py36-cu102
+                docker push ${{secrets.DOCKER_REPO}}:cu102
+
+    
     paddle-py36-cpu_paddle-cpu:
         runs-on: ubuntu-latest
         steps:
@@ -643,6 +877,52 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:pytorch-cpu
 
     
+    cntk-py36-cu102_cntk-cu102:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Free disk space
+              run: |
+                df -h
+                sudo apt-get remove -y '^ghc-8.*' '^dotnet-.*' '^llvm-.*' 'php.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+                sudo apt-get autoremove -y
+                sudo apt-get clean
+                sudo swapoff -a
+                sudo rm -f /swapfile
+                docker rmi $(docker image ls -aq)
+                df -h
+            - name: Build docker image
+              run: docker build -t ${{secrets.DOCKER_REPO}}:cntk-py36-cu102 -t ${{secrets.DOCKER_REPO}}:cntk-cu102 -f docker/Dockerfile.cntk-py36-cu102 .
+            - name: Deploy docker image
+              run: |
+                docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+                docker push ${{secrets.DOCKER_REPO}}:cntk-py36-cu102
+                docker push ${{secrets.DOCKER_REPO}}:cntk-cu102
+
+    
+    pytorch-py36-cu102_pytorch-cu102:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Free disk space
+              run: |
+                df -h
+                sudo apt-get remove -y '^ghc-8.*' '^dotnet-.*' '^llvm-.*' 'php.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+                sudo apt-get autoremove -y
+                sudo apt-get clean
+                sudo swapoff -a
+                sudo rm -f /swapfile
+                docker rmi $(docker image ls -aq)
+                df -h
+            - name: Build docker image
+              run: docker build -t ${{secrets.DOCKER_REPO}}:pytorch-py36-cu102 -t ${{secrets.DOCKER_REPO}}:pytorch-cu102 -f docker/Dockerfile.pytorch-py36-cu102 .
+            - name: Deploy docker image
+              run: |
+                docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+                docker push ${{secrets.DOCKER_REPO}}:pytorch-py36-cu102
+                docker push ${{secrets.DOCKER_REPO}}:pytorch-cu102
+
+    
     caffe-py36-cpu_caffe-cpu:
         runs-on: ubuntu-latest
         steps:
@@ -664,6 +944,29 @@ jobs:
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:caffe-py36-cpu
                 docker push ${{secrets.DOCKER_REPO}}:caffe-cpu
+
+    
+    sonnet-py36-cu102_sonnet-cu102:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Free disk space
+              run: |
+                df -h
+                sudo apt-get remove -y '^ghc-8.*' '^dotnet-.*' '^llvm-.*' 'php.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+                sudo apt-get autoremove -y
+                sudo apt-get clean
+                sudo swapoff -a
+                sudo rm -f /swapfile
+                docker rmi $(docker image ls -aq)
+                df -h
+            - name: Build docker image
+              run: docker build -t ${{secrets.DOCKER_REPO}}:sonnet-py36-cu102 -t ${{secrets.DOCKER_REPO}}:sonnet-cu102 -f docker/Dockerfile.sonnet-py36-cu102 .
+            - name: Deploy docker image
+              run: |
+                docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+                docker push ${{secrets.DOCKER_REPO}}:sonnet-py36-cu102
+                docker push ${{secrets.DOCKER_REPO}}:sonnet-cu102
 
     
     lasagne-py36-cu101_lasagne-py36_lasagne-cu101_lasagne:
@@ -689,4 +992,27 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:lasagne-py36
                 docker push ${{secrets.DOCKER_REPO}}:lasagne-cu101
                 docker push ${{secrets.DOCKER_REPO}}:lasagne
+
+    
+    tensorflow-py36-cu102_tensorflow-cu102:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Free disk space
+              run: |
+                df -h
+                sudo apt-get remove -y '^ghc-8.*' '^dotnet-.*' '^llvm-.*' 'php.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+                sudo apt-get autoremove -y
+                sudo apt-get clean
+                sudo swapoff -a
+                sudo rm -f /swapfile
+                docker rmi $(docker image ls -aq)
+                df -h
+            - name: Build docker image
+              run: docker build -t ${{secrets.DOCKER_REPO}}:tensorflow-py36-cu102 -t ${{secrets.DOCKER_REPO}}:tensorflow-cu102 -f docker/Dockerfile.tensorflow-py36-cu102 .
+            - name: Deploy docker image
+              run: |
+                docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+                docker push ${{secrets.DOCKER_REPO}}:tensorflow-py36-cu102
+                docker push ${{secrets.DOCKER_REPO}}:tensorflow-cu102
 
