@@ -159,18 +159,6 @@ caffe version 1.0.0
 usage: darknet <function>
 ```
 
-```$ th```
-```
- │  ______             __   |  Torch7
- │ /_  __/__  ________/ /   |  Scientific computing for Lua.
- │  / / / _ \/ __/ __/ _ \  |  Type ? for help
- │ /_/  \___/_/  \__/_//_/  |  https://github.com/torch
- │                          |  http://torch.ch
- │
- │th>
-```
-
-
 <a name="Customization"/>
 
 # Customization
