@@ -91,7 +91,6 @@ def get_job(tags):
             import tensorflow as m; print(m.__name__, ':', m.__version__);
             import sonnet as m; print(m.__name__, ':', m.__version__);
             import torch as m; print(m.__name__, ':', m.__version__);
-            import keras as m; print(m.__name__, ':', m.__version__);
             import mxnet as m; print(m.__name__, ':', m.__version__);
             import cntk as m; print(m.__name__, ':', m.__version__);
             import chainer as m; print(m.__name__, ':', m.__version__);
@@ -100,6 +99,7 @@ def get_job(tags):
             import caffe as m; print(m.__name__, ':', m.__version__);
             import caffe2.python as m; print(m.__name__, ':', dir(m));
             import paddle as m; print(m.__name__, ':', m.__version__);
+            from tensorflow import keras as m; print(m.__name__, ':', m.__version__);
             ''').replace('\n', '')
         run_prefix = '- run: docker run ${{secrets.DOCKER_REPO}}:%s ' % tags[0]
         build_scripts += indent(3, textwrap.dedent('''
