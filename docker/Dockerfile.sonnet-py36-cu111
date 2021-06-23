@@ -2,10 +2,11 @@
 # module list
 # ------------------------------------------------------------------
 # python        3.6    (apt)
-# paddle        latest (pip)
+# tensorflow    latest (pip)
+# sonnet        latest (pip)
 # ==================================================================
 
-FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
+FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu18.04
 ENV LANG C.UTF-8
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
@@ -74,11 +75,20 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
 # ==================================================================
-# paddle
+# tensorflow
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        paddlepaddle-gpu \
+        tensorflow-gpu \
+        && \
+
+# ==================================================================
+# sonnet
+# ------------------------------------------------------------------
+
+    $PIP_INSTALL \
+        tensorflow_probability \
+        "dm-sonnet>=2.0.0b0" --pre \
         && \
 
 # ==================================================================
@@ -89,3 +99,5 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     apt-get clean && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/* /tmp/* ~/*
+
+EXPOSE 6006

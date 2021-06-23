@@ -11,13 +11,11 @@ class Darknet(Module):
         use_gpu = 1 if self.composer.cuda_ver else 0
 
         return r'''
-            $GIT_CLONE https://github.com/pjreddie/darknet.git ~/darknet && \
+            $GIT_CLONE https://github.com/AlexeyAB/darknet ~/darknet && \
             cd ~/darknet && \
             sed -i 's/GPU=0/GPU=%d/g' ~/darknet/Makefile && \
             sed -i 's/CUDNN=0/CUDNN=%d/g' ~/darknet/Makefile && \
             make -j"$(nproc)" && \
             cp ~/darknet/include/* /usr/local/include && \
-            cp ~/darknet/*.a /usr/local/lib && \
-            cp ~/darknet/*.so /usr/local/lib && \
             cp ~/darknet/darknet /usr/local/bin && \
         ''' % (use_gpu, use_gpu)

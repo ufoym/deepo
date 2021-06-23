@@ -10,6 +10,8 @@ class Mxnet(Module):
     def build(self):
         cuver = '' if self.composer.cuda_ver is None else '-cu%d' % (
             float(self.composer.cuda_ver) * 10)
+        if cuver == '-cu111':
+            cuver = '-cu110' # mxnet does not support cu111
         return r'''
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 libatlas-base-dev \

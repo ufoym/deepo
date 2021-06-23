@@ -3,7 +3,6 @@
 # ------------------------------------------------------------------
 # darknet       latest (git)
 # python        3.6    (apt)
-# torch         latest (git)
 # chainer       latest (pip)
 # jupyter       latest (pip)
 # mxnet         latest (pip)
@@ -15,13 +14,13 @@
 # jupyterlab    latest (pip)
 # keras         latest (pip)
 # lasagne       latest (git)
-# opencv        4.4.0  (git)
+# opencv        4.5.2  (git)
 # sonnet        latest (pip)
 # caffe         latest (git)
 # cntk          latest (pip)
 # ==================================================================
 
-FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
+FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu18.04
 ENV LANG C.UTF-8
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
@@ -59,14 +58,12 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # darknet
 # ------------------------------------------------------------------
 
-    $GIT_CLONE https://github.com/pjreddie/darknet.git ~/darknet && \
+    $GIT_CLONE https://github.com/AlexeyAB/darknet ~/darknet && \
     cd ~/darknet && \
     sed -i 's/GPU=0/GPU=1/g' ~/darknet/Makefile && \
     sed -i 's/CUDNN=0/CUDNN=1/g' ~/darknet/Makefile && \
     make -j"$(nproc)" && \
     cp ~/darknet/include/* /usr/local/include && \
-    cp ~/darknet/*.a /usr/local/lib && \
-    cp ~/darknet/*.so /usr/local/lib && \
     cp ~/darknet/darknet /usr/local/bin && \
 
 # ==================================================================
@@ -104,20 +101,6 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
 # ==================================================================
-# torch
-# ------------------------------------------------------------------
-
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        sudo \
-        && \
-
-    $GIT_CLONE https://github.com/nagadomi/distro.git ~/torch --recursive && \
-    cd ~/torch && \
-    bash install-deps && \
-    sed -i 's/${THIS_DIR}\/install/\/usr\/local/g' ./install.sh && \
-    ./install.sh && \
-
-# ==================================================================
 # boost
 # ------------------------------------------------------------------
 
@@ -152,7 +135,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     $PIP_INSTALL \
-        mxnet-cu101 \
+        mxnet-cu110 \
         graphviz \
         && \
 
@@ -195,7 +178,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
     $PIP_INSTALL \
         --pre torch torchvision -f \
-        https://download.pytorch.org/whl/nightly/cu101/torch_nightly.html \
+        https://download.pytorch.org/whl/nightly/cu111/torch_nightly.html \
         && \
 
 # ==================================================================
@@ -272,7 +255,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         protobuf-compiler \
         && \
 
-    $GIT_CLONE --branch 4.4.0 https://github.com/opencv/opencv ~/opencv && \
+    $GIT_CLONE --branch 4.5.2 https://github.com/opencv/opencv ~/opencv && \
     mkdir -p ~/opencv/build && cd ~/opencv/build && \
     cmake -D CMAKE_BUILD_TYPE=RELEASE \
           -D CMAKE_INSTALL_PREFIX=/usr/local \

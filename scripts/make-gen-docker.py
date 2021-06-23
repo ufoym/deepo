@@ -23,6 +23,10 @@ non_python_modules = [
     'darknet',
 ]
 
+deprecated_modules = {
+    'torch': ('10.2', '7'),
+}
+
 pyvers = [
     # '2.7',
     '3.6',
@@ -44,19 +48,26 @@ def generate(f, cuda_ver=None, cudnn_ver=None):
 
         # single module
         for module in candidate_modules:
+            _cuda_ver, _cudnn_ver = cuda_ver, cudnn_ver
+            if None not in (cuda_ver, cudnn_ver):   # with cuda
+                if module in deprecated_modules:
+                    _cuda_ver, _cudnn_ver = deprecated_modules[module]
             if module in non_python_modules:
                 modules = [module]
-                f.write(get_command(modules, module, cuda_ver, cudnn_ver))
+                f.write(get_command(modules, module, _cuda_ver, _cudnn_ver))
             else:
                 for pyver in pyvers:
                     modules = [module, 'python==%s' % pyver]
                     postfix = '%s-py%s' % (
                         module, pyver.replace('.', ''))
-                    f.write(get_command(modules, postfix, cuda_ver, cudnn_ver))
+                    f.write(get_command(modules, postfix, _cuda_ver, _cudnn_ver))
 
         # all modules
         for pyver in pyvers:
-            modules = candidate_modules + ['python==%s' % pyver, 'onnx', 'jupyterlab']
+            modules = list(candidate_modules)
+            if None not in (cuda_ver, cudnn_ver):   # with cuda
+                modules = [m for m in modules if m not in deprecated_modules]
+            modules += ['python==%s' % pyver, 'onnx', 'jupyterlab']
             postfix = 'all-py%s' % pyver.replace('.', '')
             f.write(get_command(modules, postfix, cuda_ver, cudnn_ver))
 
@@ -67,4 +78,5 @@ if __name__ == '__main__':
         # generate(f, '8.0', '6')
         # generate(f, '9.0', '7')
         # generate(f, '10.1', '7')
-        generate(f, '10.2', '7')
+        # generate(f, '10.2', '7')
+        generate(f, '11.1', '8')

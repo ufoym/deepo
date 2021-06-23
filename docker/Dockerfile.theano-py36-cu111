@@ -3,10 +3,9 @@
 # ------------------------------------------------------------------
 # python        3.6    (apt)
 # theano        latest (git)
-# lasagne       latest (git)
 # ==================================================================
 
-FROM nvidia/cuda:10.2-cudnn7-devel-ubuntu18.04
+FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu18.04
 ENV LANG C.UTF-8
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
@@ -97,15 +96,6 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     $PIP_INSTALL \
         https://github.com/Theano/Theano/archive/master.zip \
         && \
-
-# ==================================================================
-# lasagne
-# ------------------------------------------------------------------
-
-    $GIT_CLONE https://github.com/Lasagne/Lasagne ~/lasagne && \
-    cd ~/lasagne && \
-    $PIP_INSTALL \
-        . && \
 
 # ==================================================================
 # config & cleanup
