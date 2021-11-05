@@ -15,7 +15,7 @@
 # jupyterlab    latest (pip)
 # keras         latest (pip)
 # lasagne       latest (git)
-# opencv        4.5.2  (git)
+# opencv        4.5.4  (git)
 # sonnet        latest (pip)
 # caffe         latest (git)
 # cntk          latest (pip)
@@ -191,7 +191,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         typing \
         && \
     $PIP_INSTALL \
-        --pre torch torchvision -f \
+        --pre torch torchvision torchaudio -f \
         https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html \
         && \
 
@@ -257,7 +257,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         protobuf-compiler \
         && \
 
-    $GIT_CLONE --branch 4.5.2 https://github.com/opencv/opencv ~/opencv && \
+    $GIT_CLONE --branch 4.5.4 https://github.com/opencv/opencv ~/opencv && \
     mkdir -p ~/opencv/build && cd ~/opencv/build && \
     cmake -D CMAKE_BUILD_TYPE=RELEASE \
           -D CMAKE_INSTALL_PREFIX=/usr/local \

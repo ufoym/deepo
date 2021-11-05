@@ -20,7 +20,7 @@ class Pytorch(Module):
                 typing \
                 && \
             $PIP_INSTALL \
-                --pre torch torchvision -f \
+                --pre torch torchvision torchaudio -f \
                 https://download.pytorch.org/whl/nightly/%s/torch_nightly.html \
                 && \
         ''' % cuver
