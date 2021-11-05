@@ -62,7 +62,6 @@ def get_job(tags):
                 - name: Free disk space
                   run: |
                     df -h
-                    sudo apt-get remove -y '^ghc-8.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell
                     sudo apt-get autoremove -y
                     sudo apt-get clean
                     sudo swapoff -a
