@@ -149,11 +149,10 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     $PIP_INSTALL \
-        --no-binary onnx onnx \
-        && \
-
-    $PIP_INSTALL \
-        onnxruntime \
+        numpy \
+        protobuf \
+        onnx \
+        onnxruntime-gpu \
         && \
 
 # ==================================================================

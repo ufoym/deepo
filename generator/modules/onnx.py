@@ -15,10 +15,9 @@ class Onnx(Module):
                 && \
 
             $PIP_INSTALL \
-                --no-binary onnx onnx \
+                numpy \
+                protobuf \
+                onnx \
+                onnxruntime%s \
                 && \
-
-            $PIP_INSTALL \
-                onnxruntime \
-                && \
-        '''
+        ''' % ('' if self.composer.cuda_ver is None else '-gpu')
