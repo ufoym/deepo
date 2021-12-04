@@ -113,9 +113,15 @@ def get_job(tags):
     return job_name, build_scripts
 
 
+def write(f, scripts):
+    for line in scripts.splitlines():
+        f.write(line.rstrip())
+        f.write('\n')
+
+
 def generate(ci_fname):
     with open(ci_fname, 'w') as f:
-        f.write(textwrap.dedent('''
+        write(f, textwrap.dedent('''
             name: deepo CI
             on: [push]
             jobs:
@@ -129,7 +135,7 @@ def generate(ci_fname):
         job_names.append(job_name)
 
         with open(ci_fname, 'a') as f:
-            f.write(build_scripts)
+            write(f, build_scripts)
 
 
 if __name__ == '__main__':
