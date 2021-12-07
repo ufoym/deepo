@@ -96,7 +96,6 @@ def get_job(tags):
             import theano as m; print(m.__name__, ':', m.__version__);
             import lasagne as m; print(m.__name__, ':', m.__version__);
             import caffe as m; print(m.__name__, ':', m.__version__);
-            import caffe2.python as m; print(m.__name__, ':', dir(m));
             import paddle as m; print(m.__name__, ':', m.__version__);
             from tensorflow import keras as m; print(m.__name__, ':', m.__version__);
             ''').replace('\n', '')

@@ -145,7 +145,6 @@ _You are now ready to begin your journey._
 >>> import theano
 >>> import lasagne
 >>> import caffe
->>> import caffe2
 >>> import paddle
 ```
 
