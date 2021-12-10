@@ -10,8 +10,7 @@ class Keras(Module):
 
     def build(self):
         return r'''
-            $PIP_INSTALL \
-                h5py \
-                keras \
-                && \
+            # Now Keras comes packaged with TensorFlow 2
+            # as tensorflow.keras. To start using Keras,
+            # simply install TensorFlow 2.
         '''
