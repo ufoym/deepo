@@ -14,8 +14,15 @@ def indent(n, s):
 
 def get_tags(postfix,
     default_mod='all',
-    default_platform='cu101',
-    default_pyver='py36'):
+    default_platform='cu',
+    default_lang='py'):
+
+    def is_default_mod(mod):
+        return mod and default_mod in mod
+    def is_default_platform(platform):
+        return platform and default_platform in platform
+    def is_default_lang(lang):
+        return lang and default_lang in lang
 
     terms = postfix.split('-')
     if len(terms) == 2:
@@ -26,19 +33,19 @@ def get_tags(postfix,
         pyver, platform = terms[-2], terms[-1]
 
     tags = [postfix]
-    if platform == default_platform:
+    if is_default_platform(platform):
         tags.append('-'.join(filter(None, (mod, pyver))))
-    if pyver == default_pyver:
+    if is_default_lang(pyver):
         tags.append('-'.join(filter(None, (mod, platform))))
-    if mod == default_mod:
+    if is_default_mod(mod):
         tags.append('-'.join(filter(None, (pyver, platform))))
-    if platform == default_platform and pyver == default_pyver:
+    if is_default_platform(platform) and is_default_lang(pyver):
         tags.append(mod)
-    if mod == default_mod and pyver == default_pyver:
+    if is_default_mod(mod) and is_default_lang(pyver):
         tags.append(platform)
-    if mod == default_mod and platform == default_platform:
+    if is_default_mod(mod) and is_default_platform(platform):
         tags.append(pyver)
-        if platform == default_platform:
+        if is_default_platform(platform):
             tags.append('latest')
 
     if mod == 'all':

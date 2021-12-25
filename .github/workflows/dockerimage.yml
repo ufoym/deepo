@@ -2,7 +2,7 @@ name: deepo CI
 on: [push]
 jobs:
 
-    lasagne-py36-cu111_lasagne-cu111:
+    lasagne-py36-cu111_lasagne-py36_lasagne-cu111_lasagne:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
@@ -16,12 +16,14 @@ jobs:
                 docker rmi $(docker image ls -aq)
                 df -h
             - name: Build docker image
-              run: docker build -t ${{secrets.DOCKER_REPO}}:lasagne-py36-cu111 -t ${{secrets.DOCKER_REPO}}:lasagne-cu111 -f docker/Dockerfile.lasagne-py36-cu111 .
+              run: docker build -t ${{secrets.DOCKER_REPO}}:lasagne-py36-cu111 -t ${{secrets.DOCKER_REPO}}:lasagne-py36 -t ${{secrets.DOCKER_REPO}}:lasagne-cu111 -t ${{secrets.DOCKER_REPO}}:lasagne -f docker/Dockerfile.lasagne-py36-cu111 .
             - name: Deploy docker image
               run: |
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:lasagne-py36-cu111
+                docker push ${{secrets.DOCKER_REPO}}:lasagne-py36
                 docker push ${{secrets.DOCKER_REPO}}:lasagne-cu111
+                docker push ${{secrets.DOCKER_REPO}}:lasagne
 
 
     mxnet-py36-cpu_mxnet-cpu:
@@ -166,7 +168,7 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:lasagne-cpu
 
 
-    paddle-py36-cu111_paddle-cu111:
+    paddle-py36-cu111_paddle-py36_paddle-cu111_paddle:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
@@ -180,15 +182,17 @@ jobs:
                 docker rmi $(docker image ls -aq)
                 df -h
             - name: Build docker image
-              run: docker build -t ${{secrets.DOCKER_REPO}}:paddle-py36-cu111 -t ${{secrets.DOCKER_REPO}}:paddle-cu111 -f docker/Dockerfile.paddle-py36-cu111 .
+              run: docker build -t ${{secrets.DOCKER_REPO}}:paddle-py36-cu111 -t ${{secrets.DOCKER_REPO}}:paddle-py36 -t ${{secrets.DOCKER_REPO}}:paddle-cu111 -t ${{secrets.DOCKER_REPO}}:paddle -f docker/Dockerfile.paddle-py36-cu111 .
             - name: Deploy docker image
               run: |
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:paddle-py36-cu111
+                docker push ${{secrets.DOCKER_REPO}}:paddle-py36
                 docker push ${{secrets.DOCKER_REPO}}:paddle-cu111
+                docker push ${{secrets.DOCKER_REPO}}:paddle
 
 
-    theano-py36-cu111_theano-cu111:
+    theano-py36-cu111_theano-py36_theano-cu111_theano:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
@@ -202,15 +206,17 @@ jobs:
                 docker rmi $(docker image ls -aq)
                 df -h
             - name: Build docker image
-              run: docker build -t ${{secrets.DOCKER_REPO}}:theano-py36-cu111 -t ${{secrets.DOCKER_REPO}}:theano-cu111 -f docker/Dockerfile.theano-py36-cu111 .
+              run: docker build -t ${{secrets.DOCKER_REPO}}:theano-py36-cu111 -t ${{secrets.DOCKER_REPO}}:theano-py36 -t ${{secrets.DOCKER_REPO}}:theano-cu111 -t ${{secrets.DOCKER_REPO}}:theano -f docker/Dockerfile.theano-py36-cu111 .
             - name: Deploy docker image
               run: |
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:theano-py36-cu111
+                docker push ${{secrets.DOCKER_REPO}}:theano-py36
                 docker push ${{secrets.DOCKER_REPO}}:theano-cu111
+                docker push ${{secrets.DOCKER_REPO}}:theano
 
 
-    torch-cu102:
+    torch-cu102_torch:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
@@ -224,14 +230,15 @@ jobs:
                 docker rmi $(docker image ls -aq)
                 df -h
             - name: Build docker image
-              run: docker build -t ${{secrets.DOCKER_REPO}}:torch-cu102 -f docker/Dockerfile.torch-cu102 .
+              run: docker build -t ${{secrets.DOCKER_REPO}}:torch-cu102 -t ${{secrets.DOCKER_REPO}}:torch -f docker/Dockerfile.torch-cu102 .
             - name: Deploy docker image
               run: |
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:torch-cu102
+                docker push ${{secrets.DOCKER_REPO}}:torch
 
 
-    caffe-py36-cu111_caffe-cu111:
+    caffe-py36-cu111_caffe-py36_caffe-cu111_caffe:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
@@ -245,12 +252,14 @@ jobs:
                 docker rmi $(docker image ls -aq)
                 df -h
             - name: Build docker image
-              run: docker build -t ${{secrets.DOCKER_REPO}}:caffe-py36-cu111 -t ${{secrets.DOCKER_REPO}}:caffe-cu111 -f docker/Dockerfile.caffe-py36-cu111 .
+              run: docker build -t ${{secrets.DOCKER_REPO}}:caffe-py36-cu111 -t ${{secrets.DOCKER_REPO}}:caffe-py36 -t ${{secrets.DOCKER_REPO}}:caffe-cu111 -t ${{secrets.DOCKER_REPO}}:caffe -f docker/Dockerfile.caffe-py36-cu111 .
             - name: Deploy docker image
               run: |
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:caffe-py36-cu111
+                docker push ${{secrets.DOCKER_REPO}}:caffe-py36
                 docker push ${{secrets.DOCKER_REPO}}:caffe-cu111
+                docker push ${{secrets.DOCKER_REPO}}:caffe
 
 
     keras-py36-cpu_keras-cpu:
@@ -275,7 +284,7 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:keras-cpu
 
 
-    mxnet-py36-cu111_mxnet-cu111:
+    mxnet-py36-cu111_mxnet-py36_mxnet-cu111_mxnet:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
@@ -289,12 +298,14 @@ jobs:
                 docker rmi $(docker image ls -aq)
                 df -h
             - name: Build docker image
-              run: docker build -t ${{secrets.DOCKER_REPO}}:mxnet-py36-cu111 -t ${{secrets.DOCKER_REPO}}:mxnet-cu111 -f docker/Dockerfile.mxnet-py36-cu111 .
+              run: docker build -t ${{secrets.DOCKER_REPO}}:mxnet-py36-cu111 -t ${{secrets.DOCKER_REPO}}:mxnet-py36 -t ${{secrets.DOCKER_REPO}}:mxnet-cu111 -t ${{secrets.DOCKER_REPO}}:mxnet -f docker/Dockerfile.mxnet-py36-cu111 .
             - name: Deploy docker image
               run: |
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:mxnet-py36-cu111
+                docker push ${{secrets.DOCKER_REPO}}:mxnet-py36
                 docker push ${{secrets.DOCKER_REPO}}:mxnet-cu111
+                docker push ${{secrets.DOCKER_REPO}}:mxnet
 
 
     theano-py36-cpu_theano-cpu:
@@ -319,7 +330,7 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:theano-cpu
 
 
-    tensorflow-py36-cu111_tensorflow-cu111:
+    tensorflow-py36-cu111_tensorflow-py36_tensorflow-cu111_tensorflow:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
@@ -333,15 +344,17 @@ jobs:
                 docker rmi $(docker image ls -aq)
                 df -h
             - name: Build docker image
-              run: docker build -t ${{secrets.DOCKER_REPO}}:tensorflow-py36-cu111 -t ${{secrets.DOCKER_REPO}}:tensorflow-cu111 -f docker/Dockerfile.tensorflow-py36-cu111 .
+              run: docker build -t ${{secrets.DOCKER_REPO}}:tensorflow-py36-cu111 -t ${{secrets.DOCKER_REPO}}:tensorflow-py36 -t ${{secrets.DOCKER_REPO}}:tensorflow-cu111 -t ${{secrets.DOCKER_REPO}}:tensorflow -f docker/Dockerfile.tensorflow-py36-cu111 .
             - name: Deploy docker image
               run: |
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:tensorflow-py36-cu111
+                docker push ${{secrets.DOCKER_REPO}}:tensorflow-py36
                 docker push ${{secrets.DOCKER_REPO}}:tensorflow-cu111
+                docker push ${{secrets.DOCKER_REPO}}:tensorflow
 
 
-    sonnet-py36-cu111_sonnet-cu111:
+    sonnet-py36-cu111_sonnet-py36_sonnet-cu111_sonnet:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
@@ -355,12 +368,14 @@ jobs:
                 docker rmi $(docker image ls -aq)
                 df -h
             - name: Build docker image
-              run: docker build -t ${{secrets.DOCKER_REPO}}:sonnet-py36-cu111 -t ${{secrets.DOCKER_REPO}}:sonnet-cu111 -f docker/Dockerfile.sonnet-py36-cu111 .
+              run: docker build -t ${{secrets.DOCKER_REPO}}:sonnet-py36-cu111 -t ${{secrets.DOCKER_REPO}}:sonnet-py36 -t ${{secrets.DOCKER_REPO}}:sonnet-cu111 -t ${{secrets.DOCKER_REPO}}:sonnet -f docker/Dockerfile.sonnet-py36-cu111 .
             - name: Deploy docker image
               run: |
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:sonnet-py36-cu111
+                docker push ${{secrets.DOCKER_REPO}}:sonnet-py36
                 docker push ${{secrets.DOCKER_REPO}}:sonnet-cu111
+                docker push ${{secrets.DOCKER_REPO}}:sonnet
 
 
     chainer-py36-cpu_chainer-cpu:
@@ -406,7 +421,7 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:torch-cpu
 
 
-    pytorch-py36-cu111_pytorch-cu111:
+    pytorch-py36-cu111_pytorch-py36_pytorch-cu111_pytorch:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
@@ -420,12 +435,14 @@ jobs:
                 docker rmi $(docker image ls -aq)
                 df -h
             - name: Build docker image
-              run: docker build -t ${{secrets.DOCKER_REPO}}:pytorch-py36-cu111 -t ${{secrets.DOCKER_REPO}}:pytorch-cu111 -f docker/Dockerfile.pytorch-py36-cu111 .
+              run: docker build -t ${{secrets.DOCKER_REPO}}:pytorch-py36-cu111 -t ${{secrets.DOCKER_REPO}}:pytorch-py36 -t ${{secrets.DOCKER_REPO}}:pytorch-cu111 -t ${{secrets.DOCKER_REPO}}:pytorch -f docker/Dockerfile.pytorch-py36-cu111 .
             - name: Deploy docker image
               run: |
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:pytorch-py36-cu111
+                docker push ${{secrets.DOCKER_REPO}}:pytorch-py36
                 docker push ${{secrets.DOCKER_REPO}}:pytorch-cu111
+                docker push ${{secrets.DOCKER_REPO}}:pytorch
 
 
     cntk-py36-cpu_cntk-cpu:
@@ -450,7 +467,7 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:cntk-cpu
 
 
-    cntk-py36-cu111_cntk-cu111:
+    cntk-py36-cu111_cntk-py36_cntk-cu111_cntk:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
@@ -464,15 +481,17 @@ jobs:
                 docker rmi $(docker image ls -aq)
                 df -h
             - name: Build docker image
-              run: docker build -t ${{secrets.DOCKER_REPO}}:cntk-py36-cu111 -t ${{secrets.DOCKER_REPO}}:cntk-cu111 -f docker/Dockerfile.cntk-py36-cu111 .
+              run: docker build -t ${{secrets.DOCKER_REPO}}:cntk-py36-cu111 -t ${{secrets.DOCKER_REPO}}:cntk-py36 -t ${{secrets.DOCKER_REPO}}:cntk-cu111 -t ${{secrets.DOCKER_REPO}}:cntk -f docker/Dockerfile.cntk-py36-cu111 .
             - name: Deploy docker image
               run: |
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:cntk-py36-cu111
+                docker push ${{secrets.DOCKER_REPO}}:cntk-py36
                 docker push ${{secrets.DOCKER_REPO}}:cntk-cu111
+                docker push ${{secrets.DOCKER_REPO}}:cntk
 
 
-    all-py36-cu111_all-cu111_py36-cu111_cu111_all-jupyter-py36-cu111_all-jupyter-cu111_py36-cu111_cu111:
+    all-py36-cu111_all-py36_all-cu111_py36-cu111_all_cu111_py36_latest_all-jupyter-py36-cu111_all-jupyter-py36_all-jupyter-cu111_py36-cu111_all-jupyter_cu111_py36_latest:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
@@ -486,21 +505,29 @@ jobs:
                 docker rmi $(docker image ls -aq)
                 df -h
             - name: Build docker image
-              run: docker build -t ${{secrets.DOCKER_REPO}}:all-py36-cu111 -t ${{secrets.DOCKER_REPO}}:all-cu111 -t ${{secrets.DOCKER_REPO}}:py36-cu111 -t ${{secrets.DOCKER_REPO}}:cu111 -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cu111 -t ${{secrets.DOCKER_REPO}}:all-jupyter-cu111 -t ${{secrets.DOCKER_REPO}}:py36-cu111 -t ${{secrets.DOCKER_REPO}}:cu111 -f docker/Dockerfile.all-py36-cu111 .
+              run: docker build -t ${{secrets.DOCKER_REPO}}:all-py36-cu111 -t ${{secrets.DOCKER_REPO}}:all-py36 -t ${{secrets.DOCKER_REPO}}:all-cu111 -t ${{secrets.DOCKER_REPO}}:py36-cu111 -t ${{secrets.DOCKER_REPO}}:all -t ${{secrets.DOCKER_REPO}}:cu111 -t ${{secrets.DOCKER_REPO}}:py36 -t ${{secrets.DOCKER_REPO}}:latest -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cu111 -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36 -t ${{secrets.DOCKER_REPO}}:all-jupyter-cu111 -t ${{secrets.DOCKER_REPO}}:py36-cu111 -t ${{secrets.DOCKER_REPO}}:all-jupyter -t ${{secrets.DOCKER_REPO}}:cu111 -t ${{secrets.DOCKER_REPO}}:py36 -t ${{secrets.DOCKER_REPO}}:latest -f docker/Dockerfile.all-py36-cu111 .
             - name: Deploy docker image
               run: |
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:all-py36-cu111
+                docker push ${{secrets.DOCKER_REPO}}:all-py36
                 docker push ${{secrets.DOCKER_REPO}}:all-cu111
                 docker push ${{secrets.DOCKER_REPO}}:py36-cu111
+                docker push ${{secrets.DOCKER_REPO}}:all
                 docker push ${{secrets.DOCKER_REPO}}:cu111
+                docker push ${{secrets.DOCKER_REPO}}:py36
+                docker push ${{secrets.DOCKER_REPO}}:latest
                 docker push ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cu111
+                docker push ${{secrets.DOCKER_REPO}}:all-jupyter-py36
                 docker push ${{secrets.DOCKER_REPO}}:all-jupyter-cu111
                 docker push ${{secrets.DOCKER_REPO}}:py36-cu111
+                docker push ${{secrets.DOCKER_REPO}}:all-jupyter
                 docker push ${{secrets.DOCKER_REPO}}:cu111
+                docker push ${{secrets.DOCKER_REPO}}:py36
+                docker push ${{secrets.DOCKER_REPO}}:latest
 
 
-    keras-py36-cu111_keras-cu111:
+    keras-py36-cu111_keras-py36_keras-cu111_keras:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
@@ -514,12 +541,14 @@ jobs:
                 docker rmi $(docker image ls -aq)
                 df -h
             - name: Build docker image
-              run: docker build -t ${{secrets.DOCKER_REPO}}:keras-py36-cu111 -t ${{secrets.DOCKER_REPO}}:keras-cu111 -f docker/Dockerfile.keras-py36-cu111 .
+              run: docker build -t ${{secrets.DOCKER_REPO}}:keras-py36-cu111 -t ${{secrets.DOCKER_REPO}}:keras-py36 -t ${{secrets.DOCKER_REPO}}:keras-cu111 -t ${{secrets.DOCKER_REPO}}:keras -f docker/Dockerfile.keras-py36-cu111 .
             - name: Deploy docker image
               run: |
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:keras-py36-cu111
+                docker push ${{secrets.DOCKER_REPO}}:keras-py36
                 docker push ${{secrets.DOCKER_REPO}}:keras-cu111
+                docker push ${{secrets.DOCKER_REPO}}:keras
 
 
     paddle-py36-cpu_paddle-cpu:
@@ -544,7 +573,7 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:paddle-cpu
 
 
-    darknet-cu111:
+    darknet-cu111_darknet:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
@@ -558,11 +587,12 @@ jobs:
                 docker rmi $(docker image ls -aq)
                 df -h
             - name: Build docker image
-              run: docker build -t ${{secrets.DOCKER_REPO}}:darknet-cu111 -f docker/Dockerfile.darknet-cu111 .
+              run: docker build -t ${{secrets.DOCKER_REPO}}:darknet-cu111 -t ${{secrets.DOCKER_REPO}}:darknet -f docker/Dockerfile.darknet-cu111 .
             - name: Deploy docker image
               run: |
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:darknet-cu111
+                docker push ${{secrets.DOCKER_REPO}}:darknet
 
 
     pytorch-py36-cpu_pytorch-cpu:
@@ -609,7 +639,7 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:caffe-cpu
 
 
-    chainer-py36-cu111_chainer-cu111:
+    chainer-py36-cu111_chainer-py36_chainer-cu111_chainer:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
@@ -623,10 +653,12 @@ jobs:
                 docker rmi $(docker image ls -aq)
                 df -h
             - name: Build docker image
-              run: docker build -t ${{secrets.DOCKER_REPO}}:chainer-py36-cu111 -t ${{secrets.DOCKER_REPO}}:chainer-cu111 -f docker/Dockerfile.chainer-py36-cu111 .
+              run: docker build -t ${{secrets.DOCKER_REPO}}:chainer-py36-cu111 -t ${{secrets.DOCKER_REPO}}:chainer-py36 -t ${{secrets.DOCKER_REPO}}:chainer-cu111 -t ${{secrets.DOCKER_REPO}}:chainer -f docker/Dockerfile.chainer-py36-cu111 .
             - name: Deploy docker image
               run: |
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
                 docker push ${{secrets.DOCKER_REPO}}:chainer-py36-cu111
+                docker push ${{secrets.DOCKER_REPO}}:chainer-py36
                 docker push ${{secrets.DOCKER_REPO}}:chainer-cu111
+                docker push ${{secrets.DOCKER_REPO}}:chainer
 
