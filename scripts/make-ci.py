@@ -50,7 +50,9 @@ def get_tags(postfix,
 
     if mod == 'all':
         for t in list(tags):
-            tags.append(t.replace('all', 'all-jupyter'))
+            t = t.replace('all', 'all-jupyter')
+            if t not in tags:
+                tags.append(t)
 
     # for t in list(tags):
     #     if 'latest' not in t:
@@ -60,7 +62,7 @@ def get_tags(postfix,
 
 
 def get_job(tags):
-    job_name = '_'.join(tags)
+    job_name = '_'.join(tags)[:99]
     build_scripts = indent(1, textwrap.dedent('''
         %s:
             runs-on: ubuntu-latest

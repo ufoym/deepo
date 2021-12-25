@@ -92,7 +92,7 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:sonnet-cpu
 
 
-    all-py36-cpu_all-cpu_py36-cpu_cpu_all-jupyter-py36-cpu_all-jupyter-cpu_py36-cpu_cpu:
+    all-py36-cpu_all-cpu_py36-cpu_cpu_all-jupyter-py36-cpu_all-jupyter-cpu:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
@@ -106,7 +106,7 @@ jobs:
                 docker rmi $(docker image ls -aq)
                 df -h
             - name: Build docker image
-              run: docker build -t ${{secrets.DOCKER_REPO}}:all-py36-cpu -t ${{secrets.DOCKER_REPO}}:all-cpu -t ${{secrets.DOCKER_REPO}}:py36-cpu -t ${{secrets.DOCKER_REPO}}:cpu -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cpu -t ${{secrets.DOCKER_REPO}}:all-jupyter-cpu -t ${{secrets.DOCKER_REPO}}:py36-cpu -t ${{secrets.DOCKER_REPO}}:cpu -f docker/Dockerfile.all-py36-cpu .
+              run: docker build -t ${{secrets.DOCKER_REPO}}:all-py36-cpu -t ${{secrets.DOCKER_REPO}}:all-cpu -t ${{secrets.DOCKER_REPO}}:py36-cpu -t ${{secrets.DOCKER_REPO}}:cpu -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cpu -t ${{secrets.DOCKER_REPO}}:all-jupyter-cpu -f docker/Dockerfile.all-py36-cpu .
             - name: Deploy docker image
               run: |
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
@@ -116,8 +116,6 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:cpu
                 docker push ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cpu
                 docker push ${{secrets.DOCKER_REPO}}:all-jupyter-cpu
-                docker push ${{secrets.DOCKER_REPO}}:py36-cpu
-                docker push ${{secrets.DOCKER_REPO}}:cpu
 
             - run: docker run ${{secrets.DOCKER_REPO}}:all-py36-cpu  python -c "import tensorflow as m; print(m.__name__, ':', m.__version__);import sonnet as m; print(m.__name__, ':', m.__version__);import torch as m; print(m.__name__, ':', m.__version__);import mxnet as m; print(m.__name__, ':', m.__version__);import cntk as m; print(m.__name__, ':', m.__version__);import chainer as m; print(m.__name__, ':', m.__version__);import theano as m; print(m.__name__, ':', m.__version__);import lasagne as m; print(m.__name__, ':', m.__version__);import caffe as m; print(m.__name__, ':', m.__version__);import paddle as m; print(m.__name__, ':', m.__version__);from tensorflow import keras as m; print(m.__name__, ':', m.__version__);"
             - run: docker run ${{secrets.DOCKER_REPO}}:all-py36-cpu  caffe --version
@@ -491,7 +489,7 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:cntk
 
 
-    all-py36-cu111_all-py36_all-cu111_py36-cu111_all_cu111_py36_latest_all-jupyter-py36-cu111_all-jupyter-py36_all-jupyter-cu111_py36-cu111_all-jupyter_cu111_py36_latest:
+    all-py36-cu111_all-py36_all-cu111_py36-cu111_all_cu111_py36_latest_all-jupyter-py36-cu111_all-jupyt:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
@@ -505,7 +503,7 @@ jobs:
                 docker rmi $(docker image ls -aq)
                 df -h
             - name: Build docker image
-              run: docker build -t ${{secrets.DOCKER_REPO}}:all-py36-cu111 -t ${{secrets.DOCKER_REPO}}:all-py36 -t ${{secrets.DOCKER_REPO}}:all-cu111 -t ${{secrets.DOCKER_REPO}}:py36-cu111 -t ${{secrets.DOCKER_REPO}}:all -t ${{secrets.DOCKER_REPO}}:cu111 -t ${{secrets.DOCKER_REPO}}:py36 -t ${{secrets.DOCKER_REPO}}:latest -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cu111 -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36 -t ${{secrets.DOCKER_REPO}}:all-jupyter-cu111 -t ${{secrets.DOCKER_REPO}}:py36-cu111 -t ${{secrets.DOCKER_REPO}}:all-jupyter -t ${{secrets.DOCKER_REPO}}:cu111 -t ${{secrets.DOCKER_REPO}}:py36 -t ${{secrets.DOCKER_REPO}}:latest -f docker/Dockerfile.all-py36-cu111 .
+              run: docker build -t ${{secrets.DOCKER_REPO}}:all-py36-cu111 -t ${{secrets.DOCKER_REPO}}:all-py36 -t ${{secrets.DOCKER_REPO}}:all-cu111 -t ${{secrets.DOCKER_REPO}}:py36-cu111 -t ${{secrets.DOCKER_REPO}}:all -t ${{secrets.DOCKER_REPO}}:cu111 -t ${{secrets.DOCKER_REPO}}:py36 -t ${{secrets.DOCKER_REPO}}:latest -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cu111 -t ${{secrets.DOCKER_REPO}}:all-jupyter-py36 -t ${{secrets.DOCKER_REPO}}:all-jupyter-cu111 -t ${{secrets.DOCKER_REPO}}:all-jupyter -f docker/Dockerfile.all-py36-cu111 .
             - name: Deploy docker image
               run: |
                 docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
@@ -520,11 +518,7 @@ jobs:
                 docker push ${{secrets.DOCKER_REPO}}:all-jupyter-py36-cu111
                 docker push ${{secrets.DOCKER_REPO}}:all-jupyter-py36
                 docker push ${{secrets.DOCKER_REPO}}:all-jupyter-cu111
-                docker push ${{secrets.DOCKER_REPO}}:py36-cu111
                 docker push ${{secrets.DOCKER_REPO}}:all-jupyter
-                docker push ${{secrets.DOCKER_REPO}}:cu111
-                docker push ${{secrets.DOCKER_REPO}}:py36
-                docker push ${{secrets.DOCKER_REPO}}:latest
 
 
     keras-py36-cu111_keras-py36_keras-cu111_keras:
