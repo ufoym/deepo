@@ -14,11 +14,11 @@
 
 and their Dockerfile generator that
 - allows you to [customize your own environment](#Build) with Lego-like modules
-  - define your environment in a single command line, 
-  - then deepo will generate Dockerfiles with best practices 
+  - define your environment in a single command line,
+  - then deepo will generate Dockerfiles with best practices
   - and do all the configuration for you
 - automatically resolves the dependencies for you
-  - deepo knows which combos (CUDA/cuDNN/Python/PyTorch/Tensorflow, ..., tons of dependancies) are compatible 
+  - deepo knows which combos (CUDA/cuDNN/Python/PyTorch/Tensorflow, ..., tons of dependancies) are compatible
   - and will pick the right versions for you
 
 ---
@@ -212,6 +212,10 @@ cd deepo/generator
 For example, if you like `pytorch` and `lasagne`, then
 ```bash
 python generate.py Dockerfile pytorch lasagne
+```
+or with CUDA 11.1 and CUDNN 8
+```bash
+python generate.py Dockerfile pytorch lasagne --cuda-ver 11.1 --cudnn-ver 8
 ```
 
 This should generate a Dockerfile that contains everything for building `pytorch` and `lasagne`. Note that the generator can handle automatic dependency processing and topologically sort the lists. So you don't need to worry about missing dependencies and the list order.

@@ -50,8 +50,10 @@ class Composer(object):
 
                 apt-get update && \
             ''' % ('ubuntu:%s' % self.ubuntu_ver if self.cuda_ver is None
-                   else 'nvidia/cuda:%s-cudnn%s-devel-ubuntu%s' % (
-                    self.cuda_ver, self.cudnn_ver, self.ubuntu_ver)),
+                   else 'nvidia/cuda:%s%s-devel-ubuntu%s' % (
+                    self.cuda_ver,
+                    '-cudnn%s' % self.cudnn_ver if self.cudnn_ver else '',
+                    self.ubuntu_ver)),
             '\n',
             '\n'.join([
                 ''.join([
