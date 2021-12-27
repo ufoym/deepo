@@ -192,7 +192,7 @@ docker pull ufoym/deepo
 
 #### Step 2. run the image
 ```bash
-docker run --gpus all -it -p 8888:8888 --ipc=host ufoym/deepo jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token= --notebook-dir='/root'
+docker run --gpus all -it -p 8888:8888 -v /home/u:/root --ipc=host ufoym/deepo jupyter lab --no-browser --ip=0.0.0.0 --allow-root --LabApp.allow_origin='*' --LabApp.root_dir='/root'
 ```
 
 
