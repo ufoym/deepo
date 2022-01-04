@@ -34,7 +34,7 @@ pyvers = [
 
 
 def get_command(modules, postfix, cuda_ver, cudnn_ver):
-    cuver = 'cpu' if cuda_ver is None else 'cu%d' % (float(cuda_ver) * 10)
+    cuver = 'cpu' if cuda_ver is None else 'cu%s' % ''.join(cuda_ver.split('.')[:2])
     postfix += '-%s' % cuver
     return 'python ../generator/generate.py ../docker/Dockerfile.%s %s%s%s\n' % (
         postfix,
@@ -79,4 +79,5 @@ if __name__ == '__main__':
         # generate(f, '9.0', '7')
         # generate(f, '10.1', '7')
         # generate(f, '10.2', '7')
-        generate(f, '11.1', '8')
+        # generate(f, '11.1', '8')
+        generate(f, '11.3.1', '8')

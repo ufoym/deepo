@@ -2,10 +2,10 @@
 # module list
 # ------------------------------------------------------------------
 # python        3.6    (apt)
-# paddle        latest (pip)
+# mxnet         latest (pip)
 # ==================================================================
 
-FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu18.04
+FROM nvidia/cuda:11.3.1-cudnn8-devel-ubuntu18.04
 ENV LANG C.UTF-8
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
@@ -70,11 +70,17 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
 # ==================================================================
-# paddle
+# mxnet
 # ------------------------------------------------------------------
 
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        libatlas-base-dev \
+        graphviz \
+        && \
+
     $PIP_INSTALL \
-        paddlepaddle-gpu \
+        mxnet-cu112 \
+        graphviz \
         && \
 
 # ==================================================================

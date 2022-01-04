@@ -4,7 +4,6 @@
 
 import os
 import textwrap
-import datetime
 
 
 def indent(n, s):

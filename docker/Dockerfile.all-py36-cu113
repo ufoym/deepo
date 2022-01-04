@@ -20,7 +20,7 @@
 # cntk          latest (pip)
 # ==================================================================
 
-FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu18.04
+FROM nvidia/cuda:11.3.1-cudnn8-devel-ubuntu18.04
 ENV LANG C.UTF-8
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
@@ -131,7 +131,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
     $PIP_INSTALL \
-        mxnet-cu110 \
+        mxnet-cu112 \
         graphviz \
         && \
 
@@ -173,7 +173,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
     $PIP_INSTALL \
         --pre torch torchvision torchaudio -f \
-        https://download.pytorch.org/whl/nightly/cu111/torch_nightly.html \
+        https://download.pytorch.org/whl/nightly/cu113/torch_nightly.html \
         && \
 
 # ==================================================================
