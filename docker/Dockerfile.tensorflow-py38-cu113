@@ -1,7 +1,8 @@
 # ==================================================================
 # module list
 # ------------------------------------------------------------------
-# darknet       latest (git)
+# python        3.8    (apt)
+# tensorflow    latest (pip)
 # ==================================================================
 
 FROM nvidia/cuda:11.3.1-cudnn8-devel-ubuntu20.04
@@ -35,16 +36,36 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
 # ==================================================================
-# darknet
+# python
 # ------------------------------------------------------------------
 
-    $GIT_CLONE https://github.com/AlexeyAB/darknet ~/darknet && \
-    cd ~/darknet && \
-    sed -i 's/GPU=0/GPU=1/g' ~/darknet/Makefile && \
-    sed -i 's/CUDNN=0/CUDNN=1/g' ~/darknet/Makefile && \
-    make -j"$(nproc)" && \
-    cp ~/darknet/include/* /usr/local/include && \
-    cp ~/darknet/darknet /usr/local/bin && \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        python3.8 \
+        python3.8-dev \
+        python3.8-distutils \
+        && \
+    wget -O ~/get-pip.py \
+        https://bootstrap.pypa.io/get-pip.py && \
+    python3.8 ~/get-pip.py && \
+    ln -s /usr/bin/python3.8 /usr/local/bin/python && \
+    $PIP_INSTALL \
+        numpy \
+        scipy \
+        pandas \
+        scikit-image \
+        scikit-learn \
+        matplotlib \
+        Cython \
+        tqdm \
+        && \
+# ==================================================================
+# tensorflow
+# ------------------------------------------------------------------
+
+    $PIP_INSTALL \
+        tensorflow-gpu \
+        && \
 
 # ==================================================================
 # config & cleanup
@@ -54,3 +75,5 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     apt-get clean && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/* /tmp/* ~/*
+
+EXPOSE 6006

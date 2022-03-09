@@ -4,18 +4,18 @@
 
 candidate_modules = [
     'tensorflow',
-    'sonnet',
     'mxnet',
-    'cntk',
     'keras',
     'pytorch',
     'chainer',
-    'theano',
-    'lasagne',
-    'caffe',
-    'torch',
     'darknet',
     'paddle',
+    # 'caffe',
+    # 'theano',
+    # 'lasagne',
+    # 'cntk',
+    # 'sonnet',
+    # 'torch',
 ]
 
 non_python_modules = [
@@ -29,7 +29,8 @@ deprecated_modules = {
 
 pyvers = [
     # '2.7',
-    '3.6',
+    # '3.6',
+    '3.8',
 ]
 
 

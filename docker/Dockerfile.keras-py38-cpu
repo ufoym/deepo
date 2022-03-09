@@ -1,11 +1,12 @@
 # ==================================================================
 # module list
 # ------------------------------------------------------------------
-# python        3.6    (apt)
-# pytorch       latest (pip)
+# python        3.8    (apt)
+# tensorflow    latest (pip)
+# keras         latest (pip)
 # ==================================================================
 
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 ENV LANG C.UTF-8
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
@@ -39,52 +40,41 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # python
 # ------------------------------------------------------------------
 
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        software-properties-common \
-        && \
-    add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        python3.6 \
-        python3.6-dev \
-        python3-distutils-extra \
+        python3.8 \
+        python3.8-dev \
+        python3.8-distutils \
         && \
     wget -O ~/get-pip.py \
         https://bootstrap.pypa.io/get-pip.py && \
-    python3.6 ~/get-pip.py && \
-    ln -s /usr/bin/python3.6 /usr/local/bin/python3 && \
-    ln -s /usr/bin/python3.6 /usr/local/bin/python && \
-    $PIP_INSTALL \
-        setuptools \
-        && \
+    python3.8 ~/get-pip.py && \
+    ln -s /usr/bin/python3.8 /usr/local/bin/python && \
     $PIP_INSTALL \
         numpy \
         scipy \
         pandas \
-        cloudpickle \
-        scikit-image>=0.14.2 \
+        scikit-image \
         scikit-learn \
         matplotlib \
         Cython \
         tqdm \
         && \
-
 # ==================================================================
-# pytorch
+# tensorflow
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        future \
-        numpy \
-        protobuf \
-        enum34 \
-        pyyaml \
-        typing \
+        tensorflow \
         && \
-    $PIP_INSTALL \
-        --pre torch torchvision torchaudio -f \
-        https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html \
-        && \
+
+# ==================================================================
+# keras
+# ------------------------------------------------------------------
+
+    # Now Keras comes packaged with TensorFlow 2
+    # as tensorflow.keras. To start using Keras,
+    # simply install TensorFlow 2.
 
 # ==================================================================
 # config & cleanup
@@ -94,3 +84,5 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     apt-get clean && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/* /tmp/* ~/*
+
+EXPOSE 6006

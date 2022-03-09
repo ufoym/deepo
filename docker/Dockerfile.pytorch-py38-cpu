@@ -1,11 +1,11 @@
 # ==================================================================
 # module list
 # ------------------------------------------------------------------
-# python        3.6    (apt)
-# paddle        latest (pip)
+# python        3.8    (apt)
+# pytorch       latest (pip)
 # ==================================================================
 
-FROM nvidia/cuda:11.3.1-cudnn8-devel-ubuntu18.04
+FROM ubuntu:20.04
 ENV LANG C.UTF-8
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
@@ -39,42 +39,41 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # python
 # ------------------------------------------------------------------
 
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        software-properties-common \
-        && \
-    add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        python3.6 \
-        python3.6-dev \
-        python3-distutils-extra \
+        python3.8 \
+        python3.8-dev \
+        python3.8-distutils \
         && \
     wget -O ~/get-pip.py \
         https://bootstrap.pypa.io/get-pip.py && \
-    python3.6 ~/get-pip.py && \
-    ln -s /usr/bin/python3.6 /usr/local/bin/python3 && \
-    ln -s /usr/bin/python3.6 /usr/local/bin/python && \
-    $PIP_INSTALL \
-        setuptools \
-        && \
+    python3.8 ~/get-pip.py && \
+    ln -s /usr/bin/python3.8 /usr/local/bin/python && \
     $PIP_INSTALL \
         numpy \
         scipy \
         pandas \
-        cloudpickle \
-        scikit-image>=0.14.2 \
+        scikit-image \
         scikit-learn \
         matplotlib \
         Cython \
         tqdm \
         && \
-
 # ==================================================================
-# paddle
+# pytorch
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        paddlepaddle-gpu \
+        future \
+        numpy \
+        protobuf \
+        enum34 \
+        pyyaml \
+        typing \
+        && \
+    $PIP_INSTALL \
+        --pre torch torchvision torchaudio -f \
+        https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html \
         && \
 
 # ==================================================================

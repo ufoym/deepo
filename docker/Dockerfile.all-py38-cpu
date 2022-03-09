@@ -2,8 +2,7 @@
 # module list
 # ------------------------------------------------------------------
 # darknet       latest (git)
-# python        3.6    (apt)
-# torch         latest (git)
+# python        3.8    (apt)
 # chainer       latest (pip)
 # jupyter       latest (pip)
 # mxnet         latest (pip)
@@ -11,17 +10,11 @@
 # paddle        latest (pip)
 # pytorch       latest (pip)
 # tensorflow    latest (pip)
-# theano        latest (git)
 # jupyterlab    latest (pip)
 # keras         latest (pip)
-# lasagne       latest (git)
-# opencv        4.5.4  (git)
-# sonnet        latest (pip)
-# caffe         latest (git)
-# cntk          latest (pip)
 # ==================================================================
 
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 ENV LANG C.UTF-8
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
@@ -67,58 +60,26 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # python
 # ------------------------------------------------------------------
 
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        software-properties-common \
-        && \
-    add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        python3.6 \
-        python3.6-dev \
-        python3-distutils-extra \
+        python3.8 \
+        python3.8-dev \
+        python3.8-distutils \
         && \
     wget -O ~/get-pip.py \
         https://bootstrap.pypa.io/get-pip.py && \
-    python3.6 ~/get-pip.py && \
-    ln -s /usr/bin/python3.6 /usr/local/bin/python3 && \
-    ln -s /usr/bin/python3.6 /usr/local/bin/python && \
-    $PIP_INSTALL \
-        setuptools \
-        && \
+    python3.8 ~/get-pip.py && \
+    ln -s /usr/bin/python3.8 /usr/local/bin/python && \
     $PIP_INSTALL \
         numpy \
         scipy \
         pandas \
-        cloudpickle \
-        scikit-image>=0.14.2 \
+        scikit-image \
         scikit-learn \
         matplotlib \
         Cython \
         tqdm \
         && \
-
-# ==================================================================
-# torch
-# ------------------------------------------------------------------
-
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        sudo \
-        && \
-
-    $GIT_CLONE https://github.com/nagadomi/distro.git ~/torch --recursive && \
-    cd ~/torch && \
-    bash install-deps && \
-    sed -i 's/${THIS_DIR}\/install/\/usr\/local/g' ./install.sh && \
-    ./install.sh && \
-
-# ==================================================================
-# boost
-# ------------------------------------------------------------------
-
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        libboost-all-dev \
-        && \
-
 # ==================================================================
 # chainer
 # ------------------------------------------------------------------
@@ -199,18 +160,6 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
 
 # ==================================================================
-# theano
-# ------------------------------------------------------------------
-
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        libblas-dev \
-        && \
-
-    $PIP_INSTALL \
-        https://github.com/Theano/Theano/archive/master.zip \
-        && \
-
-# ==================================================================
 # jupyterlab
 # ------------------------------------------------------------------
 
@@ -225,93 +174,6 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     # Now Keras comes packaged with TensorFlow 2
     # as tensorflow.keras. To start using Keras,
     # simply install TensorFlow 2.
-
-# ==================================================================
-# lasagne
-# ------------------------------------------------------------------
-
-    $GIT_CLONE https://github.com/Lasagne/Lasagne ~/lasagne && \
-    cd ~/lasagne && \
-    $PIP_INSTALL \
-        . && \
-
-# ==================================================================
-# opencv
-# ------------------------------------------------------------------
-
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        libatlas-base-dev \
-        libgflags-dev \
-        libgoogle-glog-dev \
-        libhdf5-serial-dev \
-        libleveldb-dev \
-        liblmdb-dev \
-        libprotobuf-dev \
-        libsnappy-dev \
-        protobuf-compiler \
-        && \
-
-    $GIT_CLONE --branch 4.5.4 https://github.com/opencv/opencv ~/opencv && \
-    mkdir -p ~/opencv/build && cd ~/opencv/build && \
-    cmake -D CMAKE_BUILD_TYPE=RELEASE \
-          -D CMAKE_INSTALL_PREFIX=/usr/local \
-          -D WITH_IPP=OFF \
-          -D WITH_CUDA=OFF \
-          -D WITH_OPENCL=OFF \
-          -D BUILD_TESTS=OFF \
-          -D BUILD_PERF_TESTS=OFF \
-          -D BUILD_DOCS=OFF \
-          -D BUILD_EXAMPLES=OFF \
-          .. && \
-    make -j"$(nproc)" install && \
-    ln -s /usr/local/include/opencv4/opencv2 /usr/local/include/opencv2 && \
-
-# ==================================================================
-# sonnet
-# ------------------------------------------------------------------
-
-    $PIP_INSTALL \
-        tensorflow_probability \
-        "dm-sonnet>=2.0.0b0" --pre \
-        && \
-
-# ==================================================================
-# caffe
-# ------------------------------------------------------------------
-
-    apt-get update && \
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        caffe-cpu \
-        && \
-# ==================================================================
-# cntk
-# ------------------------------------------------------------------
-
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        openmpi-bin \
-        libpng-dev \
-        libjpeg-dev \
-        libtiff-dev \
-        && \
-
-    # Fix ImportError for CNTK
-    ln -s /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.20 /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.1 && \
-    ln -s /usr/lib/x86_64-linux-gnu/libmpi.so.20.10.1 /usr/lib/x86_64-linux-gnu/libmpi.so.12 && \
-
-    wget --no-verbose -O - https://github.com/01org/mkl-dnn/releases/download/v0.14/mklml_lnx_2018.0.3.20180406.tgz | tar -xzf - && \
-    cp mklml*/* /usr/local -r && \
-
-    wget --no-verbose -O - https://github.com/01org/mkl-dnn/archive/v0.14.tar.gz | tar -xzf - && \
-    cd *-0.14 && mkdir build && cd build && \
-    ln -s /usr/local external && \
-    cmake -D CMAKE_BUILD_TYPE=RELEASE \
-          -D CMAKE_INSTALL_PREFIX=/usr/local \
-          .. && \
-    make -j"$(nproc)" install && \
-
-    $PIP_INSTALL \
-        cntk \
-        && \
 
 # ==================================================================
 # config & cleanup
