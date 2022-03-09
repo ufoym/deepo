@@ -96,25 +96,17 @@ def get_job(tags):
     if is_all and is_cpu:
         test_scripts = textwrap.dedent('''
             import tensorflow as m; print(m.__name__, ':', m.__version__);
-            import sonnet as m; print(m.__name__, ':', m.__version__);
-            import torch as m; print(m.__name__, ':', m.__version__);
             import mxnet as m; print(m.__name__, ':', m.__version__);
-            import cntk as m; print(m.__name__, ':', m.__version__);
-            import chainer as m; print(m.__name__, ':', m.__version__);
-            import theano as m; print(m.__name__, ':', m.__version__);
-            import lasagne as m; print(m.__name__, ':', m.__version__);
-            import caffe as m; print(m.__name__, ':', m.__version__);
-            import paddle as m; print(m.__name__, ':', m.__version__);
             from tensorflow import keras as m; print(m.__name__, ':', m.__version__);
+            import torch as m; print(m.__name__, ':', m.__version__);
+            import chainer as m; print(m.__name__, ':', m.__version__);
+            import paddle as m; print(m.__name__, ':', m.__version__);
             ''').replace('\n', '')
         run_prefix = '- run: docker run ${{secrets.DOCKER_REPO}}:%s ' % tags[0]
         build_scripts += indent(3, textwrap.dedent('''
             %s python -c "%s"
-            %s caffe --version
             %s darknet
-            %s th
-            ''' % (run_prefix, test_scripts,
-                   run_prefix, run_prefix, run_prefix)))
+            ''' % (run_prefix, test_scripts, run_prefix)))
 
     build_scripts += '\n'
     return job_name, build_scripts
