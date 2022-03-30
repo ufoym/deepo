@@ -5,21 +5,23 @@
 ![build](https://img.shields.io/docker/automated/ufoym/deepo.svg)
 ![license](https://img.shields.io/github/license/ufoym/deepo.svg)
 
+***Deepo*** is an open framework to assemble specialized [*docker*](http://www.docker.com/) images for deep learning research without pain. It provides a “lego set” of dozens of standard components for preparing deep learning tools and a framework for assembling them into custom docker images. 
 
-***Deepo*** is a series of [*Docker*](http://www.docker.com/) images that
-- allows you to quickly set up your deep learning research environment
-- supports almost all [commonly used deep learning frameworks](#Available-tags)
-- supports [GPU acceleration](#GPU) (CUDA and cuDNN included), also works in [CPU-only mode](#CPU)
-- works on Linux ([CPU version](#CPU)/[GPU version](#GPU)), Windows ([CPU version](#CPU)) and OS X ([CPU version](#CPU))
-
-and their Dockerfile generator that
-- allows you to [customize your own environment](#Build) with Lego-like modules
+At the core of Deepo is a Dockerfile generator that
+- allows you to [customize your deep learning environment](#Build) with Lego-like modules
   - define your environment in a single command line,
   - then deepo will generate Dockerfiles with best practices
   - and do all the configuration for you
 - automatically resolves the dependencies for you
   - deepo knows which combos (CUDA/cuDNN/Python/PyTorch/Tensorflow, ..., tons of dependancies) are compatible
   - and will pick the right versions for you
+  - and arrange sequence of installation procedures using [topological sorting](https://en.wikipedia.org/wiki/Topological_sorting)
+
+We also prepare a series of pre-built docker images that
+- allows you to instantly set up common deep learning research environment
+- supports almost all [commonly used deep learning frameworks](#Available-tags)
+- supports [GPU acceleration](#GPU) (CUDA and cuDNN included), also works in [CPU-only mode](#CPU)
+- works on Linux ([CPU version](#CPU)/[GPU version](#GPU)), Windows ([CPU version](#CPU)) and OS X ([CPU version](#CPU))
 
 ---
 
