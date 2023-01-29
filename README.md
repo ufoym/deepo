@@ -5,6 +5,11 @@
 ![build](https://img.shields.io/docker/automated/ufoym/deepo.svg)
 ![license](https://img.shields.io/github/license/ufoym/deepo.svg)
 
+
+***PLEASE NOTE, THE DEEP LEARNING FRAMEWORK WAR IS OVER, THIS PROJECT IS NO LONGER BEING MAINTAINED.***
+
+---
+
 ***Deepo*** is an open framework to assemble specialized [*docker*](http://www.docker.com/) images for deep learning research without pain. It provides a “lego set” of dozens of standard components for preparing deep learning tools and a framework for assembling them into custom docker images. 
 
 At the core of Deepo is a Dockerfile generator that
