@@ -5,27 +5,25 @@
 ![license](https://img.shields.io/github/license/ufoym/deepo.svg)
 
 
-> **Note: This project is no longer actively maintained.**
-
 ---
 
-***Deepo*** is an open framework to assemble specialized [*docker*](http://www.docker.com/) images for deep learning research without pain. It provides a "lego set" of dozens of standard components for preparing deep learning tools and a framework for assembling them into custom docker images.
+***Deepo*** is an open framework for painlessly assembling specialized [*Docker*](http://www.docker.com/) images for deep learning research. It provides a "Lego set" of dozens of standard components for preparing deep learning tools, along with a framework for composing them into custom Docker images.
 
 At the core of Deepo is a Dockerfile generator that
-- allows you to [customize your deep learning environment](#Build) with Lego-like modules
-  - define your environment in a single command line
-  - then Deepo will generate Dockerfiles with best practices
-  - and do all the configuration for you
-- automatically resolves the dependencies for you
-  - Deepo knows which combos (CUDA/cuDNN/Python/PyTorch/TensorFlow, etc.) are compatible
-  - and will pick the right versions for you
-  - and arrange the sequence of installation procedures using [topological sorting](https://en.wikipedia.org/wiki/Topological_sorting)
+- lets you [customize your deep learning environment](#Build) with Lego-like modules
+  - describe your environment in a single command line
+  - Deepo generates Dockerfiles following best practices
+  - and handles all the configuration for you
+- automatically resolves dependencies
+  - Deepo knows which combinations of CUDA, cuDNN, Python, PyTorch, TensorFlow, etc. are compatible
+  - picks the right versions on your behalf
+  - and determines the correct installation order via [topological sorting](https://en.wikipedia.org/wiki/Topological_sorting)
 
-We also prepare a series of pre-built docker images that
-- allow you to instantly set up common deep learning research environments
-- support commonly used [deep learning frameworks](#Available-tags)
-- support [GPU acceleration](#GPU) (CUDA and cuDNN included), also work in [CPU-only mode](#CPU)
-- work on Linux ([CPU](#CPU)/[GPU](#GPU)), Windows ([CPU](#CPU)) and macOS ([CPU](#CPU))
+We also provide a series of pre-built Docker images that
+- let you instantly set up common deep learning research environments
+- support widely used [deep learning frameworks](#Available-tags)
+- support [GPU acceleration](#GPU) (CUDA and cuDNN included) and also work in [CPU-only mode](#CPU)
+- run on Linux ([CPU](#CPU)/[GPU](#GPU)), Windows ([CPU](#CPU)), and macOS ([CPU](#CPU))
 
 ---
 
@@ -66,7 +64,7 @@ We also prepare a series of pre-built docker images that
 
 #### Step 1. Install [Docker](https://docs.docker.com/engine/installation/) and [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html).
 
-#### Step 2. Obtain the all-in-one image from [Docker Hub](https://hub.docker.com/r/ufoym/deepo)
+#### Step 2. Pull the all-in-one image from [Docker Hub](https://hub.docker.com/r/ufoym/deepo)
 
 ```bash
 docker pull ufoym/deepo
@@ -76,24 +74,23 @@ docker pull ufoym/deepo
 
 ### Usage
 
-Now you can try this command:
+Verify that GPU access works inside a container:
 ```bash
 docker run --gpus all --rm ufoym/deepo nvidia-smi
 ```
-This should work and enables Deepo to use the GPU from inside a docker container.
-If this does not work, search [the issues section on the NVIDIA Container Toolkit GitHub](https://github.com/NVIDIA/nvidia-container-toolkit/issues) -- many solutions are already documented. To get an interactive shell to a container that will not be automatically deleted after you exit do
+If this does not work, check [the issues section of the NVIDIA Container Toolkit GitHub](https://github.com/NVIDIA/nvidia-container-toolkit/issues) — many solutions are already documented. To launch an interactive shell in a persistent container:
 
 ```bash
 docker run --gpus all -it ufoym/deepo bash
 ```
 
-If you want to share your data and configurations between the host (your machine or VM) and the container in which you are using Deepo, use the -v option, e.g.
+To share data and configuration between the host (your machine or VM) and the container, use the `-v` option:
 ```bash
 docker run --gpus all -it -v /host/data:/data -v /host/config:/config ufoym/deepo bash
 ```
-This will make `/host/data` from the host visible as `/data` in the container, and `/host/config` as `/config`. Such isolation reduces the chances of your containerized experiments overwriting or using wrong data.
+This makes `/host/data` on the host visible as `/data` inside the container, and `/host/config` as `/config`. This isolation helps prevent containerized experiments from accidentally overwriting or reading the wrong data.
 
-Please note that some frameworks (e.g. PyTorch) use shared memory to share data between processes, so if multiprocessing is used the default shared memory segment size that container runs with is not enough, and you should increase shared memory size either with `--ipc=host` or `--shm-size` command line options to `docker run`.
+Note that some frameworks (e.g., PyTorch) use shared memory for inter-process communication. If you use multiprocessing, the container's default shared memory size may be insufficient. Increase it with `--ipc=host` or `--shm-size`:
 ```bash
 docker run --gpus all -it --ipc=host ufoym/deepo bash
 ```
@@ -109,7 +106,7 @@ docker run --gpus all -it --ipc=host ufoym/deepo bash
 
 #### Step 1. Install [Docker](https://docs.docker.com/engine/installation/).
 
-#### Step 2. Obtain the all-in-one image from [Docker Hub](https://hub.docker.com/r/ufoym/deepo)
+#### Step 2. Pull the all-in-one image from [Docker Hub](https://hub.docker.com/r/ufoym/deepo)
 
 ```bash
 docker pull ufoym/deepo:cpu
@@ -119,18 +116,18 @@ docker pull ufoym/deepo:cpu
 
 ### Usage
 
-Now you can try this command:
+Launch an interactive shell:
 ```bash
 docker run -it ufoym/deepo:cpu bash
 ```
 
-If you want to share your data and configurations between the host (your machine or VM) and the container in which you are using Deepo, use the -v option, e.g.
+To share data and configuration between the host (your machine or VM) and the container, use the `-v` option:
 ```bash
 docker run -it -v /host/data:/data -v /host/config:/config ufoym/deepo:cpu bash
 ```
-This will make `/host/data` from the host visible as `/data` in the container, and `/host/config` as `/config`. Such isolation reduces the chances of your containerized experiments overwriting or using wrong data.
+This makes `/host/data` on the host visible as `/data` inside the container, and `/host/config` as `/config`. This isolation helps prevent containerized experiments from accidentally overwriting or reading the wrong data.
 
-Please note that some frameworks (e.g. PyTorch) use shared memory to share data between processes, so if multiprocessing is used the default shared memory segment size that container runs with is not enough, and you should increase shared memory size either with `--ipc=host` or `--shm-size` command line options to `docker run`.
+Note that some frameworks (e.g., PyTorch) use shared memory for inter-process communication. If you use multiprocessing, the container's default shared memory size may be insufficient. Increase it with `--ipc=host` or `--shm-size`:
 ```bash
 docker run -it --ipc=host ufoym/deepo:cpu bash
 ```
@@ -162,21 +159,21 @@ usage: darknet <function>
 
 # Customization
 
-Note that `docker pull ufoym/deepo` mentioned in [Quick Start](#Quick-Start) will give you a standard image containing all available deep learning frameworks. You can customize your own environment as well.
+The `docker pull ufoym/deepo` command from [Quick Start](#Quick-Start) gives you a standard image containing every available deep learning framework. You can also customize your own environment.
 
 <a name="One"/>
 
 ## Unhappy with all-in-one solution?
 
-If you prefer a specific framework rather than an all-in-one image, just append a tag with the name of the framework.
-Take tensorflow for example:
+If you prefer a single framework instead of the all-in-one image, simply append a tag with the framework name.
+For example, to pull TensorFlow only:
 ```bash
 docker pull ufoym/deepo:tensorflow
 ```
 
 <a name="Jupyter"/>
 
-## Jupyter support
+## Jupyter Support
 
 #### Step 1. Pull the all-in-one image
 
@@ -192,45 +189,45 @@ docker run --gpus all -it -p 8888:8888 -v /home/u:/root --ipc=host ufoym/deepo j
 
 <a name="Build"/>
 
-## Build your own customized image with Lego-like modules
+## Build Your Own Customized Image with Lego-like Modules
 
-#### Step 1. Prepare generator
+#### Step 1. Set up the generator
 
 ```bash
 git clone https://github.com/ufoym/deepo.git
 cd deepo/generator
 ```
 
-#### Step 2. Generate your customized Dockerfile
+#### Step 2. Generate a customized Dockerfile
 
-For example, if you like `pytorch` and `keras`, then
+For example, to create an image with `pytorch` and `keras`:
 ```bash
 python generate.py Dockerfile pytorch keras
 ```
-or with CUDA 11.3 and cuDNN 8
+Or with CUDA 11.3 and cuDNN 8:
 ```bash
 python generate.py Dockerfile pytorch keras --cuda-ver 11.3.1 --cudnn-ver 8
 ```
 
-This should generate a Dockerfile that contains everything for building `pytorch` and `keras`. Note that the generator can handle automatic dependency processing and topologically sort the lists. So you don't need to worry about missing dependencies and the list order.
+This generates a Dockerfile with everything needed to build `pytorch` and `keras`. The generator automatically resolves dependencies and topologically sorts them, so you don't need to worry about missing packages or ordering.
 
-You can also specify the version of Python:
+You can also specify the Python version:
 ```bash
 python generate.py Dockerfile pytorch keras python==3.8
 ```
 
-#### Step 3. Build your Dockerfile
+#### Step 3. Build the Dockerfile
 
 ```bash
 docker build -t my/deepo .
 ```
 
-This may take several minutes as it compiles a few libraries from scratch.
+This may take several minutes, as some libraries are compiled from source.
 
 
 <a name="Comparison"/>
 
-# Comparison to alternatives
+# Comparison to Alternatives
 
 
 .                                                  | modern-deep-learning | dl-docker          | jupyter-deeplearning | Deepo
@@ -300,7 +297,7 @@ This may take several minutes as it compiles a few libraries from scratch.
 ```
 @misc{ming2017deepo,
     author = {Ming Yang},
-    title = {Deepo: set up deep learning environment in a single command line.},
+    title = {Deepo: Set up a deep learning environment with a single command line.},
     year = {2017},
     publisher = {GitHub},
     journal = {GitHub repository},
@@ -311,7 +308,7 @@ This may take several minutes as it compiles a few libraries from scratch.
 
 # Contributing
 
-We appreciate all contributions. If you are planning to contribute back bug-fixes, please do so without any further discussion. If you plan to contribute new features, utility functions or extensions, please first open an issue and discuss the feature with us.
+We appreciate all contributions. If you are planning to contribute bug fixes, please go ahead and open a pull request directly. If you plan to contribute new features, utility functions, or extensions, please open an issue first to discuss your idea with us.
 
 <a name="Licensing"/>
 
