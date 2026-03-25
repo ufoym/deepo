@@ -3,13 +3,15 @@ import textwrap
 import functools
 
 
-class Composer(object):
+class Composer:
 
-    def __init__(self, modules, cuda_ver, cudnn_ver, ubuntu_ver, versions={}):
-        if len(modules) == 0:
+    def __init__(self, modules, cuda_ver, cudnn_ver, ubuntu_ver, versions=None):
+        if versions is None:
+            versions = {}
+        if not modules:
             raise ValueError('Modules should contain at least one module')
         pending = self._traverse(modules)
-        self.modules = [m for m in self._toposort(pending)]
+        self.modules = list(self._toposort(pending))
         self.instances = self._get_instances(versions)
         self.cuda_ver = cuda_ver
         self.cudnn_ver = cudnn_ver
@@ -27,13 +29,19 @@ class Composer(object):
     def to_dockerfile(self):
         def _indent(n, s):
             prefix = ' ' * 4 * n
-            return ''.join(prefix + l for l in s.splitlines(True))
+            return ''.join(prefix + line for line in s.splitlines(True))
 
-        ports = ' '.join([str(p) for m in self.instances for p in m.expose()])
+        if self.cuda_ver is None:
+            base_image = f'ubuntu:{self.ubuntu_ver}'
+        else:
+            cudnn_part = f'-cudnn{self.cudnn_ver}' if self.cudnn_ver else ''
+            base_image = f'nvidia/cuda:{self.cuda_ver}{cudnn_part}-devel-ubuntu{self.ubuntu_ver}'
+
+        ports = ' '.join(str(p) for m in self.instances for p in m.expose())
         return textwrap.dedent(''.join([
             _indent(3, ''.join([
                 self._split('module list'),
-                ''.join('# %s\n' % repr(m)
+                ''.join(f'# {repr(m)}\n'
                     for m in self.instances if repr(m)),
                 self._split(),
             ])),
@@ -49,11 +57,7 @@ class Composer(object):
                        /etc/apt/sources.list.d/nvidia-ml.list && \
 
                 apt-get update && \
-            ''' % ('ubuntu:%s' % self.ubuntu_ver if self.cuda_ver is None
-                   else 'nvidia/cuda:%s%s-devel-ubuntu%s' % (
-                    self.cuda_ver,
-                    '-cudnn%s' % self.cudnn_ver if self.cudnn_ver else '',
-                    self.ubuntu_ver)),
+            ''' % base_image,
             '\n',
             '\n'.join([
                 ''.join([
@@ -69,9 +73,9 @@ class Composer(object):
                 apt-get autoremove && \
                 rm -rf /var/lib/apt/lists/* /tmp/* ~/*
             ''',
-            r'''
-            EXPOSE %s
-            ''' % ports if ports else '',
+            f'''
+            EXPOSE {ports}
+            ''' if ports else '',
             ]))
 
     def _traverse(self, modules):
@@ -81,20 +85,21 @@ class Composer(object):
             next_level = []
             for module in current_level:
                 yield module
-                for child in (dep for dep in module.deps if dep not in seen):
-                    next_level.append(child)
-                    seen.add(child)
+                for child in module.deps:
+                    if child not in seen:
+                        next_level.append(child)
+                        seen.add(child)
             current_level = next_level
 
     def _toposort(self, pending):
         data = {m: set(m.deps) for m in pending}
-        for k, v in data.items():
-            v.discard(k)
+        for v in data.values():
+            v.discard(v)
         extra_items_in_deps = functools.reduce(
             set.union, data.values()) - set(data.keys())
         data.update({item: set() for item in extra_items_in_deps})
         while True:
-            ordered = set(item for item, dep in data.items() if len(dep) == 0)
+            ordered = {item for item, dep in data.items() if not dep}
             if not ordered:
                 break
             for m in sorted(ordered, key=lambda m: m.__name__):
@@ -104,26 +109,25 @@ class Composer(object):
                 for item, dep in data.items()
                 if item not in ordered
             }
-        if len(data) != 0:
+        if data:
             raise ValueError(
                 'Circular dependencies exist among these items: '
                 '{{{}}}'.format(', '.join(
-                    '{!r}:{!r}'.format(
-                        key, value) for key, value in sorted(
+                    f'{key!r}:{value!r}' for key, value in sorted(
                         data.items()))))
 
     def _split(self, title=None):
         split_l = '# ' + '=' * 66 + '\n'
         split_s = '# ' + '-' * 66 + '\n'
-        s = split_l if title is None else (
-            split_l + '# %s\n' % title + split_s)
-        return s
+        if title is None:
+            return split_l
+        return split_l + f'# {title}\n' + split_s
 
     def _get_instances(self, versions):
-        inses = []
+        instances = []
         for m in self.modules:
             ins = m(self)
             if m in versions:
                 ins.version = versions[m]
-            inses.append(ins)
-        return inses
+            instances.append(ins)
+        return instances

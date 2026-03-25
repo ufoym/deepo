@@ -1,3 +1,2 @@
-rm gen-docker.sh
-rm ../docker/*
-rm ../circle.yml
+rm -f gen-docker.sh
+rm -f ../docker/*

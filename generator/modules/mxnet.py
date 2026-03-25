@@ -8,9 +8,9 @@ from .python import Python
 class Mxnet(Module):
 
     def build(self):
-        cuver = '' if self.composer.cuda_ver is None else '-cu%s' % ''.join(self.composer.cuda_ver.split('.')[:2])
+        cuver = '' if self.composer.cuda_ver is None else f"-cu{''.join(self.composer.cuda_ver.split('.')[:2])}"
         if cuver == '-cu113':
-            cuver = '-cu112' # mxnet does not support cu113
+            cuver = '-cu112'
         return r'''
             DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
                 libatlas-base-dev \

@@ -2,31 +2,30 @@
 
 ![workflows](https://github.com/ufoym/deepo/workflows/deepo%20CI/badge.svg)
 [![docker](https://img.shields.io/docker/pulls/ufoym/deepo.svg)](https://hub.docker.com/r/ufoym/deepo)
-![build](https://img.shields.io/docker/automated/ufoym/deepo.svg)
 ![license](https://img.shields.io/github/license/ufoym/deepo.svg)
 
 
-***PLEASE NOTE, THE DEEP LEARNING FRAMEWORK WAR IS OVER, THIS PROJECT IS NO LONGER BEING MAINTAINED.***
+> **Note: This project is no longer actively maintained.**
 
 ---
 
-***Deepo*** is an open framework to assemble specialized [*docker*](http://www.docker.com/) images for deep learning research without pain. It provides a “lego set” of dozens of standard components for preparing deep learning tools and a framework for assembling them into custom docker images. 
+***Deepo*** is an open framework to assemble specialized [*docker*](http://www.docker.com/) images for deep learning research without pain. It provides a "lego set" of dozens of standard components for preparing deep learning tools and a framework for assembling them into custom docker images.
 
 At the core of Deepo is a Dockerfile generator that
 - allows you to [customize your deep learning environment](#Build) with Lego-like modules
-  - define your environment in a single command line,
-  - then deepo will generate Dockerfiles with best practices
+  - define your environment in a single command line
+  - then Deepo will generate Dockerfiles with best practices
   - and do all the configuration for you
 - automatically resolves the dependencies for you
-  - deepo knows which combos (CUDA/cuDNN/Python/PyTorch/Tensorflow, ..., tons of dependancies) are compatible
+  - Deepo knows which combos (CUDA/cuDNN/Python/PyTorch/TensorFlow, etc.) are compatible
   - and will pick the right versions for you
-  - and arrange sequence of installation procedures using [topological sorting](https://en.wikipedia.org/wiki/Topological_sorting)
+  - and arrange the sequence of installation procedures using [topological sorting](https://en.wikipedia.org/wiki/Topological_sorting)
 
 We also prepare a series of pre-built docker images that
-- allows you to instantly set up common deep learning research environment
-- supports almost all [commonly used deep learning frameworks](#Available-tags)
-- supports [GPU acceleration](#GPU) (CUDA and cuDNN included), also works in [CPU-only mode](#CPU)
-- works on Linux ([CPU version](#CPU)/[GPU version](#GPU)), Windows ([CPU version](#CPU)) and OS X ([CPU version](#CPU))
+- allow you to instantly set up common deep learning research environments
+- support commonly used [deep learning frameworks](#Available-tags)
+- support [GPU acceleration](#GPU) (CUDA and cuDNN included), also work in [CPU-only mode](#CPU)
+- work on Linux ([CPU](#CPU)/[GPU](#GPU)), Windows ([CPU](#CPU)) and macOS ([CPU](#CPU))
 
 ---
 
@@ -65,18 +64,12 @@ We also prepare a series of pre-built docker images that
 
 ### Installation
 
-#### Step 1. Install [Docker](https://docs.docker.com/engine/installation/) and [nvidia-docker](https://github.com/NVIDIA/nvidia-docker).
+#### Step 1. Install [Docker](https://docs.docker.com/engine/installation/) and [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html).
 
 #### Step 2. Obtain the all-in-one image from [Docker Hub](https://hub.docker.com/r/ufoym/deepo)
 
 ```bash
 docker pull ufoym/deepo
-```
-
-For users in China who may suffer from slow speeds when pulling the image from the public Docker registry, you can pull `deepo` images from the China registry mirror by specifying the full path, including the registry, in your docker pull command, for example:
-
-```bash
-docker pull registry.docker-cn.com/ufoym/deepo
 ```
 
 <a name="Usage"/>
@@ -88,7 +81,7 @@ Now you can try this command:
 docker run --gpus all --rm ufoym/deepo nvidia-smi
 ```
 This should work and enables Deepo to use the GPU from inside a docker container.
-If this does not work, search [the issues section on the nvidia-docker GitHub](https://github.com/NVIDIA/nvidia-docker/issues) -- many solutions are already documented. To get an interactive shell to a container that will not be automatically deleted after you exit do
+If this does not work, search [the issues section on the NVIDIA Container Toolkit GitHub](https://github.com/NVIDIA/nvidia-container-toolkit/issues) -- many solutions are already documented. To get an interactive shell to a container that will not be automatically deleted after you exit do
 
 ```bash
 docker run --gpus all -it ufoym/deepo bash
@@ -146,27 +139,21 @@ docker run -it --ipc=host ufoym/deepo:cpu bash
 _You are now ready to begin your journey._
 
 
-```$ python```
+```
+$ python
+```
 ```python
 >>> import tensorflow
->>> import sonnet
 >>> import torch
 >>> import keras
 >>> import mxnet
->>> import cntk
 >>> import chainer
->>> import theano
->>> import lasagne
->>> import caffe
 >>> import paddle
 ```
 
-```$ caffe --version```
 ```
-caffe version 1.0.0
+$ darknet
 ```
-
-```$ darknet```
 ```
 usage: darknet <function>
 ```
@@ -191,13 +178,13 @@ docker pull ufoym/deepo:tensorflow
 
 ## Jupyter support
 
-#### Step 1. pull the all-in-one image
+#### Step 1. Pull the all-in-one image
 
 ```bash
 docker pull ufoym/deepo
 ```
 
-#### Step 2. run the image
+#### Step 2. Run the image
 ```bash
 docker run --gpus all -it -p 8888:8888 -v /home/u:/root --ipc=host ufoym/deepo jupyter lab --no-browser --ip=0.0.0.0 --allow-root --LabApp.allow_origin='*' --LabApp.root_dir='/root'
 ```
@@ -207,32 +194,32 @@ docker run --gpus all -it -p 8888:8888 -v /home/u:/root --ipc=host ufoym/deepo j
 
 ## Build your own customized image with Lego-like modules
 
-#### Step 1. prepare generator
+#### Step 1. Prepare generator
 
 ```bash
 git clone https://github.com/ufoym/deepo.git
 cd deepo/generator
 ```
 
-#### Step 2. generate your customized Dockerfile
+#### Step 2. Generate your customized Dockerfile
 
-For example, if you like `pytorch` and `lasagne`, then
+For example, if you like `pytorch` and `keras`, then
 ```bash
-python generate.py Dockerfile pytorch lasagne
+python generate.py Dockerfile pytorch keras
 ```
-or with CUDA 11.1 and CUDNN 8
+or with CUDA 11.3 and cuDNN 8
 ```bash
-python generate.py Dockerfile pytorch lasagne --cuda-ver 11.1 --cudnn-ver 8
+python generate.py Dockerfile pytorch keras --cuda-ver 11.3.1 --cudnn-ver 8
 ```
 
-This should generate a Dockerfile that contains everything for building `pytorch` and `lasagne`. Note that the generator can handle automatic dependency processing and topologically sort the lists. So you don't need to worry about missing dependencies and the list order.
+This should generate a Dockerfile that contains everything for building `pytorch` and `keras`. Note that the generator can handle automatic dependency processing and topologically sort the lists. So you don't need to worry about missing dependencies and the list order.
 
 You can also specify the version of Python:
 ```bash
-python generate.py Dockerfile pytorch lasagne python==3.6
+python generate.py Dockerfile pytorch keras python==3.8
 ```
 
-#### Step 3. build your Dockerfile
+#### Step 3. Build your Dockerfile
 
 ```bash
 docker build -t my/deepo .
@@ -248,24 +235,17 @@ This may take several minutes as it compiles a few libraries from scratch.
 
 .                                                  | modern-deep-learning | dl-docker          | jupyter-deeplearning | Deepo
 :------------------------------------------------: | :------------------: | :----------------: | :------------------: | :----------------:
- [ubuntu](https://www.ubuntu.com)                  | 16.04                | 14.04              | 14.04                | 18.04
- [cuda](https://developer.nvidia.com/cuda-zone)    | X                    | 8.0                | 6.5-8.0              | 8.0-10.2/None
- [cudnn](https://developer.nvidia.com/cudnn)       | X                    | v5                 | v2-5                 | v7
+ [ubuntu](https://www.ubuntu.com)                  | 16.04                | 14.04              | 14.04                | 20.04
+ [cuda](https://developer.nvidia.com/cuda-zone)    | X                    | 8.0                | 6.5-8.0              | 11.3/None
+ [cudnn](https://developer.nvidia.com/cudnn)       | X                    | v5                 | v2-5                 | v8
  [onnx](https://onnx.ai)                           | X                    | X                  | X                    | O
- [theano](http://deeplearning.net/software/theano) | X                    | O                  | O                    | O
- [tensorflow](http://www.tensorflow.org)           | O                    | O                  | O                    | O
- [sonnet](https://github.com/deepmind/sonnet)      | X                    | X                  | X                    | O
- [pytorch](http://pytorch.org)                     | X                    | X                  | X                    | O
- [keras](https://keras.io)                         | O                    | O                  | O                    | O
- [lasagne](http://lasagne.readthedocs.io)          | X                    | O                  | O                    | O
- [mxnet](http://mxnet.incubator.apache.org)        | X                    | X                  | X                    | O
- [cntk](http://cntk.ai)                            | X                    | X                  | X                    | O
- [chainer](https://chainer.org)                    | X                    | X                  | X                    | O
- [caffe](http://caffe.berkeleyvision.org)          | O                    | O                  | O                    | O
- [caffe2](https://caffe2.ai)                       | X                    | X                  | X                    | O
- [torch](http://torch.ch/)                         | X                    | O                  | O                    | O
- [darknet](https://pjreddie.com/darknet/)          | X                    | X                  | X                    | O
- [paddlepaddle](https://www.paddlepaddle.org.cn/)  | X                    | X                  | X                    | O
+ [tensorflow](http://www.tensorflow.org)            | O                    | O                  | O                    | O
+ [pytorch](http://pytorch.org)                      | X                    | X                  | X                    | O
+ [keras](https://keras.io)                          | O                    | O                  | O                    | O
+ [mxnet](http://mxnet.incubator.apache.org)         | X                    | X                  | X                    | O
+ [chainer](https://chainer.org)                     | X                    | X                  | X                    | O
+ [darknet](https://pjreddie.com/darknet/)           | X                    | X                  | X                    | O
+ [paddlepaddle](https://www.paddlepaddle.org.cn/)   | X                    | X                  | X                    | O
 
 
 
@@ -288,7 +268,7 @@ This may take several minutes as it compiles a few libraries from scratch.
  [MXNet](http://mxnet.incubator.apache.org)        | `mxnet-py38-cu113` `mxnet-py38` `mxnet`                   | `mxnet-py38-cpu` `mxnet-cpu`
  [Chainer](https://chainer.org)                    | `chainer-py38-cu113` `chainer-py38` `chainer`             | `chainer-py38-cpu` `chainer-cpu`
  [Darknet](https://pjreddie.com/darknet/)          | `darknet-cu113` `darknet`                                 | `darknet-cpu`
- [paddlepaddle](https://www.paddlepaddle.org.cn/)  | `paddle-cu113` `paddle`                                   | `paddle-cpu`
+ [PaddlePaddle](https://www.paddlepaddle.org.cn/)  | `paddle-cu113` `paddle`                                   | `paddle-cpu`
 
 
 <a name="Deprecated-tags"/>

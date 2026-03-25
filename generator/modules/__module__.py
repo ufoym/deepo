@@ -30,16 +30,13 @@ def version(module, _ver):
 @dependency()
 @source('unknown')
 @version('latest')
-class Module(object):
+class Module:
 
     def __init__(self, composer):
         self.composer = composer
 
     def __repr__(self):
-        return '%-13s %-6s (%s)' % (
-            self.name(),
-            self.version,
-            self.source)
+        return f'{self.name():<13} {self.version:<6} ({self.source})'
 
     def build(self):
         pass

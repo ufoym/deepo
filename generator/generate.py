@@ -8,9 +8,8 @@ from core.composer import Composer
 def _import(name):
     mname = name.lower()
     cname = name.title()
-    mod = __import__('modules.%s' % mname, fromlist=[cname])
-    mod = getattr(mod, cname)
-    return mod
+    mod = __import__(f'modules.{mname}', fromlist=[cname])
+    return getattr(mod, cname)
 
 
 def main():

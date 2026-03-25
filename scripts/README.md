@@ -1,6 +1,6 @@
-# How to generate `docker/Dockerfile.*` and `circle.yml`
+# How to generate `docker/Dockerfile.*` and CI configuration
 
-#### Step 1. generate scripts for generating dockerfiles
+#### Step 1. Generate scripts for generating dockerfiles
 
 ```bash
 python make-gen-docker.py
@@ -8,15 +8,28 @@ python make-gen-docker.py
 
 This should generate `gen-docker.sh`.
 
-#### Step 2. generate dockerfiles
-
-Run `gen-docker.sh`, which should generate `docker/Dockerfile.*`.
-
-
-#### Step 3. generate the configuration file for CircleCI
+#### Step 2. Generate dockerfiles
 
 ```bash
-python make-circleci.py
+bash gen-docker.sh
 ```
 
-This should generate `circle.yml`.
+This should generate `docker/Dockerfile.*`.
+
+
+#### Step 3. Generate the CI workflow for GitHub Actions
+
+```bash
+python make-ci.py
+```
+
+This should generate `.github/workflows/dockerimage.yml`.
+
+
+#### All-in-one
+
+```bash
+bash build.sh
+```
+
+This runs `clean.sh` → `make-gen-docker.py` → `gen-docker.sh` → `make-ci.py` in sequence.

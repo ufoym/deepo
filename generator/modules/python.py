@@ -9,7 +9,7 @@ from .tools import Tools
 class Python(Module):
 
     def __init__(self, manager, **args):
-        super(self.__class__, self).__init__(manager, **args)
+        super().__init__(manager, **args)
         if float(self.version) < 3.8:
             raise NotImplementedError('Only support python >= 3.8 currently.')
 

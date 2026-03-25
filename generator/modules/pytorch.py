@@ -8,18 +8,16 @@ from .python import Python
 class Pytorch(Module):
 
     def build(self):
-        cuver = 'cpu' if self.composer.cuda_ver is None else 'cu%s' % ''.join(self.composer.cuda_ver.split('.')[:2])
+        cuver = 'cpu' if self.composer.cuda_ver is None else f"cu{''.join(self.composer.cuda_ver.split('.')[:2])}"
         return r'''
             $PIP_INSTALL \
                 future \
                 numpy \
                 protobuf \
-                enum34 \
                 pyyaml \
-                typing \
                 && \
             $PIP_INSTALL \
-                --pre torch torchvision torchaudio -f \
-                https://download.pytorch.org/whl/nightly/%s/torch_nightly.html \
+                torch torchvision torchaudio \
+                --extra-index-url https://download.pytorch.org/whl/%s \
                 && \
         ''' % cuver

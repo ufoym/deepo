@@ -8,7 +8,7 @@ import textwrap
 
 def indent(n, s):
     prefix = ' ' * 4 * n
-    return ''.join(prefix + l for l in s.splitlines(True))
+    return ''.join(prefix + line for line in s.splitlines(True))
 
 
 def get_tags(postfix,
@@ -53,20 +53,17 @@ def get_tags(postfix,
             if t not in tags:
                 tags.append(t)
 
-    # for t in list(tags):
-    #     if 'latest' not in t:
-    #         tags.append('%s-ver%s' % (t, datetime.datetime.now().strftime('%y%m%d')))
-
     return tags
 
 
 def get_job(tags):
     job_name = '_'.join(tags)[:99]
-    build_scripts = indent(1, textwrap.dedent('''
-        %s:
+    tag_args = ' '.join(f'-t ${{{{secrets.DOCKER_REPO}}}}:{tag}' for tag in tags)
+    build_scripts = indent(1, textwrap.dedent(f'''
+        {job_name}:
             runs-on: ubuntu-latest
             steps:
-                - uses: actions/checkout@master
+                - uses: actions/checkout@v4
                 - name: Free disk space
                   run: |
                     df -h
@@ -77,18 +74,15 @@ def get_job(tags):
                     docker rmi $(docker image ls -aq)
                     df -h
                 - name: Build docker image
-                  run: docker build %s -f docker/Dockerfile.%s .
+                  run: docker build {tag_args} -f docker/Dockerfile.{tags[0]} .
                 - name: Deploy docker image
                   run: |
-                    docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
-                    ''' % (
-                    job_name,
-                    ' '.join('-t ${{secrets.DOCKER_REPO}}:%s' % tag for tag in tags),
-                    tags[0])))
+                    echo "${{{{secrets.DOCKER_PASS}}}}" | docker login -u ${{{{secrets.DOCKER_USER}}}} --password-stdin
+                    '''))
     is_all = False
     is_cpu = False
     for tag in tags:
-        build_scripts += indent(4, 'docker push ${{secrets.DOCKER_REPO}}:%s\n' % tag)
+        build_scripts += indent(4, f'docker push ${{{{secrets.DOCKER_REPO}}}}:{tag}\n')
         if 'all' in tag:
             is_all = True
         if 'cpu' in tag:
@@ -102,11 +96,11 @@ def get_job(tags):
             import chainer as m; print(m.__name__, ':', m.__version__);
             import paddle as m; print(m.__name__, ':', m.__version__);
             ''').replace('\n', '')
-        run_prefix = '- run: docker run ${{secrets.DOCKER_REPO}}:%s ' % tags[0]
-        build_scripts += indent(3, textwrap.dedent('''
-            %s python -c "%s"
-            %s darknet
-            ''' % (run_prefix, test_scripts, run_prefix)))
+        run_prefix = f'- run: docker run ${{{{secrets.DOCKER_REPO}}}}:{tags[0]} '
+        build_scripts += indent(3, textwrap.dedent(f'''
+            {run_prefix} python -c "{test_scripts}"
+            {run_prefix} darknet
+            '''))
 
     build_scripts += '\n'
     return job_name, build_scripts
@@ -126,12 +120,10 @@ def generate(ci_fname):
             jobs:
         ''')[1:])
 
-    job_names = []
     for fn in os.listdir(os.path.join('..', 'docker')):
         postfix = fn.split('.')[-1]
         tags = get_tags(postfix)
-        job_name, build_scripts = get_job(tags)
-        job_names.append(job_name)
+        _, build_scripts = get_job(tags)
 
         with open(ci_fname, 'a') as f:
             write(f, build_scripts)
